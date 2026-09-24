@@ -3,6 +3,7 @@ import { HomeHero } from "@/components/home/HomeHero";
 import { HomeBusiness } from "@/components/home/HomeBusiness";
 import { HomeFieldWork } from "@/components/home/HomeFieldWork";
 import { HomeSites } from "@/components/home/HomeSites";
+import { FacilityMedia } from "@/components/sections/FacilityMedia";
 import { HomeHilink } from "@/components/home/HomeHilink";
 import { CTASection } from "@/components/sections/CTASection";
 import { siteConfig } from "@/data/config";
@@ -20,6 +21,11 @@ export default function HomePage() {
       <HomeHero />
       <HomeBusiness />
       <HomeFieldWork />
+      <FacilityMedia
+        id="home-facility-media"
+        title={"수영장부터 게스트하우스까지,\n커뮤니티 시설 전체를 운영합니다."}
+        description="운동시설만이 아니라 카페, 도서관, 게스트하우스처럼 입주민이 함께 쓰는 공간을 같은 운영 기준으로 관리합니다."
+      />
       <HomeSites />
       <HomeHilink />
       <CTASection

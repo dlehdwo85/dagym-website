@@ -27,3 +27,21 @@
 
 제안서(Google Drive)에 실제 현장 사진이 들어 있다면, 원본 사진 파일을 위 경로 이름으로 저장해 전달해 주세요.
 (제안서 파일이 10MB를 넘어 이번 작업 환경에서는 사진을 추출하지 못했습니다.)
+
+## 커뮤니티 시설 사진 · 영상 (홈 · 아파트 커뮤니티 위탁운영 "운영 시설" 갤러리)
+
+기존 사이트(dagym1.com) 자산을 우선 사용합니다. 조사 결과와 확보 방법은 `docs/LEGACY_ASSETS.md` 를 참고하세요.
+갤러리는 **실제 사진 · 영상이 3개 시설 이상**일 때만 방문자에게 표시됩니다. 한 시설에는 영상 또는 사진 하나만 쓰며, 영상이 있으면 영상을 우선합니다.
+
+| 시설 | 사진 (public/…) | 영상 (public/…) |
+| --- | --- | --- |
+| 수영장 | `images/facilities/pool.jpg` | — |
+| 헬스장 | `images/facilities/fitness.jpg` | `videos/fitness.mp4` + `videos/fitness.jpg` |
+| 골프연습장 | `images/facilities/golf.jpg` | `videos/golf.mp4` + `videos/golf.jpg` |
+| GX룸 | `images/facilities/gx.jpg` | `videos/gx.mp4` + `videos/gx.jpg` |
+| 카페 | `images/facilities/cafe.jpg` | `videos/cafe.mp4` + `videos/cafe.jpg` |
+| 작은도서관 | `images/facilities/library.jpg` | `videos/library.mp4` + `videos/library.jpg` |
+| 게스트하우스 | `images/facilities/guesthouse.jpg` | `videos/guesthouse.mp4` + `videos/guesthouse.jpg` |
+
+영상은 포스터 이미지(JPG)가 함께 있어야 표시됩니다. 자동재생하지 않으며, 재생 버튼을 누르기 전에는 영상 데이터를 받지 않습니다.
+원본 파일 대신 YouTube 등으로 삽입하려면 `data/videos.ts` 의 `embedUrl` 에 삽입 주소를 넣고 포스터 이미지를 추가합니다.

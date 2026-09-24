@@ -7,9 +7,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ButtonLink } from "@/components/ui/Button";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Photo, photoVisible } from "@/components/ui/Photo";
+import { HilinkLogo } from "@/components/ui/Logo";
 import { hilinkExtensions, hilinkForWhom, hilinkFunctions, hilinkIntro, hilinkSteps } from "@/data/hilink";
 import { faqs } from "@/data/insight";
-import { company, siteConfig } from "@/data/config";
+import { brandAssets, company, siteConfig } from "@/data/config";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -22,6 +23,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function HilinkPage() {
   const hilinkFaqs = faqs.filter((f) => f.group === "HILINK");
+  const brandAssetsHilink = Boolean(brandAssets.hilink);
   const screens = (["hilink-app", "hilink-admin", "hilink-device"] as const).filter((id) => photoVisible(id));
 
   return (
@@ -55,6 +57,12 @@ export default function HilinkPage() {
           </>
         }
       />
+
+      {brandAssetsHilink && (
+        <div className="container-x pt-12">
+          <HilinkLogo />
+        </div>
+      )}
 
       {screens.length > 0 && (
         <section className="bg-white pt-14 lg:pt-20" aria-label="HILINK 실제 화면">

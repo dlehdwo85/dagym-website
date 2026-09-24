@@ -1,3 +1,5 @@
+import type { Provenance } from "./media-types";
+
 /**
  * 사이트에 들어갈 사진 목록 (Photo Slot Registry)
  *
@@ -31,6 +33,17 @@ export type PhotoSlot = {
   alt: string;
   /** 크롭 시 중심점 (CSS object-position) */
   focus?: string;
+  /** 기존 공식 사이트(dagym1.com)에서 가져올 자산이면 해당 페이지 */
+  legacyPage?: string;
+  /**
+   * 사진 출처 구분 — 파일을 넣을 때 반드시 확인해 입력합니다.
+   *   "dagym-site" : 다짐이 실제 운영하는 현장 (siteName 이 있으면 현장명 표기 가능)
+   *   "stock"      : 스톡 · 구매 이미지 → 현장 사진처럼 표기하지 않음
+   *   "unknown"    : 출처 미확인 → 현장 사진처럼 표기하지 않음
+   */
+  provenance?: Provenance;
+  /** 공개 동의가 확인된 현장명 (provenance 가 "dagym-site" 일 때만 표기) */
+  siteName?: string;
 };
 
 export const photos = {
@@ -138,6 +151,91 @@ export const photos = {
     ratio: "2:1",
     usedIn: "운동기구 · 스크린골프 납품 상세 상단",
     alt: "설치된 운동기구",
+  },
+
+  /* ---------------------------------------------------------------
+   * 커뮤니티 시설별 사진 — 홈 · 아파트 커뮤니티 위탁운영 상세의 "운영 시설" 갤러리
+   * 기존 사이트(dagym1.com) 홈 · 서비스 페이지의 시설 이미지를 우선 사용합니다.
+   * ------------------------------------------------------------- */
+  "facility-pool": {
+    file: "/images/facilities/pool.jpg",
+    subject: "커뮤니티 수영장 전경 (기존 사이트 홈 메인 수영장 이미지)",
+    size: "2000 × 1500 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 수영장",
+    legacyPage: "https://www.dagym1.com/ (메인 이미지)",
+    provenance: "unknown",
+  },
+  "facility-fitness": {
+    file: "/images/facilities/fitness.jpg",
+    subject: "커뮤니티 헬스장 전경",
+    size: "1600 × 1200 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 헬스장",
+    legacyPage: "https://www.dagym1.com/ · /service-1",
+    provenance: "unknown",
+  },
+  "facility-golf": {
+    file: "/images/facilities/golf.jpg",
+    subject: "골프연습장 · 스크린골프 타석",
+    size: "1600 × 1200 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 골프연습장",
+    legacyPage: "https://www.dagym1.com/ · /service-1",
+    provenance: "unknown",
+  },
+  "facility-gx": {
+    file: "/images/facilities/gx.jpg",
+    subject: "GX룸 (요가 · 필라테스 · 댄스 수업 공간)",
+    size: "1600 × 1200 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 GX룸",
+    legacyPage: "https://www.dagym1.com/피트니스-운영업 (GX 영상 포스터)",
+    provenance: "unknown",
+  },
+  "facility-cafe": {
+    file: "/images/facilities/cafe.jpg",
+    subject: "커뮤니티 카페",
+    size: "1600 × 1200 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 카페",
+    legacyPage: "https://www.dagym1.com/",
+    provenance: "unknown",
+  },
+  "facility-library": {
+    file: "/images/facilities/library.jpg",
+    subject: "작은도서관 · 독서실",
+    size: "1600 × 1200 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 작은도서관",
+    legacyPage: "https://www.dagym1.com/",
+    provenance: "unknown",
+  },
+  "facility-guesthouse": {
+    file: "/images/facilities/guesthouse.jpg",
+    subject: "게스트하우스 객실",
+    size: "1600 × 1200 이상",
+    ratio: "4:3",
+    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
+    alt: "커뮤니티 게스트하우스",
+    legacyPage: "https://www.dagym1.com/",
+    provenance: "unknown",
+  },
+  "company-banner": {
+    file: "/images/company/banner.jpg",
+    subject: "기존 회사소개 페이지 상단 배너",
+    size: "2400 × 1000 이상",
+    ratio: "12:5",
+    usedIn: "회사소개 상단",
+    alt: "다짐 회사소개",
+    legacyPage: "https://www.dagym1.com/about-us",
+    provenance: "unknown",
   },
 } satisfies Record<string, PhotoSlot>;
 

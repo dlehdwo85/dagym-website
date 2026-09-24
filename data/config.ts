@@ -89,3 +89,14 @@ export const history: { year: string; items: string[] }[] = [
 export const certifications: { title: string; issuer?: string; year?: string }[] = [
   // TODO_VERIFY
 ];
+
+/**
+ * 공식 로고 파일 (기존 사이트 서비스 페이지의 DAGYM · HILINK 로고 원본)
+ * 파일을 public/images/brand/ 에 넣고 경로와 크기를 입력하면 텍스트 로고 대신 표시됩니다.
+ * 예) dagym: { src: "/images/brand/dagym-logo.svg", width: 120, height: 32 }
+ */
+export const brandAssets: {
+  dagym?: { src: string; width: number; height: number };
+  dagymWhite?: { src: string; width: number; height: number };
+  hilink?: { src: string; width: number; height: number };
+} = {};

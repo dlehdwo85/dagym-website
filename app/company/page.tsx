@@ -32,6 +32,11 @@ export default function CompanyPage() {
   return (
     <>
       <PageHero label="회사소개" title={companyIntro.title} breadcrumbs={[{ name: "회사소개", path: "/company" }]} />
+      {photoVisible("company-banner") && (
+        <div className="container-x pt-10 lg:pt-14">
+          <Photo id="company-banner" priority className="aspect-[12/5]" sizes="100vw" />
+        </div>
+      )}
 
       <section className="section-y bg-white" aria-labelledby="about-title">
         <div className={cn("container-x grid gap-12", showTeam && "lg:grid-cols-2 lg:gap-16")}>
