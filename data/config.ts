@@ -52,7 +52,7 @@ export const company = {
   email: TODO_VERIFY as Verifiable<string>,
   address: TODO_VERIFY as Verifiable<string>,
   founded: TODO_VERIFY as Verifiable<string>,
-  businessHours: "평일 09:00 – 18:00 (주말·공휴일 휴무)" as Verifiable<string>,
+  businessHours: TODO_VERIFY as Verifiable<string>, // 예: "평일 09:00 – 18:00 (주말·공휴일 휴무)"
   /** 기존 공식 사이트 (www.dagym1.com) 기준으로 확인된 사업 영역 */
   domains: [
     "아파트·기업 공용시설 위탁운영",

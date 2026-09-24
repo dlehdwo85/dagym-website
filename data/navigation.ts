@@ -29,7 +29,7 @@ export const mainNav: NavItem[] = [
     ko: "사업영역",
     intro: "공간에 맞는 운영을 설계합니다.",
     children: businessAreas.map((b) => ({
-      label: b.ko,
+      label: b.slug === "hilink" ? "HILINK 통합 운영 플랫폼" : b.ko,
       href: b.href,
       en: b.en,
       description: b.summary,
@@ -38,7 +38,7 @@ export const mainNav: NavItem[] = [
   {
     label: "HILINK",
     href: "/hilink",
-    ko: "HILINK",
+    ko: "스마트 플랫폼",
     intro: "커뮤니티 운영을 하나의 플랫폼으로.",
     children: [
       { label: "플랫폼 개요", href: "/hilink", en: "Overview" },

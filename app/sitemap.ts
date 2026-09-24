@@ -21,13 +21,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.9,
     })),
-    ...projects.map((p) => ({
+    ...projects.filter((p) => p.verified).map((p) => ({
       url: `${siteConfig.url}/projects/${p.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    ...posts.map((p) => ({
+    ...posts.filter((p) => p.verified).map((p) => ({
       url: `${siteConfig.url}/insight/${p.slug}`,
       lastModified: new Date(p.date),
       changeFrequency: "yearly" as const,
