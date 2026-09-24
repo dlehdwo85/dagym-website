@@ -1,111 +1,65 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
-import { FloorPlan } from "@/components/visuals/FloorPlan";
-import { homeHero } from "@/data/home";
+import { heroFacts, homeHero } from "@/data/home";
+import { photos } from "@/data/photos";
+import { hasPhoto, showPhotoSlots } from "@/lib/photos";
 
-const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
-
+/**
+ * 첫 화면 — 실제 운영 현장 사진 위에 사업 소개와 문의 버튼.
+ * 사진(public/images/home/hero.jpg)이 없으면 단색 배경으로 표시됩니다.
+ */
 export function HomeHero() {
-  const hasMedia = Boolean(homeHero.heroImage || homeHero.heroVideo);
+  const slot = photos["home-hero"];
+  const withPhoto = hasPhoto("home-hero");
   return (
-    <section className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy-950 text-white">
-      {/* background */}
-      {homeHero.heroVideo ? (
-        <video
-          className="absolute inset-0 -z-10 size-full object-cover"
-          src={homeHero.heroVideo}
-          poster={homeHero.heroImage}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden
-        />
-      ) : homeHero.heroImage ? (
-        <Image src={homeHero.heroImage} alt="" fill priority sizes="100vw" className="hero-zoom -z-10 object-cover" />
-      ) : null}
-      <div
-        className={
-          hasMedia
-            ? "absolute inset-0 -z-10 bg-gradient-to-r from-navy-950/90 via-navy-950/55 to-navy-950/20"
-            : "bg-blueprint absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_70%_40%,black,transparent_75%)]"
-        }
-        aria-hidden
-      />
-      {!hasMedia && (
-        <div className="absolute -right-32 top-1/4 -z-10 size-[40rem] rounded-full bg-signal/10 blur-[120px]" aria-hidden />
-      )}
-
-      <div className="container-x relative grid flex-1 items-center gap-10 pb-10 pt-28 lg:grid-cols-12 lg:gap-6 lg:pt-32">
-        <div className="lg:col-span-7">
-          <p className="t-eyebrow hero-in flex items-center gap-3 text-accent-light" style={d(0)}>
-            <span aria-hidden className="h-px w-8 bg-accent-light/70" />
-            {homeHero.eyebrow}
+    <>
+      <section className="on-dark relative isolate flex min-h-[34rem] items-end bg-hero pt-16 text-white sm:min-h-[38rem] lg:min-h-[44rem] lg:pt-[4.5rem]">
+        {withPhoto && (
+          <>
+            <Image
+              src={slot.file}
+              alt={slot.alt}
+              fill
+              priority
+              sizes="100vw"
+              className="-z-20 object-cover"
+              style={{ objectPosition: slot.focus }}
+            />
+            {/* 글자 가독성을 위한 하단 · 좌측 음영 */}
+            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/70 via-black/30 to-black/10" aria-hidden />
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/40 to-transparent" aria-hidden />
+          </>
+        )}
+        {!withPhoto && showPhotoSlots && (
+          <p className="absolute right-4 top-20 max-w-xs border border-dashed border-white/40 px-3 py-2 text-xs leading-relaxed text-white/70 lg:right-8 lg:top-24">
+            사진 필요 · home-hero
+            <br />
+            public{slot.file} · {slot.size}
           </p>
-          <h1 className="t-display hero-in mt-8" style={d(100)}>
-            {homeHero.title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-          <p className="t-lead hero-in mt-8 max-w-xl whitespace-pre-line text-white/70" style={d(220)}>
-            {homeHero.sub}
-          </p>
-          <div className="hero-in mt-10 flex flex-col gap-3 xs:flex-row" style={d(320)}>
-            <ButtonLink href={homeHero.primary.href} variant="light" size="lg">
+        )}
+        <div className="container-x pb-14 pt-20 lg:pb-20">
+          <h1 className="t-hero max-w-3xl whitespace-pre-line [text-shadow:0_1px_24px_rgb(0_0_0/0.25)]">{homeHero.title}</h1>
+          <p className="t-lead mt-6 max-w-2xl text-white/85 sm:whitespace-pre-line">{homeHero.sub}</p>
+          <div className="mt-9 flex flex-col gap-3 xs:flex-row">
+            <ButtonLink href={homeHero.primary.href} variant="white" size="lg">
               {homeHero.primary.label}
             </ButtonLink>
-            <ButtonLink href={homeHero.secondary.href} variant="outline-light" size="lg">
-              <span className="inline-flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-signal" aria-hidden />
-                {homeHero.secondary.label}
-              </span>
+            <ButtonLink href={homeHero.secondary.href} variant="outline-white" size="lg" arrow={false}>
+              {homeHero.secondary.label}
             </ButtonLink>
           </div>
         </div>
-
-        {!hasMedia && (
-          <div className="hero-in relative lg:col-span-5" style={d(280)}>
-            <div className="relative mx-auto max-w-[34rem] lg:max-w-none">
-              <div className="mb-4 flex items-center justify-between text-[0.6875rem] text-white/45">
-                <span className="t-eyebrow !text-[0.625rem]">Community Center · Plan</span>
-                <span className="t-eyebrow flex items-center gap-2 !text-[0.625rem] text-signal-light">
-                  <span className="animate-pulse-dot size-1.5 rounded-full bg-signal-light" aria-hidden />
-                  Operated by HILINK
-                </span>
-              </div>
-              <FloorPlan />
-              <div className="mt-4 grid grid-cols-2 border-t border-white/15 pt-4 text-[0.8125rem]">
-                <div>
-                  <p className="t-eyebrow !text-[0.625rem] text-accent-light">Offline</p>
-                  <p className="mt-1.5 text-white/70">현장 운영 인력</p>
-                </div>
-                <div className="border-l border-white/15 pl-4">
-                  <p className="t-eyebrow !text-[0.625rem] text-signal-light">Digital</p>
-                  <p className="mt-1.5 text-white/70">HILINK 운영 시스템</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="container-x relative pb-8">
-        <div className="flex items-end justify-between gap-6 border-t border-white/10 pt-6">
-          <ul className="t-eyebrow flex flex-wrap gap-x-6 gap-y-2 !text-[0.6875rem] text-white/45" aria-label="핵심 키워드">
-            {homeHero.keywords.map((k) => (
-              <li key={k}>{k}</li>
-            ))}
-          </ul>
-          <a href="#trust" className="group hidden shrink-0 flex-col items-center gap-3 text-white/60 sm:flex" aria-label="아래로 스크롤">
-            <span className="t-eyebrow !text-[0.625rem]">Scroll</span>
-            <span className="relative h-12 w-px overflow-hidden bg-white/15">
-              <span className="animate-scroll-cue absolute inset-0 bg-white" />
-            </span>
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
+      <section aria-label="다짐이 하는 일" className="border-b border-line bg-white">
+        <ul className="container-x grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {heroFacts.map((f) => (
+            <li key={f.title} className="py-6 sm:px-6 sm:first:pl-0 lg:py-8">
+              <p className="font-semibold text-ink">{f.title}</p>
+              <p className="mt-1 text-[0.9375rem] text-body">{f.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 }

@@ -7,28 +7,29 @@
  *         return data as Project[];
  *       }
  */
-import { projects, type Project, type ProjectCategory } from "@/data/projects";
+import { publishedProjects, type Project, type ProjectCategory } from "@/data/projects";
 import { posts, faqs, type Post, type PostCategory } from "@/data/insight";
 
 export async function getProjects(category?: ProjectCategory): Promise<Project[]> {
-  return category ? projects.filter((p) => p.category === category) : projects;
+  return category ? publishedProjects.filter((p) => p.category === category) : publishedProjects;
 }
 
 export async function getFeaturedProjects(limit = 8): Promise<Project[]> {
-  return projects.filter((p) => p.featured).slice(0, limit);
+  return publishedProjects.filter((p) => p.featured).slice(0, limit);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
-  return projects.find((p) => p.slug === slug);
+  return publishedProjects.find((p) => p.slug === slug);
 }
 
 export async function getPosts(category?: PostCategory): Promise<Post[]> {
-  const list = category ? posts.filter((p) => p.category === category) : posts;
+  const published = posts.filter((p) => p.verified);
+  const list = category ? published.filter((p) => p.category === category) : published;
   return [...list].sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-  return posts.find((p) => p.slug === slug);
+  return posts.find((p) => p.slug === slug && p.verified);
 }
 
 export async function getFaqs() {

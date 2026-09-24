@@ -16,10 +16,10 @@ export function isVerified<T>(value: Verifiable<T> | undefined | null): value is
 
 export const siteConfig = {
   name: "DAGYM",
-  title: "DAGYM | 아파트 커뮤니티 위탁운영 · HILINK 스마트 운영 플랫폼",
+  title: "다짐 DAGYM | 아파트 커뮤니티 · 스포츠시설 위탁운영",
   shortTitle: "DAGYM",
   description:
-    "주식회사 다짐은 아파트·주거시설·기업·복합시설의 커뮤니티 공간을 현장 운영 인력과 자체 운영 플랫폼 HILINK로 함께 운영하는 커뮤니티 운영 전문 기업입니다.",
+    "주식회사 다짐은 아파트 · 기업 · 호텔의 커뮤니티 시설과 스포츠시설을 현장 인력이 직접 운영하고, 자체 시스템 HILINK로 출입 · 예약 · 회원을 관리하는 커뮤니티 운영 회사입니다.",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dagym1.com").replace(/\/$/, ""),
   locale: "ko_KR",
   tagline: "운영과 기술을 하나로.",
@@ -41,6 +41,12 @@ export const siteConfig = {
   ],
 } as const;
 
+/*
+ * 아래 TODO_VERIFY 항목 중 일부는 다짐 제안서(Google Drive)에 기재되어 있습니다.
+ * 공개 여부를 확인한 뒤 값을 입력하세요. 입력하기 전까지 사이트에는 해당 줄이 표시되지 않습니다.
+ *   - 대표: 제안서 표지 기재
+ *   - 대표 연락처 · 이메일: 제안서 표지 기재 (홈페이지 공개용 대표번호인지 확인 필요)
+ */
 export const company = {
   nameKo: "주식회사 다짐",
   nameEn: "DAGYM Co., Ltd.",
@@ -53,12 +59,8 @@ export const company = {
   address: TODO_VERIFY as Verifiable<string>,
   founded: TODO_VERIFY as Verifiable<string>,
   businessHours: TODO_VERIFY as Verifiable<string>, // 예: "평일 09:00 – 18:00 (주말·공휴일 휴무)"
-  /** 기존 공식 사이트 (www.dagym1.com) 기준으로 확인된 사업 영역 */
-  domains: [
-    "아파트·기업 공용시설 위탁운영",
-    "피트니스 운영 컨설팅",
-    "스포츠 프로그램 기획",
-  ],
+  /** 사업 영역 (회사 제안서 기준) */
+  domains: ["아파트 · 기업 · 호텔 커뮤니티 운영", "회원관리 · 출입 시스템 HILINK", "헬스기구 · 스크린골프 납품"],
   social: {
     instagram: TODO_VERIFY as Verifiable<string>,
     blog: TODO_VERIFY as Verifiable<string>,
@@ -66,63 +68,6 @@ export const company = {
   },
 } as const;
 
-/** UI 에서 미확인 값 대신 보여줄 문구 */
-export const PENDING_LABEL = "업데이트 예정";
-
-export type Metric = {
-  key: string;
-  label: string;
-  labelKo: string;
-  /** 숫자 지표. null 이면 확인 전(TODO_VERIFY) 상태로 표시됩니다. */
-  value: number | null;
-  /** 숫자가 아닌 지표 (예: 플랫폼명) */
-  text?: string;
-  prefix?: string;
-  suffix?: string;
-  note: string;
-  verifyNote?: string;
-};
-
-/**
- * HOME · COMPANY 의 신뢰 지표.
- * value 에 실제 숫자를 입력하면 Count-up 애니메이션과 함께 노출됩니다.
- */
-export const metrics: Metric[] = [
-  {
-    key: "sites",
-    label: "Operating Sites",
-    labelKo: "운영 현장",
-    value: null, // TODO_VERIFY: 현재 운영 중인 현장 수
-    suffix: "곳",
-    note: "아파트 · 기업 · 복합시설",
-    verifyNote: "TODO_VERIFY",
-  },
-  {
-    key: "households",
-    label: "Managed Households",
-    labelKo: "관리 세대",
-    value: null, // TODO_VERIFY: 운영 현장 합산 세대수
-    suffix: "세대",
-    note: "운영 단지 합산 세대수",
-    verifyNote: "TODO_VERIFY",
-  },
-  {
-    key: "facilities",
-    label: "Community Facilities",
-    labelKo: "운영 가능 시설 유형",
-    value: 12, // data/facilities.ts 의 시설 유형 수와 동일하게 유지
-    suffix: "종",
-    note: "피트니스부터 게스트하우스까지",
-  },
-  {
-    key: "platform",
-    label: "Digital Platform",
-    labelKo: "자체 운영 플랫폼",
-    value: null,
-    text: "HILINK",
-    note: "회원 · 출입 · 예약 · 결제 · 통계",
-  },
-];
 
 /**
  * 파트너 / 고객사 로고. 확인된 파트너만 입력합니다.

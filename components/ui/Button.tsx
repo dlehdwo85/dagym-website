@@ -1,47 +1,27 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "accent" | "outline" | "light" | "outline-light" | "text" | "text-light";
+type Variant = "primary" | "secondary" | "white" | "outline-white" | "text";
 type Size = "md" | "lg";
 
 const base =
-  "group/btn inline-flex items-center justify-center gap-2.5 font-semibold tracking-[-0.01em] transition-[background-color,color,border-color,box-shadow] duration-300 ease-[var(--ease-premium)] disabled:pointer-events-none disabled:opacity-50";
+  "group/btn inline-flex items-center justify-center gap-2 rounded-[4px] font-semibold tracking-[-0.01em] transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-ink text-white hover:bg-navy-800",
-  accent: "bg-accent text-white hover:bg-accent-strong",
-  outline: "border border-ink/15 text-ink hover:border-ink hover:bg-ink hover:text-white",
-  light: "bg-white text-ink hover:bg-mist-100",
-  "outline-light": "border border-white/25 text-white hover:border-white hover:bg-white hover:text-ink",
-  text: "text-ink link-underline !px-0 !h-auto",
-  "text-light": "text-white link-underline !px-0 !h-auto",
+  primary: "bg-brand text-white hover:bg-brand-dark",
+  secondary: "border border-line-strong bg-white text-ink hover:border-ink",
+  white: "bg-white text-ink hover:bg-paper",
+  "outline-white": "border border-white/60 text-white hover:bg-white hover:text-ink",
+  text: "!h-auto !px-0 text-brand hover:text-brand-dark",
 };
 
 const sizes: Record<Size, string> = {
-  md: "h-12 px-5 text-[0.9375rem] rounded-[2px]",
-  lg: "h-14 px-7 text-base rounded-[2px]",
+  md: "h-12 px-5 text-[0.9375rem]",
+  lg: "h-14 px-7 text-base",
 };
 
-type Common = {
-  variant?: Variant;
-  size?: Size;
-  className?: string;
-  children: React.ReactNode;
-  icon?: "arrow" | "external" | "none";
-};
-
-function ButtonIcon({ icon }: { icon: Common["icon"] }) {
-  if (icon === "none") return null;
-  const Cmp = icon === "external" ? ArrowUpRight : ArrowRight;
-  return (
-    <Cmp
-      aria-hidden
-      strokeWidth={1.75}
-      className="size-4 shrink-0 transition-transform duration-300 ease-[var(--ease-premium)] group-hover/btn:translate-x-1"
-    />
-  );
-}
+type Common = { variant?: Variant; size?: Size; className?: string; children: React.ReactNode; arrow?: boolean };
 
 export function ButtonLink({
   href,
@@ -49,29 +29,13 @@ export function ButtonLink({
   size = "md",
   className,
   children,
-  icon = "arrow",
+  arrow = true,
   ...rest
 }: Common & { href: string } & Omit<React.ComponentProps<typeof Link>, "href" | "className" | "children">) {
   return (
     <Link href={href} className={cn(base, variants[variant], sizes[size], className)} {...rest}>
-      <span>{children}</span>
-      <ButtonIcon icon={icon} />
+      {children}
+      {arrow && <ArrowRight aria-hidden strokeWidth={2} className="size-4 transition-transform group-hover/btn:translate-x-0.5" />}
     </Link>
-  );
-}
-
-export function Button({
-  variant = "primary",
-  size = "md",
-  className,
-  children,
-  icon = "arrow",
-  ...rest
-}: Common & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">) {
-  return (
-    <button className={cn(base, variants[variant], sizes[size], className)} {...rest}>
-      <span>{children}</span>
-      <ButtonIcon icon={icon} />
-    </button>
   );
 }

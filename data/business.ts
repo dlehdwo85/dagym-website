@@ -1,68 +1,62 @@
-import type { FacilityIcon } from "./facilities";
-import type { ProjectCategory } from "./projects";
+import type { PhotoId } from "./photos";
 
-export type IconName =
-  | "building"
-  | "dumbbell"
-  | "layers"
-  | "platform"
-  | "compass"
-  | "package"
-  | "users"
-  | "cpu"
-  | "workflow"
-  | "chart"
-  | "shield"
-  | "clipboard"
-  | "headset"
-  | "wrench"
-  | "target"
-  | "trending"
-  | "calendar"
-  | "scan"
-  | "ruler"
-  | "search";
-
-export type BusinessArea = {
-  no: string;
-  slug: string;
-  href: string;
-  en: string;
-  ko: string;
-  summary: string;
-  icon: IconName;
-  image?: string;
-  /** 상세 페이지가 없는 항목(HILINK)은 detail 이 없습니다 */
-  detail?: BusinessDetail;
-};
+/**
+ * 사업영역 콘텐츠
+ * 출처: 다짐 커뮤니티 운영 제안서 · 하이링크 서비스 소개서 (Google Drive)의 운영 방식 설명.
+ * 실적 수치 · 현장명은 포함하지 않습니다.
+ */
 
 export type BusinessDetail = {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
-  heroEyebrow: string;
-  heroTitle: string[];
+  heroTitle: string;
   heroSub: string;
-  targets: string[];
-  intro: { title: string; body: string };
-  problems: { title: string; body: string }[];
-  solutions: { title: string; body: string; icon: IconName }[];
-  scope: { group: string; items: string[] }[];
-  process: { title: string; body: string }[];
-  strengths: { title: string; body: string }[];
-  facilities: FacilityIcon[];
-  includeExtraFacilities?: boolean;
-  projectCategory: ProjectCategory;
-  ctaTitle: string;
+  /** 대상 고객과 그 고객이 보통 겪는 상황 */
+  targets: { title: string; need: string }[];
+  /** 운영 시설 */
+  facilities: string[];
+  /** 인력 구성 */
+  staffing: { role: string; work: string }[];
+  /** 프로그램 운영 */
+  programs: { title: string; body: string }[];
+  /** 회원 응대 */
+  memberService: string[];
+  /** 출입 · 예약 관리 (HILINK) */
+  accessBooking: string[];
+  /** 시설 관리 주기 */
+  facilityCare?: { cycle: string; items: string[] }[];
+  /** 운영 보고 방식 */
+  reporting: string[];
+  /** 추가 설명 블록 (예: 이용료 부과 방식) */
+  extra?: { title: string; lead: string; rows: { title: string; body: string }[] };
+  /** 위탁 범위 선택 안내 */
+  scopeOptions: { title: string; body: string }[];
+  contactType: string;
 };
 
-const standardProcess = [
-  { title: "현장 분석", body: "세대수·시설 구성·주민 이용 패턴·기존 운영 계약을 조사합니다." },
-  { title: "운영 전략", body: "시설별 운영 시간, 프로그램, 요금 체계, 인력 기준을 설계합니다." },
-  { title: "인력 구성", body: "센터장·트레이너·골프 프로·GX 강사·안내 인력을 배치합니다." },
-  { title: "시스템 구축", body: "HILINK 출입·예약·결제·공지 체계를 현장에 맞게 세팅합니다." },
-  { title: "운영 시작", body: "오픈 전 리허설과 주민 안내를 거쳐 정식 운영을 시작합니다." },
-  { title: "데이터 분석 및 개선", body: "이용·매출·민원 데이터를 월 단위로 분석해 운영을 개선합니다." },
+export type BusinessArea = {
+  no: string;
+  slug: string;
+  href: string;
+  title: string;
+  summary: string;
+  points: string[];
+  photo: PhotoId;
+  detail: BusinessDetail;
+};
+
+const reportingCommon = [
+  "본사 운영 담당자가 매주 현장을 방문합니다. 1주차 현장 점검, 2주차 직원 관리, 3주차 이용 데이터 점검, 4주차 이벤트 · 프로그램 점검 순으로 진행합니다.",
+  "매월 이용 현황, 이용료 · 정산 내역, 민원 처리 결과, 다음 달 개선 계획을 정리해 보고합니다.",
+  "HILINK 관리자 화면에서 관리사무소와 입주자대표회의가 이용 · 매출 현황을 직접 열람할 수 있습니다.",
+];
+
+const accessBookingCommon = [
+  "입주민이 앱에서 얼굴을 등록하면 현장 방문 없이 안면인식 단말기로 출입합니다. 카드 대여 · 공유가 생기지 않습니다.",
+  "이용권이 없거나 만료된 경우 출입이 제한되며, 성별 · 시간대 · 구역별로 출입 권한을 나눌 수 있습니다.",
+  "GX 수업, 골프 타석, 독서실 좌석, 게스트룸, 락커를 앱에서 예약합니다. 좌석은 선착순 또는 월별 추첨으로 배정할 수 있습니다.",
+  "중도 가입 · 해지 시 이용료를 날짜 기준으로 일할 계산해 관리비 정산 오류를 줄입니다.",
 ];
 
 export const businessAreas: BusinessArea[] = [
@@ -70,273 +64,276 @@ export const businessAreas: BusinessArea[] = [
     no: "01",
     slug: "apartment-community",
     href: "/business/apartment-community",
-    en: "Apartment Community Management",
-    ko: "아파트 커뮤니티 위탁운영",
-    summary: "헬스·골프·GX·독서실·게스트하우스까지, 단지 커뮤니티 전체를 하나의 운영 체계로.",
-    icon: "building",
+    title: "아파트 커뮤니티 위탁운영",
+    summary: "헬스장, 골프연습장, GX룸, 독서실, 카페까지 단지 커뮤니티센터 전체를 한 회사가 맡아 운영합니다.",
+    points: ["인포메이션 · 트레이너 · 강사 운영", "입주민 프로그램 · 이벤트", "월간 운영 보고"],
+    photo: "home-apartment",
     detail: {
       metaTitle: "아파트 커뮤니티 위탁운영",
       metaDescription:
-        "아파트 커뮤니티센터 위탁운영 · 주민공동시설 위탁운영. 헬스장, 골프연습장, GX, 독서실, 사우나, 게스트하우스를 현장 인력과 HILINK 스마트 운영 시스템으로 함께 운영합니다.",
-      keywords: ["아파트 커뮤니티 위탁운영", "주민공동시설 위탁운영", "아파트 헬스장 위탁운영", "커뮤니티센터 위탁운영"],
-      heroEyebrow: "Apartment Community Management",
-      heroTitle: ["아파트 커뮤니티의", "운영 가치를 높입니다."],
+        "아파트 커뮤니티센터 위탁운영. 헬스장 · 골프연습장 · GX룸 · 독서실 · 카페 운영 인력, 입주민 프로그램, 안면인식 출입과 예약, 월간 운영 보고까지 다짐이 맡습니다.",
+      keywords: ["아파트 커뮤니티 위탁운영", "커뮤니티센터 위탁운영", "주민공동시설 위탁운영", "아파트 헬스장 위탁운영"],
+      heroTitle: "아파트 커뮤니티센터를\n처음부터 끝까지 운영합니다.",
       heroSub:
-        "헬스장부터 골프, GX, 독서실, 사우나, 게스트하우스까지 하나의 운영 시스템으로 관리합니다.",
-      targets: ["시행사 · 건설사", "입주자대표회의", "관리사무소", "위탁관리회사"],
-      intro: {
-        title: "커뮤니티의 가치는\n운영에서 시작됩니다.",
-        body: "같은 설계, 같은 기구라도 누가 어떻게 운영하느냐에 따라 입주민 만족도와 단지 평판은 완전히 달라집니다. 다짐은 시설별로 다른 인력을 따로 계약하는 대신, 커뮤니티 전체를 하나의 운영 조직과 하나의 플랫폼으로 묶어 책임집니다.",
+        "인포메이션 응대, 헬스 · 골프 · GX 수업, 시설 청소와 기구 점검, 출입과 예약, 이용료 정산과 운영 보고까지. 관리사무소가 따로 챙기지 않아도 되도록 운영 전체를 맡습니다.",
+      targets: [
+        { title: "입주자대표회의", need: "운영사를 선정하고, 운영 결과를 정기적으로 확인해야 하는 경우" },
+        { title: "관리사무소", need: "커뮤니티 민원 · 정산 업무가 관리 업무를 압박하는 경우" },
+        { title: "시행사 · 건설사", need: "입주 시점에 맞춰 커뮤니티 운영을 준비해야 하는 경우" },
+        { title: "위탁관리회사", need: "관리 업무와 커뮤니티 운영을 나눠 맡기려는 경우" },
+      ],
+      facilities: [
+        "헬스장",
+        "골프연습장 · 스크린골프",
+        "GX룸 (필라테스 · 요가 · 댄스)",
+        "독서실 · 스터디룸",
+        "작은도서관",
+        "사우나",
+        "수영장",
+        "게스트하우스",
+        "키즈카페",
+        "카페 · 무인카페",
+        "다목적실",
+      ],
+      staffing: [
+        { role: "인포메이션 관리자", work: "회원 등록, 시설 안내, 민원 접수, 카페 오픈 · 마감 지원. 단지 운영 시간에 맞춰 오전 · 오후 교대 근무로 배치합니다." },
+        { role: "트레이너", work: "입주민 무료 OT, PT 수업, 기구 사용 안전 지도. 생활체육지도사 등 자격 보유자를 배치합니다." },
+        { role: "GX 강사 · 골프 프로", work: "필라테스 · 요가 · 댄스 등 GX 수업과 골프 레슨을 진행합니다. 수업 수요에 맞춰 강사를 구성합니다." },
+        { role: "본사 운영 담당", work: "현장 정기 방문, 인력 채용 · 교육, 결원 시 대체 인력 배치, 관리사무소 · 입주자대표회의 소통을 맡습니다." },
+      ],
+      programs: [
+        { title: "입주민 OT", body: "체형 확인, 운동 루틴 안내, 개인 운동일지를 제공해 처음 이용하는 입주민도 헬스장을 쉽게 이용하도록 돕습니다." },
+        { title: "GX 프로그램", body: "입주민 수요 조사로 수업을 정하고, 분기별 수업 계획표와 강사 이력을 게시합니다. 분기마다 만족도를 조사해 수업을 조정합니다." },
+        { title: "골프 레슨", body: "타석 운영 시간과 레슨 시간을 나눠 편성하고, 레슨 예약을 앱으로 관리합니다." },
+        { title: "스터디룸 · 문화 프로그램", body: "동호회 모집, 방과 후 프로그램, 영유아 프로그램 등 공간 성격에 맞는 프로그램을 기획합니다." },
+        { title: "입주민 참여 이벤트", body: "무료 체험 수업, 운동 시상식, 계절 행사로 커뮤니티 이용을 넓힙니다." },
+      ],
+      memberService: [
+        "인포메이션 데스크에서 회원 등록 · 시설 안내 · 민원 접수를 처리합니다.",
+        "민원은 1차 접수, 2차 해결, 완료 검수 단계로 나눠 기록하고 누락 없이 처리합니다.",
+        "헬스 기구마다 사용법 QR을 부착해 잘못된 기구 사용과 반복 문의를 줄입니다.",
+        "공지사항은 HILINK 앱으로 발송해 관리사무소를 거치지 않고 입주민에게 바로 전달합니다.",
+      ],
+      accessBooking: accessBookingCommon,
+      facilityCare: [
+        { cycle: "매일", items: ["기구 · 매트 청소", "샤워실 · 탈의실 위생 점검", "독서실 좌석 정리"] },
+        { cycle: "매주", items: ["러닝머신 벨트 윤활 · 인버터 점검", "소도구 소독", "비품 재고 확인"] },
+        { cycle: "분기 · 계절", items: ["기구 정기 점검 · A/S", "냉난방기 필터 청소", "시설 개선 필요 사항 보고"] },
+      ],
+      reporting: reportingCommon,
+      extra: {
+        title: "이용료 부과 방식",
+        lead: "단지 상황과 입주민 의견에 맞춰 부과 방식을 함께 정합니다. 방식별 예상 이용 인원과 운영 비용을 비교해 제안합니다.",
+        rows: [
+          { title: "사용자 부담", body: "이용하는 세대만 시설별 이용료를 냅니다." },
+          { title: "혼합 부과", body: "전 세대에 기본 금액을 부과하고, 추가 이용분은 이용자가 냅니다." },
+          { title: "전 세대 부과", body: "전 세대가 함께 부담하고, 락커 · 좌석 등은 추첨으로 배정합니다." },
+        ],
       },
-      problems: [
-        { title: "시설마다 다른 업체, 다른 계약", body: "헬스·골프·독서실 운영사가 모두 달라 책임 소재가 흩어지고 관리사무소 업무가 늘어납니다." },
-        { title: "수기 장부와 엑셀 정산", body: "이용권·락커·대관이 수기로 관리되어 정산 오류와 민원이 반복됩니다." },
-        { title: "출입 관리의 공백", body: "카드 대여·공유로 외부인 출입을 통제하기 어렵고 이용 기록이 남지 않습니다." },
-        { title: "입주 초기 운영 공백", body: "입주 시점에 운영 기준이 없어 커뮤니티가 방치되거나 늦게 활성화됩니다." },
+      scopeOptions: [
+        { title: "전체 위탁", body: "인력 · 프로그램 · 시설 관리 · HILINK · 정산까지 커뮤니티 운영 전체" },
+        { title: "시설별 위탁", body: "헬스장, 골프연습장, GX룸 등 일부 시설만 운영" },
+        { title: "시스템 도입", body: "운영은 단지에서 하고 HILINK 출입 · 예약 · 정산만 도입" },
       ],
-      solutions: [
-        { title: "단일 운영 조직", body: "센터장을 중심으로 시설별 전문 인력을 한 조직으로 운영하고 하나의 창구로 보고합니다.", icon: "users" },
-        { title: "HILINK 통합 시스템", body: "안면인식 출입, 예약, 결제, 락커, 공지를 한 플랫폼에서 처리합니다.", icon: "platform" },
-        { title: "표준 운영 매뉴얼", body: "오픈·마감·위생·안전·민원 대응을 매뉴얼로 표준화해 현장 편차를 줄입니다.", icon: "clipboard" },
-        { title: "월간 운영 리포트", body: "이용률·매출·민원 데이터를 입주자대표회의와 관리사무소에 정기 보고합니다.", icon: "chart" },
-      ],
-      scope: [
-        { group: "운영 인력", items: ["센터장 · 매니저", "트레이너 · 골프 프로", "GX · 필라테스 강사", "안내 · 고객응대 인력"] },
-        { group: "시설 운영", items: ["시설별 운영 시간 설계", "기구 · 설비 일상 점검", "위생 · 안전 관리", "프로그램 · 강좌 편성"] },
-        { group: "스마트 시스템", items: ["안면인식 출입통제", "강좌 · 타석 · 좌석 예약", "이용권 · 락커 · 결제", "공지 · 알림 · 대관"] },
-        { group: "관리 · 보고", items: ["월간 운영 리포트", "매출 · 정산 자료", "민원 처리 이력", "운영 개선 제안"] },
-      ],
-      process: standardProcess,
-      strengths: [
-        { title: "현장 + 플랫폼 동시 제공", body: "운영 인력과 운영 시스템을 한 회사가 책임지므로 도입·연동 비용과 책임 공백이 없습니다." },
-        { title: "입주 초기부터 준비", body: "사전점검·입주 기간부터 운영 기준과 시스템을 세팅해 오픈 첫날부터 정상 운영합니다." },
-        { title: "투명한 데이터 보고", body: "누가, 언제, 어떤 시설을 이용했는지 데이터로 남아 의사결정 근거가 됩니다." },
-      ],
-      facilities: ["fitness", "golf", "gx", "swimming", "sauna", "study", "library", "guesthouse", "kids", "cafe"],
-      includeExtraFacilities: true,
-      projectCategory: "apartment",
-      ctaTitle: "우리 단지 커뮤니티,\n운영 진단부터 시작하세요.",
+      contactType: "apartment",
     },
   },
   {
     no: "02",
     slug: "sports-fitness",
     href: "/business/sports-fitness",
-    en: "Fitness & Sports Management",
-    ko: "스포츠·피트니스 시설 운영",
-    summary: "피트니스, 골프, 수영, 필라테스 등 스포츠시설을 전문 인력과 운영 데이터로 운영합니다.",
-    icon: "dumbbell",
+    title: "스포츠 · 피트니스 시설 운영",
+    summary: "헬스장, 골프연습장, 필라테스 · GX 시설을 전문 인력과 회원관리 시스템으로 운영합니다.",
+    points: ["트레이너 · 골프 프로 · 강사 운영", "회원권 · 레슨 · 락커 관리", "기구 점검과 안전 교육"],
+    photo: "home-sports",
     detail: {
-      metaTitle: "스포츠·피트니스 시설 위탁운영",
+      metaTitle: "스포츠 · 피트니스 시설 위탁운영",
       metaDescription:
-        "피트니스 위탁운영, 골프연습장 위탁운영, 스포츠시설 위탁운영. 전문 트레이너·골프 프로·강사 운영과 HILINK 기반 회원·예약·매출 관리.",
-      keywords: ["피트니스 위탁운영", "골프연습장 위탁운영", "스포츠시설 위탁운영", "아파트 헬스장 위탁운영"],
-      heroEyebrow: "Fitness & Sports Management",
-      heroTitle: ["스포츠시설의 수준은", "운영이 결정합니다."],
+        "헬스장 · 골프연습장 · 필라테스 · GX 시설 위탁운영. 트레이너 · 골프 프로 · 강사 운영, 회원권과 레슨 관리, 기구 점검과 안전 교육을 다짐이 맡습니다.",
+      keywords: ["피트니스 위탁운영", "골프연습장 위탁운영", "스포츠시설 위탁운영", "헬스장 위탁운영"],
+      heroTitle: "스포츠시설의 수업과 회원,\n시설 관리를 맡습니다.",
       heroSub:
-        "피트니스·골프·수영·필라테스 시설을 전문 인력, 프로그램, 운영 데이터로 관리합니다.",
-      targets: ["스포츠시설 소유주", "기업 복지 담당자", "호텔 · 레지던스", "공공기관"],
-      intro: {
-        title: "좋은 기구보다\n매일의 운영 품질.",
-        body: "트레이너 이직, 강좌 공백, 기구 고장 방치는 이용률 하락으로 바로 이어집니다. 다짐은 인력 채용·교육·평가 체계와 HILINK 운영 데이터를 결합해 시설의 서비스 품질을 일정하게 유지합니다.",
-      },
-      problems: [
-        { title: "전문 인력 수급과 이탈", body: "트레이너·골프 프로·강사 채용과 교육을 직접 하기 어렵고 잦은 교체로 품질이 흔들립니다." },
-        { title: "낮은 이용률", body: "프로그램이 고정되어 있고 이용 데이터가 없어 무엇을 바꿔야 할지 알 수 없습니다." },
-        { title: "매출 누수", body: "이용권·레슨·락커 매출이 분산 관리되어 누락과 정산 분쟁이 생깁니다." },
+        "트레이너와 강사 채용 · 교육부터 회원권 · 레슨 관리, 기구 점검까지. 시설 소유주는 운영 결과를 보고받고 의사결정에 집중할 수 있습니다.",
+      targets: [
+        { title: "스포츠시설 소유주", need: "직접 운영할 인력이 없거나 운영 품질이 들쭉날쭉한 경우" },
+        { title: "호텔 · 레지던스", need: "투숙객 · 입주자용 피트니스를 전문적으로 운영하려는 경우" },
+        { title: "기업 복지 담당자", need: "임직원 피트니스 운영과 이용 관리를 맡기려는 경우" },
       ],
-      solutions: [
-        { title: "전문 인력 운영", body: "직무별 채용 기준과 교육 커리큘럼으로 인력을 배치하고 대체 인력을 운영합니다.", icon: "users" },
-        { title: "프로그램 기획", body: "이용자 구성에 맞춰 PT·GX·레슨·스포츠 프로그램을 편성하고 주기적으로 개편합니다.", icon: "target" },
-        { title: "HILINK 회원 · 매출 관리", body: "회원권·레슨·락커·결제를 통합 관리하고 매출을 실시간으로 확인합니다.", icon: "platform" },
-        { title: "시설 · 안전 점검", body: "기구·설비 점검표와 안전 수칙으로 사고와 고장 방치를 예방합니다.", icon: "shield" },
+      facilities: ["헬스장", "골프연습장 · 스크린골프", "필라테스 (기구 · 매트)", "GX룸 (요가 · 댄스 · 스피닝)", "스트레칭 존", "락커룸 · 샤워실"],
+      staffing: [
+        { role: "센터 매니저", work: "현장 총괄, 회원 상담, 인력 근무 편성, 시설 소유주 보고를 맡습니다." },
+        { role: "트레이너", work: "OT · PT 수업과 기구 안전 지도. 재활 · 교정 교육을 이수한 인력을 배치합니다." },
+        { role: "골프 프로 · GX 강사", work: "레슨과 그룹 수업을 진행하고, 수업 계획표를 운영합니다." },
+        { role: "안내 인력", work: "회원 응대, 락커 배정, 시설 순회 점검을 맡습니다." },
       ],
-      scope: [
-        { group: "인력", items: ["센터장 · 매니저", "트레이너 · 골프 프로", "수영 · 필라테스 · GX 강사", "안전요원 · 안내 인력"] },
-        { group: "프로그램", items: ["PT · OT 프로그램", "GX · 필라테스 강좌", "골프 레슨", "유소년 스포츠 프로그램"] },
-        { group: "시스템", items: ["회원 · 이용권 관리", "안면인식 출입", "레슨 · 타석 예약", "매출 · 정산 통계"] },
+      programs: [
+        { title: "PT · 재활 프로그램", body: "재활 · 교정 교육을 받은 트레이너가 개인 목표에 맞춘 PT를 진행합니다. 가격은 인근 시세를 조사해 정합니다." },
+        { title: "골프 레슨", body: "입문 · 중급 레슨을 편성하고 타석 예약과 레슨 일정을 함께 관리합니다." },
+        { title: "GX · 필라테스", body: "수요 조사로 수업을 정하고, 바레 · 스피닝 등 새 수업은 소도구와 함께 도입합니다." },
       ],
-      process: standardProcess,
-      strengths: [
-        { title: "직무별 인력 표준", body: "직무마다 채용·교육·평가 기준을 두고 서비스 품질을 관리합니다." },
-        { title: "데이터로 보는 이용률", body: "시간대별 출입, 강좌 예약률, 레슨 매출을 HILINK에서 바로 확인합니다." },
-        { title: "공백 없는 운영", body: "결원 발생 시 대체 인력과 운영 매뉴얼로 서비스 중단을 막습니다." },
+      memberService: [
+        "회원 등록부터 이용권, 방문 이력까지 한 곳에서 관리하고 재등록 시기를 놓치지 않습니다.",
+        "상담 · 불만 사항은 단계별로 기록해 처리 결과까지 확인합니다.",
+        "정기적으로 직원 서비스 교육과 안전 교육(CPR 포함)을 실시합니다.",
       ],
-      facilities: ["fitness", "golf", "gx", "pilates", "swimming", "sauna"],
-      projectCategory: "sports",
-      ctaTitle: "스포츠시설 운영,\n기준부터 다시 세워보세요.",
+      accessBooking: [
+        "안면인식 출입으로 회원 여부와 이용권 유효 여부를 확인합니다.",
+        "골프 타석과 레슨, GX 수업을 앱에서 예약하고 현장에서는 키오스크로도 확인할 수 있습니다.",
+        "회원별 락커 배정과 이용 상태를 관리해 분실 · 중복 사용을 막습니다.",
+        "강사 수업료와 직원 급여를 수업 · 근태 기록 기준으로 자동 계산합니다.",
+      ],
+      facilityCare: [
+        { cycle: "매일", items: ["기구 청소", "락커룸 · 샤워실 위생 점검"] },
+        { cycle: "매주", items: ["기구 윤활 · 전기 점검", "소도구 소독 · 교체"] },
+        { cycle: "분기", items: ["기구 정기 점검 · A/S", "시설 개선 제안"] },
+      ],
+      reporting: [
+        "매월 회원 수 변화, 매출 · 정산, 수업 운영 현황을 보고합니다.",
+        "HILINK 관리자 화면에서 기간 · 종목 · 결제 방법별 매출을 확인할 수 있습니다.",
+        "분기마다 회원 만족도 조사 결과와 개선 계획을 공유합니다.",
+      ],
+      scopeOptions: [
+        { title: "전체 위탁", body: "인력 · 프로그램 · 회원 · 매출 관리 전체" },
+        { title: "인력 · 프로그램 위탁", body: "트레이너 · 강사 운영과 수업 편성만" },
+        { title: "시스템 도입", body: "HILINK 회원 · 출입 · 예약 관리만" },
+      ],
+      contactType: "sports",
     },
   },
   {
     no: "03",
     slug: "community-facility",
     href: "/business/community-facility",
-    en: "Community Facility Management",
-    ko: "커뮤니티 복합시설 운영",
-    summary: "기업·호텔·레지던스·공공시설의 복합 커뮤니티 공간을 통합 운영합니다.",
-    icon: "layers",
+    title: "기업 · 호텔 커뮤니티 운영",
+    summary: "기업 사옥, 호텔, 레지던스의 피트니스 · 라운지 등 공용 시설을 운영합니다.",
+    points: ["이용자 유형별 출입 권한", "공용 시설 예약 · 대관", "이용 현황 보고"],
+    photo: "business-community-facility",
     detail: {
-      metaTitle: "커뮤니티 복합시설 위탁운영",
+      metaTitle: "기업 · 호텔 커뮤니티 시설 운영",
       metaDescription:
-        "기업 사옥, 호텔·레지던스, 공공 복합시설의 커뮤니티 공간 위탁운영. 라운지·피트니스·도서관·게스트룸·대관 시설을 하나의 운영 체계로 관리합니다.",
-      keywords: ["커뮤니티센터 위탁운영", "복합시설 위탁운영", "기업 복지시설 운영", "주민공동시설 위탁운영"],
-      heroEyebrow: "Community Facility Management",
-      heroTitle: ["여러 공간을", "하나의 기준으로 운영합니다."],
-      heroSub: "기업 사옥, 호텔·레지던스, 공공 복합시설의 커뮤니티 공간을 통합 운영합니다.",
-      targets: ["복합시설 운영사", "호텔 · 레지던스", "기업 복지 담당자", "공공기관 · 자산관리회사"],
-      intro: {
-        title: "공간이 많을수록\n운영 기준이 필요합니다.",
-        body: "복합시설은 공간마다 이용자, 운영 시간, 요금, 권한이 다릅니다. 다짐은 공간별 운영 정책을 하나의 체계로 정리하고 HILINK로 권한·예약·정산을 통합해 운영사가 관리할 대상을 줄입니다.",
-      },
-      problems: [
-        { title: "공간별로 다른 권한", body: "임직원·입주사·방문객 등 이용자 유형별 출입 권한을 관리하기 어렵습니다." },
-        { title: "대관 · 예약 충돌", body: "회의실·라운지·게스트룸 예약이 전화와 메신저로 처리되어 충돌이 잦습니다." },
-        { title: "운영 성과 측정 불가", body: "공간이 실제로 얼마나 쓰이는지 알 수 없어 투자 판단이 어렵습니다." },
+        "기업 사옥 · 호텔 · 레지던스의 피트니스, 라운지, 다목적실 등 공용 시설 운영. 이용자 유형별 출입 권한, 예약 · 대관, 이용 현황 보고를 다짐이 맡습니다.",
+      keywords: ["기업 피트니스 운영", "호텔 피트니스 위탁운영", "레지던스 커뮤니티 운영", "복합시설 위탁운영"],
+      heroTitle: "기업과 호텔의 공용 시설도\n같은 기준으로 운영합니다.",
+      heroSub: "임직원, 투숙객, 입주자 등 이용자가 다양한 공간일수록 출입 권한과 예약 규칙이 분명해야 합니다.",
+      targets: [
+        { title: "기업 복지 담당자", need: "사내 피트니스 · 라운지 운영을 전문 업체에 맡기려는 경우" },
+        { title: "호텔 · 레지던스", need: "투숙객 · 입주자용 부대시설 운영 품질을 관리하려는 경우" },
+        { title: "자산관리 · 운영사", need: "복합시설 공용 공간의 활용도를 확인하려는 경우" },
       ],
-      solutions: [
-        { title: "공간별 운영 정책 설계", body: "이용 대상·시간·요금·권한을 공간별로 정의하고 운영 매뉴얼로 만듭니다.", icon: "clipboard" },
-        { title: "권한 기반 출입", body: "HILINK 안면인식 출입으로 이용자 유형별 권한을 분리 관리합니다.", icon: "scan" },
-        { title: "통합 예약 · 대관", body: "회의실·라운지·게스트룸·강좌 예약을 하나의 앱에서 처리합니다.", icon: "calendar" },
-        { title: "공간 활용 리포트", body: "공간별 이용률과 시간대 데이터를 리포트로 제공합니다.", icon: "chart" },
+      facilities: ["피트니스", "GX룸", "라운지", "다목적실 · 회의실", "게스트룸", "카페"],
+      staffing: [
+        { role: "운영 매니저", work: "현장 총괄과 고객사 담당자 보고를 맡습니다." },
+        { role: "트레이너 · 강사", work: "피트니스 지도와 그룹 수업을 진행합니다." },
+        { role: "안내 인력", work: "이용자 응대, 예약 확인, 시설 순회를 맡습니다." },
       ],
-      scope: [
-        { group: "공간 운영", items: ["라운지 · 카페", "피트니스 · GX", "도서관 · 스터디", "게스트룸 · 대관 시설"] },
-        { group: "서비스", items: ["컨시어지 · 안내", "프로그램 · 행사 기획", "위생 · 안전 관리", "민원 대응"] },
-        { group: "시스템", items: ["이용자 유형별 권한", "통합 예약 · 대관", "결제 · 정산", "공간 활용 통계"] },
+      programs: [
+        { title: "그룹 수업", body: "이용자 근무 · 체류 시간대에 맞춰 GX 수업을 편성합니다." },
+        { title: "이벤트 · 클래스", body: "건강 관리 클래스, 계절 이벤트 등 이용 목적에 맞는 프로그램을 운영합니다." },
       ],
-      process: standardProcess,
-      strengths: [
-        { title: "공간 정책 표준화", body: "공간이 늘어나도 같은 정책 틀 안에서 운영을 확장할 수 있습니다." },
-        { title: "권한 · 예약 통합", body: "출입과 예약이 같은 플랫폼에 있어 이용 흐름이 끊기지 않습니다." },
-        { title: "측정 가능한 운영", body: "공간 활용 데이터를 근거로 공간 구성과 운영 시간을 조정합니다." },
+      memberService: [
+        "이용자 문의와 불편 사항을 기록하고 처리 결과까지 확인합니다.",
+        "공지사항은 앱으로 발송해 전달 누락을 줄입니다.",
       ],
-      facilities: ["lounge", "fitness", "gx", "library", "guesthouse", "cafe"],
-      projectCategory: "corporate",
-      ctaTitle: "복합시설 운영,\n하나의 창구로 정리하세요.",
+      accessBooking: [
+        "임직원 · 투숙객 · 방문객 등 이용자 유형별로 출입 권한을 나눕니다.",
+        "회의실 · 다목적실 · 게스트룸 예약과 대관 승인을 앱에서 처리합니다.",
+        "출입 기록으로 시간대별 이용 현황을 확인합니다.",
+      ],
+      reporting: [
+        "매월 시설별 이용 현황과 운영 이슈를 고객사 담당자에게 보고합니다.",
+        "이용 데이터를 근거로 운영 시간과 프로그램 조정을 제안합니다.",
+      ],
+      scopeOptions: [
+        { title: "전체 위탁", body: "인력 · 프로그램 · 시설 관리 · 시스템" },
+        { title: "시스템 도입", body: "출입 권한 · 예약 · 대관 관리만" },
+      ],
+      contactType: "etc",
     },
   },
   {
     no: "04",
-    slug: "hilink",
-    href: "/hilink",
-    en: "HILINK Smart Platform",
-    ko: "커뮤니티 통합 운영 플랫폼",
-    summary: "회원관리·안면인식 출입·예약·결제·통계를 하나로 연결하는 다짐의 자체 플랫폼.",
-    icon: "platform",
-  },
-  {
-    no: "05",
     slug: "consulting",
     href: "/business/consulting",
-    en: "Facility Consulting",
-    ko: "운영 컨설팅 · 시설 활성화",
-    summary: "신규 커뮤니티 기획부터 기존 시설 활성화까지, 운영 관점에서 진단하고 설계합니다.",
-    icon: "compass",
+    title: "운영 컨설팅 · 시설 개선",
+    summary: "이용이 저조한 시설을 진단하고, 기구 보강 · 공간 전환 · 프로그램 개편으로 개선합니다.",
+    points: ["시설 · 이용 현황 진단", "공간 전환 · 기구 보강 제안", "입주 전 운영 준비"],
+    photo: "business-consulting",
     detail: {
-      metaTitle: "커뮤니티 운영 컨설팅 · 시설 활성화",
+      metaTitle: "커뮤니티 운영 컨설팅 · 시설 개선",
       metaDescription:
-        "신규 아파트 커뮤니티 기획 단계의 운영 컨설팅과 기존 커뮤니티 시설 활성화 진단. 시설 구성, 운영 모델, 요금 체계, 인력 계획을 설계합니다.",
-      keywords: ["커뮤니티 운영 컨설팅", "피트니스 운영 컨설팅", "커뮤니티 시설 활성화", "주민공동시설 기획"],
-      heroEyebrow: "Facility Consulting",
-      heroTitle: ["설계 단계부터", "운영을 고려합니다."],
-      heroSub: "신규 커뮤니티 기획부터 기존 시설 활성화까지, 운영하는 회사의 관점으로 진단하고 설계합니다.",
-      targets: ["시행사 · 건설사", "설계사무소", "입주자대표회의", "시설 소유주"],
-      intro: {
-        title: "운영하는 회사가\n운영될 공간을 설계합니다.",
-        body: "동선이 맞지 않는 GX룸, 수요보다 많은 타석, 관리 인력을 고려하지 않은 배치. 다짐은 실제 현장을 운영하며 얻은 기준으로 시설 구성과 운영 모델을 기획 단계에서 검토합니다.",
-      },
-      problems: [
-        { title: "운영을 고려하지 않은 설계", body: "시설 규모와 동선이 실제 운영 인력·수요와 맞지 않아 준공 후 개선 비용이 발생합니다." },
-        { title: "활성화되지 않는 시설", body: "개관 후 이용률이 낮아 관리비 부담만 남는 시설이 생깁니다." },
-        { title: "근거 없는 요금 · 운영 모델", body: "요금 체계와 운영 방식이 주변 사례만 참고해 정해집니다." },
+        "커뮤니티 시설 진단과 개선. 운동기구 보강, 천막 타석의 스크린골프 전환, 유휴 공간 활용, GX 프로그램 개편, 입주 전 운영 준비를 지원합니다.",
+      keywords: ["커뮤니티 운영 컨설팅", "커뮤니티 시설 개선", "아파트 커뮤니티 활성화", "입주 전 커뮤니티 준비"],
+      heroTitle: "쓰이지 않는 시설을\n다시 쓰이게 만듭니다.",
+      heroSub: "현장을 직접 운영하며 확인한 기준으로 시설과 운영 방식을 진단하고, 실행 가능한 개선안을 제안합니다.",
+      targets: [
+        { title: "입주자대표회의", need: "커뮤니티 이용률이 낮거나 민원이 반복되는 경우" },
+        { title: "시행사 · 건설사", need: "입주 전에 운영 방식과 시설 구성을 점검하려는 경우" },
+        { title: "시설 소유주", need: "기존 시설의 활용도를 높이려는 경우" },
       ],
-      solutions: [
-        { title: "시설 구성 검토", body: "세대수·연령 구성·주변 인프라를 기준으로 시설 구성과 규모를 검토합니다.", icon: "ruler" },
-        { title: "운영 모델 설계", body: "직영·위탁·혼합 운영 모델별 비용과 인력 구조를 비교 제안합니다.", icon: "workflow" },
-        { title: "활성화 진단", body: "기존 시설의 이용 데이터와 민원을 분석해 개선 과제를 도출합니다.", icon: "search" },
-        { title: "실행 로드맵", body: "프로그램·요금·시스템 도입 일정을 단계별 로드맵으로 정리합니다.", icon: "trending" },
+      facilities: ["헬스장", "골프연습장", "GX룸", "독서실 · 스터디룸", "유휴 공간 · 다목적실", "카페"],
+      staffing: [
+        { role: "운영기획 담당", work: "현장 실사, 이용 현황 분석, 개선안 작성을 맡습니다." },
+        { role: "현장 운영 인력", work: "개선안 실행 후 운영 전환과 안정화를 지원합니다." },
       ],
-      scope: [
-        { group: "기획 단계", items: ["시설 구성 · 규모 검토", "동선 · 레이아웃 의견", "기구 · 설비 사양 제안", "운영 모델 설계"] },
-        { group: "운영 단계", items: ["이용 현황 진단", "요금 · 이용 규정 개선", "프로그램 개편", "HILINK 도입 설계"] },
+      programs: [
+        { title: "운동기구 보강", body: "부족한 기구와 소도구(폼롤러 · 밴드 · 덤벨 등)를 보강하고 스트레칭 존을 만듭니다." },
+        { title: "골프 타석 전환", body: "천막 타석을 스크린 타석으로 바꾸는 방안을 검토합니다." },
+        { title: "유휴 공간 활용", body: "비어 있는 공간을 키즈카페 등 수요가 있는 시설로 전환하는 방안을 제안합니다." },
+        { title: "GX 프로그램 개편", body: "기구 필라테스 · 스피닝 · 바레 등 새 수업과 조명 · 음향 개선을 검토합니다." },
+        { title: "무인 운영 검토", body: "카페 등 일부 시설은 무인 운영으로 인건비를 줄이는 방안을 비교합니다." },
       ],
-      process: [
-        { title: "자료 수집", body: "도면·세대 구성·기존 운영 자료를 수집합니다." },
-        { title: "현장 진단", body: "현장 실사와 이용자 인터뷰로 문제를 확인합니다." },
-        { title: "대안 설계", body: "시설·운영·요금·인력 대안을 비교 설계합니다." },
-        { title: "보고 · 협의", body: "의사결정권자에게 보고하고 우선순위를 정합니다." },
-        { title: "실행 지원", body: "선정된 과제의 실행과 운영 전환을 지원합니다." },
+      memberService: ["입주민 수요 조사와 만족도 조사로 개선 우선순위를 정합니다.", "개선 전후 이용 변화를 기록해 공유합니다."],
+      accessBooking: ["HILINK 출입 · 예약 데이터로 시간대별 · 시설별 이용 현황을 분석합니다."],
+      reporting: [
+        "현장 진단 결과와 개선안을 보고서로 제출합니다.",
+        "개선 실행 후 이용 변화를 정기적으로 보고합니다.",
       ],
-      strengths: [
-        { title: "운영사의 관점", body: "도면이 아니라 매일의 운영을 기준으로 판단합니다." },
-        { title: "데이터 기반 진단", body: "HILINK 이용 데이터로 가설이 아닌 수치로 진단합니다." },
-        { title: "운영까지 연결", body: "컨설팅 결과를 실제 위탁운영과 시스템 도입으로 이어갈 수 있습니다." },
+      scopeOptions: [
+        { title: "진단 · 제안", body: "현장 실사와 개선안 보고서" },
+        { title: "개선 실행", body: "기구 보강 · 공간 전환 · 프로그램 개편 실행" },
+        { title: "운영 연계", body: "개선 후 위탁운영으로 전환" },
       ],
-      facilities: ["fitness", "golf", "gx", "study", "lounge", "guesthouse"],
-      projectCategory: "apartment",
-      ctaTitle: "기획 단계라면,\n지금이 가장 좋은 시점입니다.",
+      contactType: "consulting",
     },
   },
   {
-    no: "06",
+    no: "05",
     slug: "equipment",
     href: "/business/equipment",
-    en: "Equipment & Space Solution",
-    ko: "운동기구 · 시설 구축",
-    summary: "운영 경험을 바탕으로 운동기구 선정·납품·배치와 공간 구축을 제안합니다.",
-    icon: "package",
+    title: "운동기구 · 스크린골프 납품",
+    summary: "헬스기구와 스크린골프를 운영 경험을 바탕으로 구성 · 납품하고, 출입 · 예약 시스템과 함께 설치합니다.",
+    points: ["헬스기구 구성 · 납품", "스크린골프 타석 설치", "설치 후 점검 연계"],
+    photo: "business-equipment",
     detail: {
-      metaTitle: "운동기구 납품 · 커뮤니티 시설 구축",
+      metaTitle: "운동기구 · 스크린골프 납품",
       metaDescription:
-        "아파트 커뮤니티·스포츠시설 운동기구 선정, 납품, 배치 설계와 공간 구축. 운영과 유지보수를 고려한 기구 구성과 출입·예약 시스템 연동.",
-      keywords: ["아파트 헬스장 기구 납품", "피트니스 기구 납품", "커뮤니티 시설 구축", "골프연습장 구축"],
-      heroEyebrow: "Equipment & Space Solution",
-      heroTitle: ["운영을 아는 회사가", "공간을 구축합니다."],
-      heroSub: "운동기구 선정·납품·배치부터 출입·예약 시스템 연동까지 운영을 전제로 구축합니다.",
-      targets: ["시행사 · 건설사", "시설 소유주", "기업 · 공공기관", "입주자대표회의"],
-      intro: {
-        title: "기구는 한 번 사지만,\n운영은 매일 이어집니다.",
-        body: "사용 빈도, 유지보수 난이도, 부품 수급, 이용자 연령대를 고려하지 않은 구성은 운영 비용으로 돌아옵니다. 다짐은 실제 운영 데이터를 기준으로 기구 구성과 공간 배치를 제안합니다.",
-      },
-      problems: [
-        { title: "이용자와 맞지 않는 구성", body: "이용자 연령·목적과 무관한 기구 구성으로 일부 기구만 과사용됩니다." },
-        { title: "유지보수 공백", body: "납품 후 점검·수리 체계가 없어 고장 기구가 방치됩니다." },
-        { title: "시스템과 분리된 공간", body: "출입·예약 시스템을 나중에 붙이면서 추가 공사와 비용이 발생합니다." },
+        "아파트 커뮤니티 · 스포츠시설 헬스기구와 스크린골프 납품. 이용자 구성에 맞춘 기구 구성, 설치, 안면인식 출입 · 예약 시스템 연동과 사후 점검을 지원합니다.",
+      keywords: ["아파트 헬스기구 납품", "스크린골프 납품", "커뮤니티 운동기구", "피트니스 기구 납품"],
+      heroTitle: "운영해 본 회사가\n기구를 고릅니다.",
+      heroSub: "자주 쓰이는 기구, 고장이 잦은 기구, 입주민이 요청하는 기구를 운영 현장에서 확인한 기준으로 구성합니다.",
+      targets: [
+        { title: "시행사 · 건설사", need: "신축 단지 커뮤니티 기구를 구성해야 하는 경우" },
+        { title: "입주자대표회의", need: "노후 기구 교체나 골프 타석 전환을 검토하는 경우" },
+        { title: "시설 소유주", need: "피트니스 · 골프 시설을 새로 구축하는 경우" },
       ],
-      solutions: [
-        { title: "이용자 기반 구성", body: "세대 구성과 예상 이용 패턴으로 유산소·근력·기능성 비율을 설계합니다.", icon: "target" },
-        { title: "배치 · 동선 설계", body: "안전 거리와 동선을 고려한 배치안을 도면 위에서 제안합니다.", icon: "ruler" },
-        { title: "시스템 동시 구축", body: "안면인식 단말기와 예약 시스템을 공간 구축과 함께 설치합니다.", icon: "scan" },
-        { title: "사후 관리", body: "정기 점검과 A/S 연계로 기구 상태를 유지합니다.", icon: "wrench" },
+      facilities: ["헬스장 (유산소 · 근력)", "스트레칭 존", "필라테스 · GX룸", "스크린골프 타석"],
+      staffing: [{ role: "구축 담당", work: "요구 확인, 기구 구성안 작성, 납품 · 설치 일정 관리를 맡습니다." }],
+      programs: [
+        { title: "기구 구성", body: "세대 구성과 이용자 연령대를 고려해 유산소 · 근력 · 소도구 비율을 정합니다." },
+        { title: "스크린골프", body: "타석 수와 공간 크기에 맞춰 스크린골프 설치를 제안합니다." },
       ],
-      scope: [
-        { group: "기구", items: ["유산소 · 근력 기구", "기능성 · 스트레칭 존", "필라테스 기구", "골프 시뮬레이터 연계"] },
-        { group: "공간", items: ["배치 · 동선 설계", "바닥 · 방진 · 거울 등 마감 협의", "락커 · 수납 구성", "사인 · 안내물"] },
-        { group: "시스템", items: ["안면인식 출입 단말기", "예약 · 결제 연동", "락커 관리 연동", "정기 점검 · A/S"] },
+      memberService: ["설치 후 기구별 사용법 안내 QR을 제작해 부착할 수 있습니다."],
+      accessBooking: ["공간 구축과 함께 안면인식 출입 단말기와 예약 시스템을 설치할 수 있습니다."],
+      reporting: ["납품 · 설치 완료 보고와 정기 점검 일정을 안내합니다."],
+      scopeOptions: [
+        { title: "기구 납품", body: "구성 · 납품 · 설치" },
+        { title: "구축 + 시스템", body: "기구 설치와 출입 · 예약 시스템 동시 구축" },
       ],
-      process: [
-        { title: "요구 확인", body: "시설 규모, 예산, 이용자 구성을 확인합니다." },
-        { title: "구성 제안", body: "기구 구성과 배치안을 제안합니다." },
-        { title: "납품 · 설치", body: "일정에 맞춰 납품·설치하고 시운전합니다." },
-        { title: "시스템 연동", body: "출입·예약·락커 시스템을 연동합니다." },
-        { title: "사후 관리", body: "정기 점검과 A/S를 연계합니다." },
-      ],
-      strengths: [
-        { title: "운영 데이터 기반", body: "실제 이용 패턴을 바탕으로 과잉·부족 구성을 피합니다." },
-        { title: "구축 + 운영 연결", body: "구축한 공간을 그대로 위탁운영으로 이어갈 수 있습니다." },
-        { title: "시스템 일체형", body: "HILINK 단말기와 공간 구축을 한 번에 진행합니다." },
-      ],
-      facilities: ["fitness", "golf", "gx", "pilates"],
-      projectCategory: "apartment",
-      ctaTitle: "기구 구성과 공간 구축,\n운영 관점으로 검토해 드립니다.",
+      contactType: "equipment",
     },
   },
 ];
 
-export const businessDetails = businessAreas.filter(
-  (b): b is BusinessArea & { detail: BusinessDetail } => Boolean(b.detail),
-);
-
 export function getBusiness(slug: string) {
-  return businessDetails.find((b) => b.slug === slug);
+  return businessAreas.find((b) => b.slug === slug);
 }

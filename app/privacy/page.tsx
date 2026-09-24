@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
-import { company, isVerified, PENDING_LABEL } from "@/data/config";
+import { company, isVerified } from "@/data/config";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -35,8 +35,8 @@ const sections = [
     title: "6. 개인정보 보호책임자",
     body: [
       `회사명: ${company.nameKo}`,
-      `연락처: ${isVerified(company.phone) ? company.phone : PENDING_LABEL}`,
-      `이메일: ${isVerified(company.email) ? company.email : PENDING_LABEL}`,
+      ...(isVerified(company.phone) ? [`연락처: ${company.phone}`] : []),
+      ...(isVerified(company.email) ? [`이메일: ${company.email}`] : []),
     ],
   },
 ];
@@ -44,19 +44,19 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <PageHero eyebrow="Privacy Policy" title="개인정보처리방침" breadcrumbs={[{ name: "개인정보처리방침", path: "/privacy" }]} />
+      <PageHero label="개인정보처리방침" title="개인정보처리방침" breadcrumbs={[{ name: "개인정보처리방침", path: "/privacy" }]} />
       <section className="bg-white py-16 lg:py-24">
         <div className="container-x">
           <div className="mx-auto max-w-3xl">
-            <p className="t-body text-mist-600">
+            <p className="t-body text-body">
               {company.nameKo}(이하 &lsquo;회사&rsquo;)는 「개인정보 보호법」에 따라 정보주체의 개인정보를 보호하고 관련 고충을
               신속하게 처리하기 위하여 다음과 같이 개인정보처리방침을 수립 · 공개합니다.
             </p>
             {sections.map((s) => (
-              <div key={s.title} className="mt-12 border-t border-mist-200 pt-8">
+              <div key={s.title} className="mt-12 border-t border-line pt-8">
                 <h2 className="t-h4">{s.title}</h2>
                 {s.body.map((b) => (
-                  <p key={b} className="t-body mt-3 text-mist-700">
+                  <p key={b} className="t-body mt-3 text-body">
                     {b}
                   </p>
                 ))}

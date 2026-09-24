@@ -19,7 +19,7 @@ import { useSearchParam } from "@/lib/use-search-param";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputBase =
-  "w-full rounded-[2px] border bg-white px-4 text-[1rem] text-ink placeholder:text-mist-400 transition-colors focus:border-ink focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-ink/10";
+  "w-full rounded-[4px] border bg-white px-4 text-[1rem] text-ink placeholder:text-muted transition-colors focus:border-ink focus:outline-none focus-visible:outline-none focus:ring-2 focus:ring-ink/10";
 
 function Field({
   label,
@@ -43,11 +43,11 @@ function Field({
       <label htmlFor={htmlFor} className="mb-2 flex items-baseline gap-1 text-[0.875rem] font-semibold text-ink">
         {label}
         {required ? (
-          <span className="text-accent" aria-hidden>
+          <span className="text-brand" aria-hidden>
             *
           </span>
         ) : (
-          <span className="text-xs font-normal text-mist-400">(선택)</span>
+          <span className="text-xs font-normal text-muted">(선택)</span>
         )}
       </label>
       {children}
@@ -56,7 +56,7 @@ function Field({
           {error}
         </p>
       ) : hint ? (
-        <p id={`${htmlFor}-hint`} className="mt-2 text-[0.8125rem] text-mist-500">
+        <p id={`${htmlFor}-hint`} className="mt-2 text-[0.8125rem] text-muted">
           {hint}
         </p>
       ) : null}
@@ -64,7 +64,7 @@ function Field({
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ deliveryReady }: { deliveryReady: boolean }) {
   const uid = useId();
   const id = (name: string) => `${uid}-${name}`;
   const formRef = useRef<HTMLFormElement>(null);
@@ -113,6 +113,11 @@ export function ContactForm() {
       el?.focus();
       return;
     }
+    if (!deliveryReady) {
+      setServerMessage("현재 온라인 상담 접수가 연결되어 있지 않아 신청서를 보낼 수 없습니다.");
+      setStatus("error");
+      return;
+    }
     setStatus("submitting");
     try {
       const res = await fetch("/api/contact", {
@@ -138,14 +143,14 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div className="border border-ink p-8 sm:p-12" role="status" aria-live="polite">
-        <CircleCheck className="size-10 text-accent" strokeWidth={1.5} aria-hidden />
-        <h2 className="t-h2 mt-8">상담 신청이 접수되었습니다.</h2>
-        <p className="t-lead mt-5 max-w-xl text-mist-600">
+        <CircleCheck className="size-10 text-brand" strokeWidth={1.5} aria-hidden />
+        <h2 className="t-h2 mt-6">상담 신청이 접수되었습니다.</h2>
+        <p className="t-lead mt-5 max-w-xl text-body">
           {values.organization} {values.name}님, 남겨주신 내용을 검토한 뒤 담당자가 연락드리겠습니다. 영업일 기준으로 순차
           회신됩니다.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/business" className="inline-flex h-12 items-center gap-2 bg-ink px-5 text-sm font-semibold text-white hover:bg-navy-800">
+          <Link href="/business" className="inline-flex h-12 items-center gap-2 bg-ink px-5 text-sm font-semibold text-white hover:bg-brand-dark">
             사업영역 둘러보기 <ArrowRight className="size-4" aria-hidden />
           </Link>
           <Link href="/hilink" className="inline-flex h-12 items-center gap-2 border border-ink/15 px-5 text-sm font-semibold hover:border-ink">
@@ -158,14 +163,20 @@ export function ContactForm() {
 
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby={`${uid}-required-note`}>
-      <p id={`${uid}-required-note`} className="text-[0.8125rem] text-mist-500">
-        <span className="text-accent">*</span> 표시는 필수 입력 항목입니다.
+      {!deliveryReady && (
+        <div id={`${uid}-not-ready`} role="note" className="mb-8 border border-line-strong bg-paper p-5 text-[0.9375rem] leading-relaxed text-ink">
+          <p className="font-semibold">온라인 상담 접수를 준비하고 있습니다.</p>
+          <p className="mt-1 text-body">지금은 신청서를 보낼 수 없습니다. 접수 경로가 연결되면 이 페이지에서 바로 신청하실 수 있습니다.</p>
+        </div>
+      )}
+      <p id={`${uid}-required-note`} className="text-[0.8125rem] text-muted">
+        <span className="text-brand">*</span> 표시는 필수 입력 항목입니다.
       </p>
 
       {/* 01 상담 유형 */}
       <fieldset className="mt-8">
         <legend className="flex items-center gap-3 text-[0.875rem] font-semibold">
-          <span className="t-num text-accent">01</span> 상담 유형 <span className="text-accent" aria-hidden>*</span>
+          <span className="text-brand">01</span> 상담 유형 <span className="text-brand" aria-hidden>*</span>
         </legend>
         <div className="mt-4 grid grid-cols-1 gap-2 xs:grid-cols-2 lg:grid-cols-3" role="radiogroup" aria-describedby={describedBy("type")}>
           {inquiryTypes.map((t, i) => {
@@ -174,8 +185,8 @@ export function ContactForm() {
               <label
                 key={t.value}
                 className={cn(
-                  "relative flex min-h-14 cursor-pointer items-center gap-3 border px-4 py-3 text-[0.9375rem] transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent",
-                  checked ? "border-ink bg-ink text-white" : "border-mist-300 bg-white hover:border-ink",
+                  "relative flex min-h-14 cursor-pointer items-center gap-3 border px-4 py-3 text-[0.9375rem] transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand",
+                  checked ? "border-ink bg-ink text-white" : "border-line-strong bg-white hover:border-ink",
                 )}
               >
                 <input
@@ -190,7 +201,7 @@ export function ContactForm() {
                 <span
                   className={cn(
                     "flex size-4 shrink-0 items-center justify-center rounded-full border",
-                    checked ? "border-white bg-white" : "border-mist-400",
+                    checked ? "border-white bg-white" : "border-muted",
                   )}
                   aria-hidden
                 >
@@ -211,7 +222,7 @@ export function ContactForm() {
       {/* 02 기본 정보 */}
       <fieldset className="mt-12">
         <legend className="flex items-center gap-3 text-[0.875rem] font-semibold">
-          <span className="t-num text-accent">02</span> 기본 정보
+          <span className="text-brand">02</span> 기본 정보
         </legend>
         <div className="mt-4 grid gap-5 sm:grid-cols-2">
           <Field label="회사 / 단지명" required htmlFor={id("organization")} error={errors.organization}>
@@ -224,7 +235,7 @@ export function ContactForm() {
               placeholder="예) OO아파트 입주자대표회의"
               aria-invalid={Boolean(errors.organization)}
               aria-describedby={describedBy("organization")}
-              className={cn(inputBase, "h-13", errors.organization ? "border-red-500" : "border-mist-300")}
+              className={cn(inputBase, "h-13", errors.organization ? "border-red-500" : "border-line-strong")}
             />
           </Field>
           <Field label="구분" htmlFor={id("role")}>
@@ -232,7 +243,7 @@ export function ContactForm() {
               id={id("role")}
               value={values.role}
               onChange={(e) => set("role", e.target.value)}
-              className={cn(inputBase, "h-13 border-mist-300", !values.role && "text-mist-400")}
+              className={cn(inputBase, "h-13 border-line-strong", !values.role && "text-muted")}
             >
               <option value="">선택해 주세요</option>
               {organizationRoles.map((r) => (
@@ -252,7 +263,7 @@ export function ContactForm() {
               placeholder="성함 / 직책"
               aria-invalid={Boolean(errors.name)}
               aria-describedby={describedBy("name")}
-              className={cn(inputBase, "h-13", errors.name ? "border-red-500" : "border-mist-300")}
+              className={cn(inputBase, "h-13", errors.name ? "border-red-500" : "border-line-strong")}
             />
           </Field>
           <Field label="연락처" required htmlFor={id("phone")} error={errors.phone}>
@@ -267,7 +278,7 @@ export function ContactForm() {
               placeholder="010-0000-0000"
               aria-invalid={Boolean(errors.phone)}
               aria-describedby={describedBy("phone")}
-              className={cn(inputBase, "h-13", errors.phone ? "border-red-500" : "border-mist-300")}
+              className={cn(inputBase, "h-13", errors.phone ? "border-red-500" : "border-line-strong")}
             />
           </Field>
           <Field label="이메일" required htmlFor={id("email")} error={errors.email}>
@@ -282,7 +293,7 @@ export function ContactForm() {
               placeholder="name@company.com"
               aria-invalid={Boolean(errors.email)}
               aria-describedby={describedBy("email")}
-              className={cn(inputBase, "h-13", errors.email ? "border-red-500" : "border-mist-300")}
+              className={cn(inputBase, "h-13", errors.email ? "border-red-500" : "border-line-strong")}
             />
           </Field>
           <Field label="지역" required htmlFor={id("region")} error={errors.region}>
@@ -293,7 +304,7 @@ export function ContactForm() {
               onChange={(e) => set("region", e.target.value)}
               aria-invalid={Boolean(errors.region)}
               aria-describedby={describedBy("region")}
-              className={cn(inputBase, "h-13", errors.region ? "border-red-500" : "border-mist-300", !values.region && "text-mist-400")}
+              className={cn(inputBase, "h-13", errors.region ? "border-red-500" : "border-line-strong", !values.region && "text-muted")}
             >
               <option value="">시 · 도 선택</option>
               {regionOptions.map((r) => (
@@ -309,10 +320,10 @@ export function ContactForm() {
       {/* 03 시설 정보 */}
       <fieldset className="mt-12">
         <legend className="flex items-center gap-3 text-[0.875rem] font-semibold">
-          <span className="t-num text-accent">03</span> 시설 정보
+          <span className="text-brand">03</span> 시설 정보
         </legend>
         <p className="mt-4 text-[0.875rem] font-semibold">
-          시설 종류 <span className="text-xs font-normal text-mist-400">(선택 · 복수 선택 가능)</span>
+          시설 종류 <span className="text-xs font-normal text-muted">(선택 · 복수 선택 가능)</span>
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {facilityOptions.map((f) => {
@@ -321,8 +332,8 @@ export function ContactForm() {
               <label
                 key={f}
                 className={cn(
-                  "inline-flex min-h-11 cursor-pointer items-center gap-2 border px-4 text-[0.9375rem] transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent",
-                  on ? "border-ink bg-ink text-white" : "border-mist-300 hover:border-ink",
+                  "inline-flex min-h-11 cursor-pointer items-center gap-2 border px-4 text-[0.9375rem] transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand",
+                  on ? "border-ink bg-ink text-white" : "border-line-strong hover:border-ink",
                 )}
               >
                 <input type="checkbox" className="sr-only" checked={on} onChange={() => toggleFacility(f)} />
@@ -340,7 +351,7 @@ export function ContactForm() {
               onChange={(e) => set("scale", e.target.value)}
               placeholder="세대수 또는 시설 규모"
               aria-describedby={`${id("scale")}-hint`}
-              className={cn(inputBase, "h-13 border-mist-300")}
+              className={cn(inputBase, "h-13 border-line-strong")}
             />
           </Field>
         </div>
@@ -349,7 +360,7 @@ export function ContactForm() {
       {/* 04 문의 내용 */}
       <fieldset className="mt-12">
         <legend className="flex items-center gap-3 text-[0.875rem] font-semibold">
-          <span className="t-num text-accent">04</span> 문의 내용
+          <span className="text-brand">04</span> 문의 내용
         </legend>
         <div className="mt-4">
           <Field label="문의 내용" required htmlFor={id("message")} error={errors.message}>
@@ -363,10 +374,10 @@ export function ContactForm() {
               aria-invalid={Boolean(errors.message)}
               aria-describedby={describedBy("message")}
               maxLength={3000}
-              className={cn(inputBase, "resize-y py-3.5 leading-relaxed", errors.message ? "border-red-500" : "border-mist-300")}
+              className={cn(inputBase, "resize-y py-3.5 leading-relaxed", errors.message ? "border-red-500" : "border-line-strong")}
             />
           </Field>
-          <p className="mt-1 text-right text-xs text-mist-400" aria-hidden>
+          <p className="mt-1 text-right text-xs text-muted" aria-hidden>
             {values.message.length.toLocaleString()} / 3,000
           </p>
         </div>
@@ -381,8 +392,8 @@ export function ContactForm() {
       </div>
 
       {/* 개인정보 */}
-      <div className="mt-10 border-t border-mist-200 pt-8">
-        <div className="bg-mist-50 p-5 text-[0.8125rem] leading-relaxed text-mist-600">
+      <div className="mt-10 border-t border-line pt-8">
+        <div className="bg-paper p-5 text-[0.8125rem] leading-relaxed text-body">
           <p className="font-semibold text-ink">개인정보 수집 · 이용 안내</p>
           <ul className="mt-2 space-y-1">
             <li>수집 항목: 회사/단지명, 담당자명, 연락처, 이메일, 지역, 문의 내용</li>
@@ -404,7 +415,7 @@ export function ContactForm() {
             className="size-5 accent-ink"
           />
           <span>
-            개인정보 수집 · 이용에 동의합니다. <span className="text-accent">*</span>
+            개인정보 수집 · 이용에 동의합니다. <span className="text-brand">*</span>
           </span>
         </label>
         {errors.privacy && (
@@ -422,8 +433,9 @@ export function ContactForm() {
 
       <button
         type="submit"
-        disabled={status === "submitting"}
-        className="group mt-8 inline-flex h-15 w-full items-center justify-center gap-3 rounded-[2px] bg-accent px-8 text-[1.0625rem] font-semibold text-white transition-colors hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70 sm:w-auto sm:min-w-72"
+        disabled={status === "submitting" || !deliveryReady}
+        aria-describedby={deliveryReady ? undefined : `${uid}-not-ready`}
+        className="group mt-8 inline-flex h-15 w-full items-center justify-center gap-3 rounded-[4px] bg-brand px-8 text-[1.0625rem] font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-wait disabled:opacity-70 sm:w-auto sm:min-w-72"
       >
         {status === "submitting" ? (
           <>

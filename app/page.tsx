@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { HomeHero } from "@/components/home/HomeHero";
-import { TrustMetrics } from "@/components/home/TrustMetrics";
-import { BusinessSection } from "@/components/home/BusinessSection";
-import { WhyDagym } from "@/components/home/WhyDagym";
-import { OfflineDigital } from "@/components/home/OfflineDigital";
-import { HilinkSection } from "@/components/home/HilinkSection";
-import { FacilitiesSection } from "@/components/home/FacilitiesSection";
-import { ProjectsSection } from "@/components/home/ProjectsSection";
+import { HomeBusiness } from "@/components/home/HomeBusiness";
+import { HomeFieldWork } from "@/components/home/HomeFieldWork";
+import { HomeSites } from "@/components/home/HomeSites";
+import { HomeHilink } from "@/components/home/HomeHilink";
 import { CTASection } from "@/components/sections/CTASection";
 import { siteConfig } from "@/data/config";
 import { absoluteUrl } from "@/lib/seo";
@@ -21,14 +18,14 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <TrustMetrics />
-      <BusinessSection />
-      <WhyDagym />
-      <OfflineDigital />
-      <HilinkSection />
-      <FacilitiesSection />
-      <ProjectsSection />
-      <CTASection />
+      <HomeBusiness />
+      <HomeFieldWork />
+      <HomeSites />
+      <HomeHilink />
+      <CTASection
+        title={"우리 단지 커뮤니티,\n운영 상담을 받아보세요."}
+        description="단지명, 세대수, 운영 중인 시설과 현재 운영 방식을 알려주시면 현장 확인 후 운영 인력 · 프로그램 · 이용료 부과 방식까지 포함한 운영안을 제안해 드립니다."
+      />
     </>
   );
 }

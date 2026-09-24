@@ -1,61 +1,53 @@
-/**
- * HOME 전용 콘텐츠.
- * heroImage / heroVideo 에 실제 커뮤니티센터 고해상도 사진·영상을 넣으면
- * 평면도 비주얼 대신 전체 화면 배경으로 노출됩니다. (저해상도 이미지는 사용하지 마세요)
- */
+/** HOME 콘텐츠 */
+
 export const homeHero = {
-  eyebrow: "DAGYM — Community Operation Company",
-  title: ["공간을 운영하고", "경험을 설계합니다."],
-  sub: "아파트 커뮤니티부터 스포츠시설까지\n현장 운영과 HILINK 스마트 운영 시스템을 하나로 연결합니다.",
-  primary: { label: "운영 서비스 알아보기", href: "/business" },
-  secondary: { label: "HILINK 알아보기", href: "/hilink" },
-  heroImage: undefined as string | undefined, // 예: "/images/hero/community-center.jpg"
-  heroVideo: undefined as string | undefined, // 예: "/videos/hero.mp4"
-  keywords: ["Community", "Operation", "Technology", "Data", "Wellness", "Smart Management"],
+  title: "아파트 커뮤니티와 스포츠시설,\n운영의 기준을 만듭니다.",
+  sub: "헬스장 · 골프연습장 · GX룸 · 독서실을 현장 인력이 직접 운영하고,\n자체 시스템 HILINK로 출입 · 예약 · 회원을 관리합니다.",
+  primary: { label: "운영 문의하기", href: "/contact" },
+  secondary: { label: "사업영역 보기", href: "/business" },
 };
 
-export const whyDagym = [
-  {
-    key: "operation",
-    en: "Operation",
-    title: "현장 중심 전문 운영",
-    body: "센터장 · 트레이너 · 골프 프로 · GX 강사 · 안내 인력이 한 조직으로 움직입니다. 결원이 생겨도 운영이 멈추지 않도록 대체 인력과 매뉴얼을 갖춥니다.",
-    points: ["직무별 채용 · 교육 기준", "센터장 중심 단일 보고 체계", "대체 인력 운영"],
-  },
-  {
-    key: "technology",
-    en: "Technology",
-    title: "HILINK 기반 스마트 운영",
-    body: "출입 · 예약 · 결제 · 락커 · 공지를 자체 플랫폼 HILINK로 처리합니다. 외부 솔루션을 따로 붙이지 않아 도입과 연동이 간단합니다.",
-    points: ["안면인식 출입통제", "강좌 · 타석 · 좌석 예약", "결제 · 매출 자동 집계"],
-  },
-  {
-    key: "standardization",
-    en: "Standardization",
-    title: "표준화된 운영 프로세스",
-    body: "오픈 · 마감 · 위생 · 안전 · 민원 대응을 체크리스트로 표준화합니다. 현장이 달라도 같은 기준으로 운영 품질을 유지합니다.",
-    points: ["오픈 · 마감 체크리스트", "위생 · 안전 점검표", "민원 대응 절차"],
-  },
-  {
-    key: "data",
-    en: "Data",
-    title: "데이터 기반 의사결정",
-    body: "누가, 언제, 어떤 시설을 얼마나 이용했는지가 데이터로 남습니다. 입주자대표회의와 관리사무소는 수치를 근거로 운영을 결정합니다.",
-    points: ["시간대 · 시설별 이용률", "매출 · 정산 리포트", "월간 운영 보고"],
-  },
-] as const;
+/** 첫 화면 아래 한 줄 소개 — 숫자 대신 하는 일을 적습니다 */
+export const heroFacts = [
+  { title: "현장 인력 운영", body: "인포메이션 · 트레이너 · GX 강사 · 골프 프로" },
+  { title: "시설 · 기구 관리", body: "매일 청소, 매주 점검, 분기 A/S" },
+  { title: "HILINK 출입 · 예약", body: "앱 얼굴 등록, 시설 예약, 이용료 정산" },
+];
 
-export const offlineOperation = ["현장 인력", "트레이너", "골프 프로", "GX 강사", "센터장", "시설관리", "고객응대"];
-export const digitalOperation = [
-  "회원관리",
-  "안면인식 출입",
-  "수업 예약",
-  "좌석 예약",
-  "골프 타석 예약",
-  "락커 관리",
-  "결제",
-  "매출 통계",
-  "공지 · 알림",
-  "대관",
-  "시설 이용관리",
+/** 다짐이 현장에서 하는 일 — 역할별 */
+export const fieldWork = [
+  {
+    role: "인포메이션",
+    tasks: ["회원 등록과 시설 이용 안내", "민원 접수와 처리 결과 기록", "공지 발송, 카페 오픈 · 마감 지원"],
+  },
+  {
+    role: "트레이너",
+    tasks: ["입주민 무료 OT와 운동일지 제공", "PT 수업과 기구 안전 지도", "기구별 사용법 QR 안내"],
+  },
+  {
+    role: "GX 강사 · 골프 프로",
+    tasks: ["수요 조사로 정한 GX 수업 진행", "골프 레슨과 타석 운영", "분기별 수업 계획표 게시"],
+  },
+  {
+    role: "본사 운영 담당",
+    tasks: ["매주 현장 방문 점검", "직원 채용 · 교육, 결원 시 대체 인력", "월간 운영 보고"],
+  },
+];
+
+/** 운영 프로세스 — 상담부터 정기 보고까지 */
+export const operationProcess = [
+  { title: "현장 분석", body: "시설 현황, 세대수와 이용 인원, 출입 동선, 기존 운영 방식을 확인하고 관리사무소 · 입주자대표회의 의견을 듣습니다." },
+  { title: "운영안 제안", body: "시설별 운영 시간, 인력 구성, 프로그램, 이용료 부과 방식을 비교해 제안합니다." },
+  { title: "인력 배치 · 교육", body: "인포메이션 · 트레이너 · 강사를 채용하고 서비스 · 안전 교육을 마친 뒤 배치합니다." },
+  { title: "HILINK 설치", body: "안면인식 단말기 설치, 회원 데이터 등록, 시설별 출입 권한과 예약 규칙을 설정합니다." },
+  { title: "운영 시작", body: "오픈 초기에는 본사 인력이 현장을 함께 지원합니다." },
+  { title: "정기 점검 · 보고", body: "매주 본사 방문 점검과 매월 운영 보고로 운영을 개선합니다." },
+];
+
+/** 본사 주차별 방문 */
+export const weeklyVisit = [
+  { week: "1주차", title: "현장 점검", body: "시설 · 기구 상태, 청결, 안전" },
+  { week: "2주차", title: "직원 관리", body: "근무 상태, 응대 품질, 교육" },
+  { week: "3주차", title: "데이터 점검", body: "이용 현황, 예약 · 정산, 민원" },
+  { week: "4주차", title: "프로그램 · 이벤트", body: "수업 만족도, 다음 달 행사" },
 ];
