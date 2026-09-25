@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
-import { CorporateProof } from "@/components/home/CorporateProof";
+import { CompanyStatement } from "@/components/home/CompanyStatement";
 import { WhatWeDo } from "@/components/home/WhatWeDo";
 import { OperationSystem } from "@/components/home/OperationSystem";
-import { HqManagement } from "@/components/home/HqManagement";
-import { Transformations } from "@/components/home/Transformations";
 import { FacilityExpertise } from "@/components/home/FacilityExpertise";
+import { OurOperations } from "@/components/home/OurOperations";
 import { HilinkSection } from "@/components/home/HilinkSection";
-import { TrackRecord } from "@/components/home/TrackRecord";
 import { WhyDagym } from "@/components/home/WhyDagym";
 import { CTASection } from "@/components/sections/CTASection";
 import { siteConfig } from "@/data/config";
@@ -20,21 +18,19 @@ export const metadata: Metadata = {
 };
 
 /**
- * HOME — Who we are → Proof → What we operate → How we operate → Cases → Technology → Track record → Contact
- * (OPERATION FIRST, TECHNOLOGY ENABLED)
+ * HOME — 운영회사 → 실제 현장 → 자체 기술 순서
+ * Hero → 회사 소개 → 사업 → 운영 시스템 → 시설 전문성 → 운영실적 → HILINK → Why → 문의
  */
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <CorporateProof />
+      <CompanyStatement />
       <WhatWeDo />
       <OperationSystem />
-      <HqManagement />
-      <Transformations />
       <FacilityExpertise />
+      <OurOperations />
       <HilinkSection />
-      <TrackRecord />
       <WhyDagym />
       <CTASection />
     </>

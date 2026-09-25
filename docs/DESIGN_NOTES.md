@@ -1,6 +1,5 @@
 # DAGYM 디자인 메모 — V3 Corporate (2026-09-25)
 
-자세한 분석은 `docs/dagym-redesign-audit.md`.
 
 ## 토큰
 | 역할 | 값 |
@@ -17,4 +16,12 @@
 
 ## 공개 원칙
 - `data/corporate.ts` 의 `publicationStatus` 로 관리. VERIFY_BEFORE_PUBLISH 항목은 방문자 화면에 나오지 않음(검수 모드 `NEXT_PUBLIC_SHOW_PHOTO_SLOTS=1` 에서만 안내).
-- 현장 후보 · 제안서 수치는 공개 저장소에 넣지 않음 → `docs/private/` (git 제외).
+- 공개 승인되지 않은 정보는 공개 저장소에 넣지 않음 → `docs/private/` (git 제외).
+
+## 운영실적 (Track Record)
+- 단지 이미지 + 단지명만 표시. 세대수 · 기간 · 현재/과거 구분 · 계약 정보는 표시하지 않음.
+- 목록: `data/projects.ts` (publicationApproved 인 항목만 빌드에 포함).
+- 이미지: 사용권이 확인된 원본을 `<slug>.jpg` 로 모아 `node scripts/import-portfolio-images.mjs <폴더>` 실행 → `public/images/projects/`.
+  이미지가 없는 단지는 추상 패턴 카드로 표시됩니다 (사진처럼 보이지 않도록).
+- 카드 비율 4:3, `object-position` 은 단지별 `imagePosition` 으로 조정. 오버레이 · 필터 없음, 확대 없음(1600px 이하로만 저장).
+- 데스크톱: 정적 4열 그리드 / 모바일: 가로 스냅 스크롤(약 1.2장 노출).

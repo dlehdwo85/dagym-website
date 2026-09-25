@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Search } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTASection } from "@/components/sections/CTASection";
-import { ProjectCard } from "@/components/sections/ProjectCard";
 import { OperationSystem } from "@/components/home/OperationSystem";
 import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
@@ -14,7 +13,6 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { businessAreas, getBusiness } from "@/data/business";
 import { businessDiagnosis, businessPhoto, transformations } from "@/data/corporate";
 import { photos } from "@/data/photos";
-import { publishedProjects, type ProjectCategory } from "@/data/projects";
 import { hasPhoto } from "@/lib/photos";
 import { pageMetadata, serviceJsonLd } from "@/lib/seo";
 import { cn } from "@/lib/cn";
@@ -31,14 +29,6 @@ export async function generateMetadata({ params }: PageProps<"/business/[slug]">
   if (!b) return {};
   return pageMetadata({ title: b.detail.metaTitle, description: b.detail.metaDescription, path: b.href, keywords: b.detail.keywords });
 }
-
-const caseCategory: Record<string, ProjectCategory[]> = {
-  "apartment-community": ["apartment"],
-  "sports-fitness": ["sports"],
-  "community-facility": ["corporate", "public"],
-  consulting: ["apartment", "sports", "corporate", "public"],
-  equipment: [],
-};
 
 function Part({ no, title, lead, children, tone = "white", id }: { no: string; title: string; lead?: string; children: React.ReactNode; tone?: "white" | "mist"; id: string }) {
   return (
@@ -93,7 +83,6 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
   const img = pid && hasPhoto(pid) ? photos[pid] : undefined;
   const diagnosis = businessDiagnosis[b.slug] ?? [];
   const related = transformations.filter((t) => t.business === b.slug || (b.slug === "equipment" && ["fitness-renewal", "golf-upgrade"].includes(t.slug)));
-  const projects = publishedProjects.filter((p) => (caseCategory[b.slug] ?? []).includes(p.category)).slice(0, 3);
   const others = businessAreas.filter((x) => x.slug !== b.slug);
 
   const toc = [
@@ -101,7 +90,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
     { id: "diagnosis", label: "현장 진단" },
     { id: "plan", label: "다짐 운영안" },
     { id: "process", label: "운영 프로세스" },
-    ...(related.length || projects.length ? [{ id: "cases", label: "사례" }] : []),
+    ...(related.length ? [{ id: "cases", label: "개선 사례" }] : []),
     { id: "scope", label: "위탁 범위" },
   ];
 
@@ -256,17 +245,8 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
         <OperationSystem title={"진단부터 개선까지\n같은 순서로 운영합니다."} />
       </div>
 
-      {(related.length > 0 || projects.length > 0) && (
-        <Part id="cases" no="05" title="관련 사례">
-          {projects.length > 0 && (
-            <ul className="mb-10 grid gap-8 sm:grid-cols-2">
-              {projects.map((p) => (
-                <li key={p.slug}>
-                  <ProjectCard project={p} />
-                </li>
-              ))}
-            </ul>
-          )}
+      {related.length > 0 && (
+        <Part id="cases" no="05" title="관련 개선 사례">
           <ul className="space-y-3">
             {related.map((t) => (
               <li key={t.slug}>
@@ -284,7 +264,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
         </Part>
       )}
 
-      <Part id="scope" no={related.length || projects.length ? "06" : "05"} title="위탁 범위" lead="필요한 범위만 선택할 수 있습니다." tone="mist">
+      <Part id="scope" no={related.length ? "06" : "05"} title="위탁 범위" lead="필요한 범위만 선택할 수 있습니다." tone="mist">
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {d.scopeOptions.map((o, i) => (
             <li key={o.title} className="rounded-[4px] border border-line bg-white p-6">

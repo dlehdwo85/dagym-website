@@ -8,7 +8,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ButtonLink } from "@/components/ui/Button";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Reveal } from "@/components/motion/Reveal";
-import { AdminScreen } from "@/components/hilink/Screens";
+import { AdminScreen, PhoneScreen } from "@/components/hilink/Screens";
 import { hilinkExtensions, hilinkForWhom, hilinkFunctions, hilinkSteps } from "@/data/hilink";
 import { hilinkHome } from "@/data/corporate";
 import { faqs } from "@/data/insight";
@@ -78,6 +78,15 @@ export default function HilinkPage() {
                 <Image src={brandAssets.hilink.src} alt="HILINK" width={brandAssets.hilink.width} height={brandAssets.hilink.height} className="h-6 w-auto" />
               </span>
             )}
+            {screens.length === 0 && (
+              <div className="grid grid-cols-3 items-end gap-3">
+                {(["member", "reservation", "access"] as const).map((k, i) => (
+                  <div key={k} className={i === 1 ? "-translate-y-6" : undefined}>
+                    <PhoneScreen screen={k} />
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="grid grid-cols-3 items-end gap-3">
               {screens.map((s, i) => (
                 <div key={s.src} className={i === 1 ? "-translate-y-6" : undefined}>
@@ -87,7 +96,7 @@ export default function HilinkPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-xs text-muted">{hilinkHome.notice}</p>
+            <p className="mt-4 text-xs text-muted">{screens.length > 0 ? hilinkHome.notice : "기능 설명을 위한 화면 구성 예시(데모 화면)입니다. 실제 화면과 다를 수 있습니다."}</p>
           </div>
         }
       />

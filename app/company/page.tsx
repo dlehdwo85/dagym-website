@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTASection } from "@/components/sections/CTASection";
-import { ProjectCard } from "@/components/sections/ProjectCard";
+import { OurOperations } from "@/components/home/OurOperations";
 import { HqManagement } from "@/components/home/HqManagement";
 import { OperationSystem } from "@/components/home/OperationSystem";
 import { ClipReveal } from "@/components/motion/ClipReveal";
@@ -13,8 +13,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { companyIntro, principles } from "@/data/company";
 import { pillars, publicFacts } from "@/data/corporate";
 import { certifications, company, history, isVerified, partners } from "@/data/config";
-import { publishedProjects } from "@/data/projects";
-import { photoRef, showPhotoSlots } from "@/lib/photos";
+import { photoRef } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -129,29 +128,8 @@ export default function CompanyPage() {
       {/* 운영 프로세스 */}
       <OperationSystem />
 
-      {/* 주요 이력 · 프로젝트 — 공개 승인된 것만 */}
-      {publishedProjects.length > 0 ? (
-        <section className="section-y bg-white" aria-labelledby="record-title">
-          <div className="container-x">
-            <SectionHeader id="record-title" eyebrow="주요 이력" en="Track record" title="운영 현장" />
-            <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {publishedProjects.slice(0, 6).map((p) => (
-                <li key={p.slug}>
-                  <ProjectCard project={p} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : (
-        showPhotoSlots && (
-          <div className="container-x py-10">
-            <p className="border border-dashed border-line-strong p-5 text-sm text-muted" data-review="todo-verify">
-              검수용 · 주요 이력 VERIFY_BEFORE_PUBLISH — 공개 승인된 현장이 없어 숨겼습니다.
-            </p>
-          </div>
-        )
-      )}
+      {/* 주요 이력 */}
+      <OurOperations />
 
       {history.length > 0 && (
         <section className="section-y border-t border-line bg-white" aria-labelledby="history-title">

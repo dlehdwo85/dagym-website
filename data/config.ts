@@ -41,12 +41,6 @@ export const siteConfig = {
   ],
 } as const;
 
-/*
- * 아래 TODO_VERIFY 항목 중 일부는 다짐 제안서(Google Drive)에 기재되어 있습니다.
- * 공개 여부를 확인한 뒤 값을 입력하세요. 입력하기 전까지 사이트에는 해당 줄이 표시되지 않습니다.
- *   - 대표: 제안서 표지 기재
- *   - 대표 연락처 · 이메일: 제안서 표지 기재 (홈페이지 공개용 대표번호인지 확인 필요)
- */
 export const company = {
   nameKo: "주식회사 다짐",
   nameEn: "DAGYM Co., Ltd.",
@@ -59,7 +53,7 @@ export const company = {
   address: TODO_VERIFY as Verifiable<string>,
   founded: TODO_VERIFY as Verifiable<string>,
   businessHours: TODO_VERIFY as Verifiable<string>, // 예: "평일 09:00 – 18:00 (주말·공휴일 휴무)"
-  /** 사업 영역 (회사 제안서 기준) */
+  /** 사업 영역 */
   domains: ["아파트 · 기업 · 호텔 커뮤니티 운영", "회원관리 · 출입 시스템 HILINK", "헬스기구 · 스크린골프 납품"],
   social: {
     instagram: TODO_VERIFY as Verifiable<string>,
@@ -99,7 +93,4 @@ export const brandAssets: {
   dagym?: { src: string; width: number; height: number };
   dagymWhite?: { src: string; width: number; height: number };
   hilink?: { src: string; width: number; height: number };
-} = {
-  // HILINK 공식 로고 (HILINK 사이트 공개 자산)
-  hilink: { src: "/images/brand/hilink-logo.png", width: 304, height: 48 },
-};
+} = {};

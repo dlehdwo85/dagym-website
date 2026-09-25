@@ -6,7 +6,7 @@ import { communication, hqDepartments, hqFlow, hqSupportLine, staffTraining, wee
 /** 본사 운영체계 — 조직도를 운영 모델로 재해석 */
 export function HqManagement({ showTitle = true }: { showTitle?: boolean }) {
   return (
-    <section className="section-y bg-white" aria-labelledby="hq-title">
+    <section id="hq" className="section-y scroll-mt-20 bg-white" aria-labelledby="hq-title">
       <div className="container-x">
         {showTitle && (
           <SectionHeader

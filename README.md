@@ -37,9 +37,9 @@ npm run typecheck
 
 ## 콘텐츠 수정
 
-모든 문구는 `data/` 에 있습니다 — `business.ts`(사업영역 상세), `home.ts`, `company.ts`, `hilink.ts`, `facilities.ts`, `insight.ts`(FAQ · 공지), `projects.ts`(운영 현장), `config.ts`(회사 정보), `photos.ts`(사진 목록).
+모든 문구는 `data/` 에 있습니다 — `business.ts`(사업영역 상세), `corporate.ts`(홈 · 회사 구조), `company.ts`, `hilink.ts`, `facilities.ts`, `insight.ts`(FAQ · 공지), `projects.ts`(운영 현장), `config.ts`(회사 정보), `photos.ts`(사진 목록).
 
-사업영역 · HILINK 문구는 다짐 내부 자료(커뮤니티 운영 제안서, 하이링크 서비스 소개서)의 운영 방식 설명을 바탕으로 작성했습니다. 제안서의 성과 수치(매출 증가율, 재계약률 등)와 현장명은 확인 전이라 사용하지 않았습니다.
+성과 수치와 운영 현장은 공개 승인된 것만 사용합니다.
 
 ## 배포 체크리스트
 

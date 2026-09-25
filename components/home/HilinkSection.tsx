@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { hilinkHome } from "@/data/corporate";
+import { AdminScreen, PhoneScreen } from "@/components/hilink/Screens";
 import { photoRef } from "@/lib/photos";
 
 /** HILINK — 운영을 뒷받침하는 기술 (홈에서 유일한 다크 섹션 중 하나) */
@@ -39,15 +40,25 @@ export function HilinkSection() {
         </Reveal>
 
         <div className="lg:col-span-7">
-          <div className="grid grid-cols-3 items-end gap-3 sm:gap-5">
-            {screens.map((s, i) => (
-              <Reveal key={s.src} delay={0.1 + i * 0.1} className={i === 1 ? "sm:-translate-y-8" : undefined}>
-                <div className="relative aspect-[923/2000] overflow-hidden rounded-[8px] border border-white/15 bg-white shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
-                  <Image src={s.src} alt={s.alt} fill sizes="(min-width: 1024px) 220px, 30vw" className="object-cover" />
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          {screens.length > 0 ? (
+            <div className="grid grid-cols-3 items-end gap-3 sm:gap-5">
+              {screens.map((s, i) => (
+                <Reveal key={s.src} delay={0.1 + i * 0.1} className={i === 1 ? "sm:-translate-y-8" : undefined}>
+                  <div className="relative aspect-[923/2000] overflow-hidden rounded-[8px] border border-white/15 bg-white shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
+                    <Image src={s.src} alt={s.alt} fill sizes="(min-width: 1024px) 220px, 30vw" className="object-cover" />
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          ) : (
+            <Reveal delay={0.1} className="relative">
+              <span className="absolute -top-3 left-4 z-10 rounded-[2px] bg-accent px-2 py-1 text-xs font-semibold text-white">데모 화면</span>
+              <AdminScreen />
+              <div className="absolute -bottom-8 right-2 hidden w-40 sm:block lg:-right-4 lg:w-44">
+                <PhoneScreen screen="reservation" />
+              </div>
+            </Reveal>
+          )}
           {device && (
             <Reveal delay={0.4} className="mt-6 flex items-center gap-4 rounded-[4px] border border-white/15 p-3">
               <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-[2px]">
@@ -58,7 +69,7 @@ export function HilinkSection() {
               </p>
             </Reveal>
           )}
-          <p className="mt-5 text-xs text-white/50">{hilinkHome.notice}</p>
+          <p className="mt-12 text-xs text-white/50">{screens.length > 0 ? hilinkHome.notice : "기능 설명을 위한 화면 구성 예시입니다. 실제 화면과 다를 수 있습니다."}</p>
         </div>
       </div>
     </section>

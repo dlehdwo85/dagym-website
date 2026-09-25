@@ -4,9 +4,8 @@ import { TODO_VERIFY, type Verifiable } from "./config";
 /**
  * V3 기업 사이트 콘텐츠 (단일 소스)
  *
- * 출처: 다짐 내부 위탁운영 제안서(비공개 참고자료)에서 PUBLIC_SAFE 로 분류한 회사 구조 · 운영 방식만
- * 홈페이지 문체로 다시 썼습니다. 제안서 원문 · 단가 · 인건비 · 예상 매출 · 만족도/증가율 수치 ·
- * 현장명 · 협력사 로고는 이 파일에 넣지 않습니다. (저장소가 공개 저장소이기 때문)
+ * 공개 가능한 회사 구조 · 운영 방식만 담습니다. 단가 · 인건비 · 매출 · 근거 없는 수치 ·
+ * 공개 승인되지 않은 현장 · 협력사 정보는 이 파일(공개 저장소)에 넣지 않습니다.
  *
  * publicationStatus
  *   PUBLIC_SAFE            — 공개 가능한 회사 · 서비스 정보
@@ -22,8 +21,8 @@ export type CompanyFact = { key: string; label: string; value: Verifiable<string
 
 export const companyFacts: CompanyFact[] = [
   { key: "name", label: "회사명", value: "주식회사 다짐 (DAGYM Co., Ltd.)", status: "PUBLIC_SAFE" },
-  { key: "founded", label: "설립", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "내부 자료 기재값 있음 — 등기 기준 확인 후 입력" },
-  { key: "hq", label: "본사 소재지", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "내부 자료 기재값 있음 — 상세 주소 확인 후 입력" },
+  { key: "founded", label: "설립", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "등기 기준 확인 후 입력" },
+  { key: "hq", label: "본사 소재지", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "상세 주소 확인 후 입력" },
   { key: "sites", label: "운영 현장", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "현재 운영 중 · 공개 동의 현장 수" },
   { key: "households", label: "운영 세대수", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "현재 운영 현장 합계" },
   { key: "ceo", label: "대표", value: TODO_VERIFY, status: "VERIFY_BEFORE_PUBLISH", note: "대표 공개 범위 확인 필요" },
@@ -328,7 +327,7 @@ export const businessPhoto: Record<string, PhotoId> = {
   equipment: "facility-golf",
 };
 
-/** 사업별 현장 진단 항목 (내부 자료의 "시설 진단" 방식을 일반화) */
+/** 사업별 현장 진단 항목 */
 export const businessDiagnosis: Record<string, string[]> = {
   "apartment-community": [
     "시설별 이용 시간 · 이용료 부과 방식",
