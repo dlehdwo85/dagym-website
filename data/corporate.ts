@@ -37,58 +37,68 @@ export function publicFacts() {
  * HOME
  * ---------------------------------------------------------------- */
 export const homeHero = {
-  eyebrow: "아파트 · 기업 · 호텔 커뮤니티 운영 전문기업",
-  title: "공간의 가치는\n운영에서 완성됩니다.",
-  sub: "아파트 커뮤니티부터 스포츠시설까지. DAGYM은 전문 인력, 본사 운영체계, HILINK를 기반으로 공간의 운영 전 과정을 관리합니다.",
-  photo: "facility-cafe" as PhotoId,
-  photoCaption: "커뮤니티 카페 · 라운지",
+  eyebrow: "COMMUNITY OPERATION & PLATFORM",
+  title: "공간을 운영하고,\n운영을 시스템으로 연결합니다.",
+  sub: "아파트 커뮤니티 전문 운영부터\n자체 플랫폼 HILINK 구축까지.",
+  /** 와이드 Hero 이미지 (생성 브랜드 비주얼 — 실제 현장 아님) */
+  image: "hero-operations" as PhotoId,
+  tone: "light" as "light" | "dark",
+  ctas: [
+    { label: "커뮤니티 운영", href: "/business" },
+    { label: "HILINK", href: "/hilink" },
+  ],
 };
 
 /** 기업 신뢰 근거 — 구조적 사실(PUBLIC_SAFE). 실적 수치는 companyFacts 에서 확인 후 추가 */
 export const proofItems = [
-  { value: "3", unit: "개 사업 축", label: "커뮤니티 운영 · HILINK · 시설 개선", status: "PUBLIC_SAFE" as PublicationStatus },
+  { value: "2", unit: "대 핵심사업", label: "커뮤니티 위탁운영 · HILINK 플랫폼 구축", status: "PUBLIC_SAFE" as PublicationStatus },
   { value: "5", unit: "개 전문 부서", label: "본사가 운영 전 과정에 직접 참여", status: "PUBLIC_SAFE" as PublicationStatus },
   { value: "12", unit: "종 시설", label: "헬스 · 골프 · GX부터 키즈 · 카페 · 게스트하우스까지", status: "PUBLIC_SAFE" as PublicationStatus },
   { value: "자체", unit: "운영 플랫폼", label: "회원 · 출입 · 예약 · 정산 · 보고를 HILINK로", status: "PUBLIC_SAFE" as PublicationStatus },
 ];
 
-/** 3개 사업 축 */
-export const pillars = [
+/**
+ * 핵심사업 2개 (Core Business)
+ * 시설 개선 · 운동기구 납품 · 스크린골프 구축은 핵심사업이 아닌 보조 서비스(supportingService)로만 노출합니다.
+ */
+export const coreBusinesses = [
   {
     no: "01",
     en: "Community Operation",
-    title: "커뮤니티 운영",
-    lead: "아파트 · 기업 · 호텔 커뮤니티와 스포츠시설을 전문 인력과 본사 관리체계로 운영합니다.",
-    items: ["시설별 운영 · 직원 배치와 관리", "프로그램 · 이벤트 · 입주민 활성화", "시설 · 기구 유지관리", "관리사무소 · 입주자대표회의 정기 보고"],
+    title: "커뮤니티 시설 전문 위탁운영",
+    lead: "아파트 · 기업 · 호텔 커뮤니티와 스포츠시설을 전문 인력과 본사 관리체계로 직접 운영합니다.",
+    items: ["시설별 운영 인력 채용 · 교육 · 배치", "프로그램 · 이벤트 · 입주민 활성화", "시설 · 기구 유지관리와 안전 점검", "관리사무소 · 입주자대표회의 정기 보고"],
     links: [
       { label: "공동주택 커뮤니티 위탁운영", href: "/business/apartment-community" },
       { label: "스포츠 · 피트니스 시설 운영", href: "/business/sports-fitness" },
       { label: "기업 · 호텔 · 복합시설 운영", href: "/business/community-facility" },
+      { label: "운영 컨설팅 · 활성화", href: "/business/consulting" },
     ],
+    cta: { label: "커뮤니티 운영 보기", href: "/business" },
     photo: "facility-fitness" as PhotoId,
   },
   {
     no: "02",
-    en: "HILINK · Operation Technology",
-    title: "HILINK 운영 플랫폼",
-    lead: "회원 · 출입 · 예약 · 결제 · 통계 · 보고를 연결하는 자체 운영 플랫폼으로 현장을 기록하고 표준화합니다.",
-    items: ["입주민 앱 · 관리자 CRM", "안면인식 단말기 연동 출입", "관리비 부과 자료 · 정산", "직원 관리 ERP"],
-    links: [{ label: "HILINK 자세히 보기", href: "/hilink" }],
+    en: "HILINK Platform",
+    title: "커뮤니티 운영 플랫폼 구축 · 납품",
+    lead: "회원 · 출입 · 예약 · 결제 · 정산 · 보고를 연결하는 자체 플랫폼 HILINK를 구축해 공급합니다. 다짐이 운영하는 현장에서 먼저 쓰고 다듬은 시스템입니다.",
+    items: ["입주민 앱 · 관리자 CRM", "안면인식 단말기 연동 출입", "시설 예약 · 이용권 · 정산", "관리비 부과 자료 · 월간 보고"],
+    links: [
+      { label: "HILINK 플랫폼 소개", href: "/hilink" },
+      { label: "HILINK 도입 문의", href: "/contact?type=hilink" },
+    ],
+    cta: { label: "HILINK 보기", href: "/hilink" },
     photo: "hilink-app" as PhotoId,
   },
-  {
-    no: "03",
-    en: "Facility & Space Solution",
-    title: "시설 개선 · 공간 솔루션",
-    lead: "쓰이지 않는 공간과 부족한 시설을 진단해 기구 보강 · 스크린골프 전환 · 공간 재구성으로 개선합니다.",
-    items: ["헬스기구 · 스크린골프 납품", "GX · 카페 · 키즈 공간 환경 개선", "유휴 공간 활성화", "개선 후 운영 연계"],
-    links: [
-      { label: "운영 컨설팅 · 활성화", href: "/business/consulting" },
-      { label: "시설 개선 · 기구 · 스크린골프", href: "/business/equipment" },
-    ],
-    photo: "facility-golf" as PhotoId,
-  },
 ];
+
+/** 보조 서비스 — 핵심사업과 같은 무게로 노출하지 않음 */
+export const supportingService = {
+  en: "Facility Support",
+  title: "시설 지원",
+  lead: "운영 중 필요할 때 운동기구 보강 · 교체, 스크린골프 타석 구축, 공간 환경 개선을 함께 진행합니다.",
+  href: "/business/equipment",
+};
 
 /** 운영 시스템 8단계 */
 export const operationSteps = [
@@ -287,9 +297,9 @@ export const facilityExpertise: { en: string; ko: string; points: string[]; phot
  * HILINK (홈 섹션)
  * ---------------------------------------------------------------- */
 export const hilinkHome = {
-  eyebrow: "HILINK 운영 플랫폼",
+  eyebrow: "핵심사업 02 · HILINK 플랫폼",
   title: "운영을 감으로\n남기지 않습니다.",
-  lead: "현장의 모든 이용과 운영을 HILINK로 기록하고 관리합니다. 기존 출입 설비는 그대로 두고, 설비가 담당하지 못하는 운영관리 영역을 보완합니다.",
+  lead: "다짐 현장의 이용과 운영을 기록하는 자체 플랫폼입니다. 직접 운영하며 다듬은 기능을 다른 단지 · 시설에도 구축해 공급하며, 기존 출입 설비는 그대로 두고 설비가 담당하지 못하는 운영관리 영역을 보완합니다.",
   features: [
     "회원 · 세대 확인",
     "출입 로그",
@@ -312,7 +322,7 @@ export const hilinkHome = {
 export const whyDagym = [
   { en: "On-site Expertise", title: "시설별 전문 운영", body: "헬스 · 골프 · GX부터 독서실 · 키즈 · 카페까지 시설마다 운영 기준과 프로그램이 다릅니다. 시설별 진단 → 구축 → 프로그램 → 관리 순서로 운영합니다." },
   { en: "HQ Control", title: "본사 직접 관리", body: "5개 전문 부서가 인사 · 노무 · 정산 · 교육 · 운영기획을 맡고, 본사 운영 담당이 매주 현장을 점검합니다." },
-  { en: "Improvement", title: "진단과 시설 개선", body: "기구 보강, 스크린골프 전환, 유휴 공간 전환처럼 운영하며 찾은 문제를 직접 개선합니다." },
+  { en: "Improvement", title: "운영 진단과 개선", body: "이용 데이터와 민원 이력으로 문제를 찾고, 프로그램 · 운영 시간 · 공간 활용을 조정합니다. 필요하면 시설 지원까지 연결합니다." },
   { en: "Technology", title: "HILINK 기반 데이터 운영", body: "출입 · 예약 · 정산 기록이 자동으로 쌓여 관리비 부과와 월간 보고의 근거가 됩니다." },
   { en: "Standard & Training", title: "운영 기준과 직원 교육", body: "체크리스트로 점검을 기록하고, 서비스 · 안전(CPR) · 수업 전문성 교육을 정기적으로 실시합니다." },
   { en: "Communication", title: "입주민 · 관리 주체와 소통", body: "입주민 앱과 소통 창구, 관리사무소 · 입주자대표회의 주간 · 월간 보고로 운영 현황을 공유합니다." },

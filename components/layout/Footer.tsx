@@ -25,8 +25,8 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Logo tone="light" />
             <p className="mt-6 max-w-sm text-[1.0625rem] leading-relaxed text-white/75">
-              아파트 · 기업 · 호텔 커뮤니티의 운영 전체를 맡고,
-              <br className="hidden sm:block" />그 운영을 자체 플랫폼 HILINK로 관리합니다.
+              아파트 · 기업 · 호텔 커뮤니티를 전문 위탁운영하고,
+              <br className="hidden sm:block" />커뮤니티 운영 플랫폼 HILINK를 구축 · 공급합니다.
             </p>
           </div>
           <nav aria-label="푸터 메뉴" className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">

@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { businessAreas } from "@/data/business";
+import type { MegaBusiness } from "@/components/layout/Header";
 import { photos } from "@/data/photos";
 import { businessPhoto } from "@/data/corporate";
 import { hasPhoto } from "@/lib/photos";
@@ -45,18 +46,16 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const megaBusiness = businessAreas.map((b) => {
+  const toMega = (b: (typeof businessAreas)[number], group: MegaBusiness["group"]): MegaBusiness => {
     const photoId = businessPhoto[b.slug];
     const photo = photoId && hasPhoto(photoId) ? photos[photoId] : undefined;
-    return {
-      href: b.href,
-      no: b.no,
-      title: b.title,
-      en: "",
-      line: b.summary,
-      image: photo ? { src: photo.file, alt: photo.alt } : undefined,
-    };
-  });
+    return { href: b.href, no: b.no, title: b.title, en: "", line: b.summary, group, image: photo ? { src: photo.file, alt: photo.alt } : undefined };
+  };
+  const megaBusiness: MegaBusiness[] = [
+    ...businessAreas.filter((b) => b.slug !== "equipment").map((b) => toMega(b, "core1")),
+    { href: "/hilink", no: "", title: "HILINK 플랫폼 구축 · 납품", en: "", line: "회원 · 출입 · 예약 · 정산 · 보고를 연결하는 자체 커뮤니티 운영 플랫폼", group: "core2" },
+    ...businessAreas.filter((b) => b.slug === "equipment").map((b) => toMega(b, "support")),
+  ];
 
   return (
     <html lang="ko" suppressHydrationWarning>

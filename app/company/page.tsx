@@ -11,7 +11,7 @@ import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { companyIntro, principles } from "@/data/company";
-import { pillars, publicFacts } from "@/data/corporate";
+import { coreBusinesses, publicFacts, supportingService } from "@/data/corporate";
 import { certifications, company, history, isVerified, partners } from "@/data/config";
 import { photoRef } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
@@ -29,15 +29,15 @@ export default function CompanyPage() {
     ["대표", company.ceo],
     ["설립", company.founded],
     ["사업자등록번호", company.businessNumber],
-    ["주요 사업", "커뮤니티 운영 · HILINK 운영 플랫폼 · 시설 개선 및 기구 납품"],
+    ["주요 사업", "커뮤니티 시설 전문 위탁운영 · 커뮤니티 운영 플랫폼(HILINK) 구축 · 납품"],
     ["주소", company.address],
     ["대표번호", company.phone],
     ["이메일", company.email],
   ];
   const visibleInfo = infoRows.filter(([, v]) => isVerified(v));
   const facts = publicFacts();
-  const meeting = photoRef("visual-ops-meeting");
-  const photo = meeting ?? photoRef("facility-fitness");
+  const generated = photoRef("visual-ops-meeting");
+  const photo = generated ?? photoRef("facility-fitness");
 
   return (
     <>
@@ -80,7 +80,7 @@ export default function CompanyPage() {
               <ClipReveal className="aspect-[4/3] rounded-[4px] bg-mist" from="right">
                 <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
               </ClipReveal>
-              {!meeting && <figcaption className="mt-2 text-sm text-muted">커뮤니티 헬스장 — 시설 예시</figcaption>}
+              <figcaption className="mt-2 text-sm text-muted">{generated ? "운영 방식을 설명하기 위한 연출 이미지" : "커뮤니티 헬스장 — 시설 예시"}</figcaption>
             </figure>
           )}
         </div>
@@ -102,22 +102,29 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* 주요 사업영역 */}
+      {/* 핵심사업 */}
       <section className="section-y bg-white" aria-labelledby="areas-title">
         <div className="container-x">
-          <SectionHeader id="areas-title" eyebrow="주요 사업영역" en="Business" title="세 가지 사업 축" />
-          <ul className="mt-12 grid gap-6 md:grid-cols-3">
-            {pillars.map((p) => (
+          <SectionHeader id="areas-title" eyebrow="핵심사업" en="Core business" title="두 가지 핵심사업" />
+          <ul className="mt-12 grid gap-6 md:grid-cols-2">
+            {coreBusinesses.map((p) => (
               <Reveal as="li" key={p.no} className="flex flex-col border-t-2 border-navy pt-6">
-                <p className="text-sm font-bold text-accent">{p.no}</p>
+                <p className="flex items-center gap-3">
+                  <span className="text-sm font-bold text-accent">CORE {p.no}</span>
+                  <span className="label-en text-steel">{p.en}</span>
+                </p>
                 <h3 className="t-h3 mt-2">{p.title}</h3>
                 <p className="t-small mt-3 text-body">{p.lead}</p>
-                <Link href={p.links[0].href} className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
-                  {p.links[0].label} <ArrowRight className="btn-arrow size-4" aria-hidden />
+                <Link href={p.cta.href} className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
+                  {p.cta.label} <ArrowRight className="btn-arrow size-4" aria-hidden />
                 </Link>
               </Reveal>
             ))}
           </ul>
+          <p className="t-small mt-10 border-t border-line pt-5 text-body">
+            <span className="mr-3 text-xs font-bold tracking-[0.08em] text-steel">SUPPORTING SERVICE</span>
+            <span className="font-semibold text-ink">{supportingService.title}</span> — {supportingService.lead}
+          </p>
         </div>
       </section>
 

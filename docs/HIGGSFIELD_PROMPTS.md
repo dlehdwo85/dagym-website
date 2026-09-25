@@ -1,6 +1,6 @@
 # Higgsfield 프롬프트 팩 — DAGYM 브랜드 비주얼
 
-생성 후 파일명대로 저장하면 사이트에 자동 반영됩니다 (`public/images/visual/`). 운영실적(단지) 이미지는 생성하지 않습니다.
+생성 이미지는 WebP 로 최적화해 `public/images/hero · operation/` 에 저장하고 `data/photos.ts` 슬롯에 연결합니다 (현재 적용 파일: `docs/IMAGE_POLICY.md`). 운영실적(단지) 이미지는 생성하지 않습니다.
 각 장면은 2–4장 생성 후 손 · 얼굴 · 화면 글자를 확인해 가장 자연스러운 1장을 고릅니다.
 
 ## 공통 스타일 (모든 프롬프트 끝에 붙임)

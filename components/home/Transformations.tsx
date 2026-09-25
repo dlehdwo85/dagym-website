@@ -6,8 +6,10 @@ import { ButtonLink } from "@/components/ui/Button";
 import { transformations } from "@/data/corporate";
 
 /** 운영 개선 사례 유형 — Problem → Diagnosis → Action → Operation */
+const HOME_ORDER = ["gx-activation", "study-room-access", "golf-upgrade", "kids-cafe"];
+
 export function Transformations({ limit = 4 }: { limit?: number }) {
-  const list = transformations.slice(0, limit);
+  const list = [...transformations].sort((a, b) => rank(a.slug) - rank(b.slug)).slice(0, limit);
   return (
     <section className="section-y bg-mist" aria-labelledby="tf-title">
       <div className="container-x">
@@ -16,7 +18,7 @@ export function Transformations({ limit = 4 }: { limit?: number }) {
             id="tf-title"
             eyebrow="운영 개선"
             en="Operation transformation"
-            title={"운영하며 찾은 문제를\n시설과 프로그램으로 바꿉니다."}
+            title={"운영하며 찾은 문제를\n운영 방식으로 개선합니다."}
             description="다짐이 현장에서 반복해 온 개선 방식입니다. 현장명 · 전후 사진 · 결과 수치는 공개 동의와 근거 확인 후 게재합니다."
           />
           <ButtonLink href="/cases" variant="secondary" className="shrink-0">
@@ -59,4 +61,9 @@ export function Transformations({ limit = 4 }: { limit?: number }) {
       </div>
     </section>
   );
+}
+
+function rank(slug: string) {
+  const i = HOME_ORDER.indexOf(slug);
+  return i === -1 ? HOME_ORDER.length : i;
 }

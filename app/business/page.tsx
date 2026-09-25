@@ -8,7 +8,9 @@ import { OperationSystem } from "@/components/home/OperationSystem";
 import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { businessAreas } from "@/data/business";
-import { businessPhoto, pillars } from "@/data/corporate";
+import { businessPhoto, coreBusinesses, supportingService } from "@/data/corporate";
+import { PhoneScreen } from "@/components/hilink/Screens";
+import { ButtonLink } from "@/components/ui/Button";
 import { photos } from "@/data/photos";
 import { hasPhoto } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
@@ -16,45 +18,46 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "사업영역",
   description:
-    "공동주택 커뮤니티 위탁운영, 스포츠 · 피트니스 시설 운영, 기업 · 호텔 · 복합시설 커뮤니티 운영, 시설 운영 컨설팅 · 활성화, 시설 개선 · 운동기구 · 스크린골프.",
+    "주식회사 다짐의 핵심사업 — 커뮤니티 시설 전문 위탁운영(공동주택 · 스포츠시설 · 기업 · 호텔)과 커뮤니티 운영 플랫폼 HILINK 구축 · 납품.",
   path: "/business",
 });
 
 export default function BusinessPage() {
+  const [ops, platform] = coreBusinesses;
+  const opsAreas = businessAreas.filter((b) => b.slug !== "equipment");
+  const support = businessAreas.find((b) => b.slug === "equipment");
   return (
     <>
       <PageHero
         eyebrow="사업영역"
         en="Business"
-        title={"커뮤니티 공간의 운영 전체를\n한 회사가 맡습니다."}
-        description="커뮤니티 운영 · HILINK 운영 플랫폼 · 시설 개선의 세 축으로 공동주택, 스포츠시설, 기업 · 호텔 공용 시설을 운영합니다."
+        title={"커뮤니티를 운영하고,\n운영 플랫폼을 공급합니다."}
+        description="다짐의 핵심사업은 커뮤니티 시설 전문 위탁운영과 커뮤니티 운영 플랫폼 HILINK 구축 · 납품, 두 가지입니다."
         breadcrumbs={[{ name: "사업영역", path: "/business" }]}
       />
 
-      {/* 3개 사업 축 요약 */}
-      <section className="border-b border-line bg-white" aria-label="사업 축">
-        <div className="container-x"><ul className="grid gap-px bg-line md:grid-cols-3">
-          {pillars.map((p) => (
-            <li key={p.no} className="bg-white py-8 md:px-6 md:first:pl-0">
-              <p className="text-sm font-bold text-accent">{p.no}</p>
-              <p className="t-h4 mt-1">{p.title}</p>
-              <p className="t-small mt-2 text-body">{p.lead}</p>
-            </li>
-          ))}
-        </ul></div>
-      </section>
-
-      <section aria-label="사업영역 목록" className="bg-white">
+      {/* CORE 01 — 커뮤니티 운영 */}
+      <section aria-labelledby="core-ops-title" className="bg-white">
+        <div className="container-x pt-16 lg:pt-24">
+          <p className="flex items-center gap-3">
+            <span className="text-sm font-bold text-accent">CORE {ops.no}</span>
+            <span className="label-en text-steel">{ops.en}</span>
+          </p>
+          <h2 id="core-ops-title" className="t-section mt-3">
+            {ops.title}
+          </h2>
+          <p className="t-lead mt-5 max-w-3xl text-body">{ops.lead}</p>
+        </div>
         <ol className="container-x">
-          {businessAreas.map((b) => {
+          {opsAreas.map((b) => {
             const pid = businessPhoto[b.slug];
             const img = pid && hasPhoto(pid) ? photos[pid] : undefined;
             return (
               <li key={b.slug} className="border-b border-line last:border-0">
-                <Link href={b.href} className="group grid gap-8 py-14 lg:grid-cols-12 lg:items-center lg:gap-12 lg:py-20">
+                <Link href={b.href} className="group grid gap-8 py-12 lg:grid-cols-12 lg:items-center lg:gap-12 lg:py-16">
                   <Reveal className="lg:col-span-7">
-                    <p className="text-sm font-bold text-accent">{b.no}</p>
-                    <h2 className="t-h2 mt-2 transition-colors group-hover:text-navy">{b.title}</h2>
+                    <p className="text-sm font-bold text-accent">{ops.no}-{b.no}</p>
+                    <h3 className="t-h2 mt-2 transition-colors group-hover:text-navy">{b.title}</h3>
                     <p className="t-lead mt-4 max-w-2xl text-body">{b.summary}</p>
                     <ul className="mt-6 flex flex-wrap gap-2">
                       {b.points.map((p) => (
@@ -81,7 +84,59 @@ export default function BusinessPage() {
         </ol>
       </section>
 
-      <OperationSystem />
+      {/* CORE 02 — HILINK */}
+      <section aria-labelledby="core-platform-title" className="overflow-hidden bg-navy text-white">
+        <div className="container-x grid gap-12 py-16 lg:grid-cols-12 lg:items-center lg:py-24">
+          <Reveal className="lg:col-span-7">
+            <p className="flex items-center gap-3">
+              <span className="text-sm font-bold text-[#9dbcf0]">CORE {platform.no}</span>
+              <span className="label-en text-white/60">{platform.en}</span>
+            </p>
+            <h2 id="core-platform-title" className="t-section mt-3">
+              {platform.title}
+            </h2>
+            <p className="t-lead mt-5 max-w-2xl text-white/80">{platform.lead}</p>
+            <ul className="mt-7 grid gap-x-8 border-t border-white/15 sm:grid-cols-2">
+              {platform.items.map((it) => (
+                <li key={it} className="t-small border-b border-white/15 py-3 text-white/85">
+                  {it}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9 flex flex-col gap-3 xs:flex-row">
+              <ButtonLink href="/hilink" variant="white">
+                HILINK 플랫폼 보기
+              </ButtonLink>
+              <ButtonLink href="/contact?type=hilink" variant="outline-white">
+                도입 문의
+              </ButtonLink>
+            </div>
+          </Reveal>
+          <div className="relative hidden justify-center gap-5 sm:flex lg:col-span-5">
+            <PhoneScreen screen="reservation" className="w-44" />
+            <PhoneScreen screen="data" className="mt-10 w-44" />
+            <span className="absolute -top-3 left-2 rounded-[2px] bg-white/10 px-2 py-1 text-xs font-semibold text-white/80">데모 화면</span>
+          </div>
+        </div>
+      </section>
+
+      {/* SUPPORTING SERVICE */}
+      {support && (
+        <section aria-label="보조 서비스" className="border-b border-line bg-mist">
+          <div className="container-x flex flex-col gap-4 py-10 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-bold tracking-[0.08em] text-steel">SUPPORTING SERVICE · {supportingService.en}</p>
+              <p className="t-h4 mt-2">{supportingService.title}</p>
+              <p className="t-small mt-1.5 max-w-2xl text-body">{supportingService.lead}</p>
+            </div>
+            <Link href={support.href} className="group inline-flex shrink-0 items-center gap-2 text-[0.9375rem] font-semibold text-navy">
+              시설 지원 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+            </Link>
+          </div>
+        </section>
+      )}
+
+      <OperationSystem tone="white" />
       <CTASection />
     </>
   );

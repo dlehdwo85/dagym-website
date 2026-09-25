@@ -6,17 +6,17 @@ import { facilityExpertise } from "@/data/corporate";
 import { photos } from "@/data/photos";
 import { hasPhoto, showPhotoSlots } from "@/lib/photos";
 
-/** 시설별 운영 전문성 — 12종 */
+/** 커뮤니티 운영 범위 — 12종 시설 */
 export function FacilityExpertise() {
   const withPhoto = facilityExpertise.filter((f) => f.photo && hasPhoto(f.photo)).slice(0, 4);
   return (
-    <section className="section-y bg-white" aria-labelledby="fac-title">
+    <section className="section-y border-t border-line bg-white" aria-labelledby="fac-title">
       <div className="container-x">
         <SectionHeader
           id="fac-title"
-          eyebrow="시설별 전문성"
-          en="Facility expertise"
-          title={"헬스장만 운영하는 회사가 아닙니다."}
+          eyebrow="커뮤니티 운영 범위"
+          en="Operation scope"
+          title={"커뮤니티센터 안의 시설을\n모두 운영합니다."}
           description="운동 시설부터 독서실 · 키즈카페 · 카페 · 게스트하우스까지, 시설마다 운영 기준과 관리 주기를 따로 둡니다."
         />
         {withPhoto.length >= 3 && (

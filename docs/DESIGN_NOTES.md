@@ -1,4 +1,19 @@
-# DAGYM 디자인 메모 — V3 Corporate (2026-09-25)
+# DAGYM 디자인 메모 — V5 (2026-09-25)
+
+## V5 사업 구조
+- 핵심사업 2개: **CORE 01 Community Operation** (커뮤니티 시설 전문 위탁운영) · **CORE 02 HILINK Platform** (커뮤니티 운영 플랫폼 구축 · 납품).
+- **Supporting Service — Facility Support** (기구 보강 · 스크린골프 구축 · 환경 개선)는 핵심사업 하단 한 줄 · 메뉴 마지막 항목으로만 노출. Hero · 독립 대형 섹션에 쓰지 않음.
+- 데이터: `data/corporate.ts` 의 `coreBusinesses` · `supportingService`.
+
+## V5 홈 순서
+Hero → 핵심사업 2개 → 운영실적(12개 단지) → 커뮤니티 운영 범위 → 운영 방식(How we operate) → HILINK → 운영 개선 사례 → Why DAGYM(회사소개 링크) → 문의
+
+## V5 Hero
+- 카피: COMMUNITY OPERATION & PLATFORM / 공간을 운영하고, 운영을 시스템으로 연결합니다. / CTA 커뮤니티 운영 · HILINK.
+- 이미지: `public/images/hero/hero-operations-21x9.webp` (생성 브랜드 비주얼, 21:9). 16:9 커뮤니티센터 · 16:9 다크 코퍼레이트 후보와 1440 · 1280 · 768 · 390 에서 비교 후 선정
+  (다크 후보는 도면이 분양 광고처럼 보이고 1344px 로 해상도 부족, 커뮤니티센터 후보는 텍스트 뒤 배경이 복잡).
+- 교체: `homeHero.image` · `homeHero.tone`("dark" 지원).
+
 
 
 ## 토큰

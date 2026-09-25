@@ -22,13 +22,16 @@ export function HqManagement({ showTitle = true }: { showTitle?: boolean }) {
         )}
 
         {visuals.length >= 2 && (
-          <ul className="mt-12 grid gap-4 sm:grid-cols-3">
-            {visuals.map((v) => (
-              <li key={v.src} className="relative aspect-[4/3] overflow-hidden rounded-[2px] bg-mist">
-                <Image src={v.src} alt={v.alt} fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover" />
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className={visuals.length === 3 ? "mt-12 grid gap-4 sm:grid-cols-3" : "mt-12 grid gap-4 sm:grid-cols-2 lg:gap-6"}>
+              {visuals.map((v) => (
+                <li key={v.src} className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-mist">
+                  <Image src={v.src} alt={v.alt} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" />
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2.5 text-xs text-muted">사진은 운영 방식을 설명하기 위한 연출 이미지입니다.</p>
+          </>
         )}
 
         {/* 운영 흐름 */}

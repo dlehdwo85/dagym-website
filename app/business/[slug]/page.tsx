@@ -98,7 +98,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
     <>
       <JsonLd data={serviceJsonLd({ name: b.title, description: d.metaDescription, path: b.href, serviceType: d.metaTitle })} />
       <PageHero
-        eyebrow={`사업영역 ${b.no}`}
+        eyebrow={b.slug === "equipment" ? "보조 서비스 · 시설 지원" : `핵심사업 01 · 커뮤니티 운영 ${b.no}`}
         title={d.heroTitle}
         description={d.heroSub}
         breadcrumbs={[

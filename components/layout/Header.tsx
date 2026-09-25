@@ -10,7 +10,9 @@ import { mainNav } from "@/data/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 
-export type MegaBusiness = { href: string; no: string; title: string; en: string; line: string; image?: { src: string; alt: string } };
+export type MegaBusiness = { href: string; no: string; title: string; en: string; line: string; group: "core1" | "core2" | "support"; image?: { src: string; alt: string } };
+
+const groupLabel: Record<MegaBusiness["group"], string> = { core1: "CORE 01 · 커뮤니티 운영", core2: "CORE 02 · HILINK 플랫폼", support: "SUPPORTING SERVICE" };
 
 type Props = { business: MegaBusiness[] };
 
@@ -146,22 +148,29 @@ export function Header({ business }: Props) {
                 <div className="container-x grid grid-cols-12 gap-10 py-10">
                   <div className="col-span-3">
                     <p className="eyebrow">사업영역</p>
-                    <p className="mt-3 text-[1.375rem] font-bold leading-snug tracking-[-0.02em]">커뮤니티 공간의 운영 전체를 맡습니다.</p>
+                    <p className="mt-3 text-[1.375rem] font-bold leading-snug tracking-[-0.02em]">커뮤니티를 운영하고,<br />운영 플랫폼을 공급합니다.</p>
                     <Link href="/business" className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
                       사업영역 전체 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
                     </Link>
                   </div>
                   <ul className="col-span-5">
                     {business.map((b, i) => (
-                      <li key={b.href} className="border-b border-line last:border-0">
+                      <li key={b.href} className={cn("border-b border-line last:border-0", b.group !== business[i - 1]?.group && i > 0 && "mt-5")}>
+                        {b.group !== business[i - 1]?.group && <p className="pb-1 text-xs font-bold tracking-[0.08em] text-accent">{groupLabel[b.group]}</p>}
                         <Link
                           href={b.href}
                           onMouseEnter={() => setPreview(i)}
                           onFocus={() => setPreview(i)}
-                          className="group flex items-center gap-4 py-3.5"
+                          className={cn("group flex items-center gap-4", b.group === "support" ? "py-2.5" : "py-3.5")}
                         >
-                          <span className="w-6 text-sm font-semibold text-steel">{b.no}</span>
-                          <span className="flex-1 text-[1.0625rem] font-semibold tracking-[-0.015em] group-hover:text-accent">{b.title}</span>
+                          <span
+                            className={cn(
+                              "flex-1 tracking-[-0.015em] group-hover:text-accent",
+                              b.group === "support" ? "text-[0.9375rem] font-medium text-body" : "text-[1.0625rem] font-semibold",
+                            )}
+                          >
+                            {b.title}
+                          </span>
                           <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
                         </Link>
                       </li>
@@ -247,10 +256,10 @@ function MobileMenu({ onClose, isActive, business }: { onClose: () => void; isAc
               </Link>
               {item.mega === "business" && (
                 <ul className="pb-3">
-                  {business.map((c) => (
+                  {business.map((c, i) => (
                     <li key={c.href}>
+                      {c.group !== business[i - 1]?.group && <p className="pb-1 pl-1 pt-2 text-[11px] font-bold tracking-[0.08em] text-accent">{groupLabel[c.group]}</p>}
                       <Link href={c.href} onClick={onClose} className="flex min-h-11 items-center gap-3 pl-1 text-[0.9375rem] text-body">
-                        <span className="w-5 text-xs font-semibold text-steel">{c.no}</span>
                         {c.title}
                       </Link>
                     </li>

@@ -297,11 +297,11 @@ export const businessAreas: BusinessArea[] = [
     },
   },
   {
-    no: "05",
+    no: "지원",
     slug: "equipment",
     href: "/business/equipment",
-    title: "시설 개선 · 운동기구 · 스크린골프",
-    summary: "헬스기구와 스크린골프를 운영 경험을 바탕으로 구성 · 납품하고, 출입 · 예약 시스템과 함께 설치합니다.",
+    title: "시설 지원 (기구 · 스크린골프)",
+    summary: "보조 서비스 — 운영 중 필요할 때 헬스기구 보강 · 교체와 스크린골프 타석 구축을 운영 경험을 바탕으로 지원합니다.",
     points: ["헬스기구 구성 · 납품", "스크린골프 타석 설치", "설치 후 점검 연계"],
     photo: "business-equipment",
     detail: {

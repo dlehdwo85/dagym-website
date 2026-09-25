@@ -13,8 +13,13 @@
 
 허용 영역: 홈 Hero · 회사소개 · 커뮤니티 운영 장면 · 현장 관리 · 운영회의 · 시설점검 · 운영 데이터 확인 · 직원 교육 · B2B 비주얼.
 
-- 슬롯: `data/photos.ts` 의 `hero-wide`, `visual-*` (provenance `"generated"`). 파일을 넣으면 자동 반영됩니다.
-  - `hero-wide` 가 있으면 홈 첫 화면이 와이드 Hero 로 바뀝니다.
+- 슬롯: `data/photos.ts` 의 `hero-operations`, `visual-*` (provenance `"generated"`). 파일을 넣으면 자동 반영됩니다.
+- 현재 적용 (생성 이미지, WebP):
+  - `public/images/hero/hero-operations-21x9.webp` — 홈 Hero
+  - `public/images/operation/field-inspection.webp` — 운영 방식 · 본사 운영체계 (현장 점검)
+  - `public/images/operation/staff-training.webp` — 운영 방식 · 본사 운영체계 (직원 · 안전 교육)
+  - 해당 영역에는 "운영 방식을 설명하기 위한 연출 이미지" 문구를 함께 표시합니다.
+- 추가 생성은 Hero · Company 이미지 부족, 운영 프로세스 설명에 사진이 반드시 필요한 경우, 페이지 시각 균형이 무너진 경우에만 진행합니다.
 - 금지: 정장 악수 · 일반 회의실 · 노트북만 보는 전형적 스톡 기업 이미지. 장면에서 DAGYM의 업(커뮤니티 운영)이 보여야 합니다.
 
 ## 3. 생성 이미지 표기

@@ -60,24 +60,24 @@ export const photos = {
    * 브랜드 비주얼 (실제 사진이 없으면 생성 이미지 허용 — docs/IMAGE_POLICY.md)
    * 생성 이미지는 provenance: "generated" 로 두고, 실제 현장 · 직원으로 표기하지 않습니다.
    * ------------------------------------------------------------- */
-  "hero-wide": {
-    file: "/images/visual/hero-wide.jpg",
-    subject:
-      "프리미엄 아파트 커뮤니티센터 인포메이션 · 라운지. 운영 담당자 2명이 태블릿으로 시설 이용 현황을 확인하며 동선을 점검. 인물은 오른쪽 1/3, 왼쪽 절반은 텍스트용 여백",
-    size: "2560 × 1440 이상 (16:9 이상 와이드)",
-    ratio: "16:9 또는 21:9",
-    usedIn: "홈 첫 화면 — 파일이 있으면 와이드 Hero 로 자동 전환",
-    alt: "커뮤니티센터 라운지에서 운영 담당자들이 태블릿으로 시설 이용 현황을 확인하는 모습",
-    focus: "70% center",
+  /* 홈 Hero — 생성 이미지 (브랜드 비주얼). 실제 현장 · 직원이 아님. 02 · 05 후보와 비교 후 선정 */
+  "hero-operations": {
+    file: "/images/hero/hero-operations-21x9.webp",
+    subject: "커뮤니티센터 로비. 운영 담당자 2명이 태블릿으로 시설 동선을 확인. 인물 오른쪽, 왼쪽은 텍스트 여백",
+    size: "2560 × 1097 (21:9)",
+    ratio: "21:9",
+    usedIn: "홈 첫 화면 (와이드 Hero)",
+    alt: "커뮤니티센터 로비에서 운영 담당자들이 태블릿으로 시설 동선을 확인하는 장면",
+    focus: "72% center",
     provenance: "generated",
   },
   "visual-site-inspection": {
-    file: "/images/visual/site-inspection.jpg",
-    subject: "운영 담당자가 태블릿을 들고 커뮤니티 헬스장 · GX룸 시설을 점검하는 장면",
+    file: "/images/operation/field-inspection.webp",
+    subject: "GX룸에서 운영 담당자가 태블릿을 들고 시설을 점검하고, 직원이 거울 · 설비 상태를 확인하는 장면",
     size: "2000 × 1500 이상",
     ratio: "4:3",
     usedIn: "홈 사업 구조 · 본사 운영체계",
-    alt: "운영 담당자가 태블릿으로 커뮤니티 시설을 점검하는 모습",
+    alt: "GX룸에서 태블릿을 든 운영 담당자와 설비를 확인하는 직원 (연출 이미지)",
     provenance: "generated",
   },
   "visual-ops-meeting": {
@@ -108,12 +108,12 @@ export const photos = {
     provenance: "generated",
   },
   "visual-staff-training": {
-    file: "/images/visual/staff-training.jpg",
-    subject: "커뮤니티 GX룸에서 트레이너 · 안내 인력 대상 안전 · 서비스 교육이 진행되는 장면",
+    file: "/images/operation/staff-training.webp",
+    subject: "운동 공간에서 운영 인력 대상 CPR 안전 교육이 진행되는 장면",
     size: "2000 × 1500 이상",
     ratio: "4:3",
     usedIn: "본사 운영체계",
-    alt: "커뮤니티 운영 인력 교육 장면",
+    alt: "운영 인력 대상 CPR 안전 교육 장면 (연출 이미지)",
     provenance: "generated",
   },
   "home-apartment": {

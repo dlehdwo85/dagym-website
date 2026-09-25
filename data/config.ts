@@ -19,7 +19,7 @@ export const siteConfig = {
   title: "다짐 DAGYM | 아파트 커뮤니티 · 스포츠시설 위탁운영",
   shortTitle: "DAGYM",
   description:
-    "주식회사 다짐은 아파트 · 기업 · 호텔의 커뮤니티 시설과 스포츠시설을 현장 인력이 직접 운영하고, 자체 시스템 HILINK로 출입 · 예약 · 회원을 관리하는 커뮤니티 운영 회사입니다.",
+    "주식회사 다짐은 아파트 · 기업 · 호텔의 커뮤니티 시설과 스포츠시설을 전문 인력과 본사 운영체계로 직접 운영하고, 자체 커뮤니티 운영 플랫폼 HILINK를 구축 · 공급하는 커뮤니티 운영 전문기업입니다.",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dagym1.com").replace(/\/$/, ""),
   locale: "ko_KR",
   tagline: "운영과 기술을 하나로.",
@@ -54,7 +54,7 @@ export const company = {
   founded: TODO_VERIFY as Verifiable<string>,
   businessHours: TODO_VERIFY as Verifiable<string>, // 예: "평일 09:00 – 18:00 (주말·공휴일 휴무)"
   /** 사업 영역 */
-  domains: ["아파트 · 기업 · 호텔 커뮤니티 운영", "회원관리 · 출입 시스템 HILINK", "헬스기구 · 스크린골프 납품"],
+  domains: ["아파트 · 기업 · 호텔 커뮤니티 전문 위탁운영", "커뮤니티 운영 플랫폼 HILINK 구축 · 납품"],
   social: {
     instagram: TODO_VERIFY as Verifiable<string>,
     blog: TODO_VERIFY as Verifiable<string>,
