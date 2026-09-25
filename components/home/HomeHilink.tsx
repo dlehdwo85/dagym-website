@@ -1,23 +1,20 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
+/** HILINK — 운영을 지원하는 기술로 한 줄 소개. 기능 설명은 HILINK 페이지로. */
 export function HomeHilink() {
   return (
-    <section className="section-y bg-paper" aria-labelledby="home-hilink-title">
-      <div className="container-x grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-20">
+    <section className="border-t border-line bg-white py-14 lg:py-20" aria-labelledby="home-hilink-title">
+      <div className="container-x flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <p className="t-label text-brand">HILINK</p>
-          <h2 id="home-hilink-title" className="t-h2 mt-3">운영에 필요한 기술도<br />다짐이 직접 만듭니다.</h2>
-          <p className="mt-5 max-w-xl text-body">출입, 예약, 이용료 정산까지 하나의 시스템으로 관리합니다.</p>
-          <Link href="/hilink" className="mt-8 inline-flex items-center gap-2 font-semibold text-brand hover:text-brand-dark">HILINK 자세히 보기 <ArrowUpRight className="size-5" aria-hidden /></Link>
+          <p className="t-label text-navy">HILINK</p>
+          <h2 id="home-hilink-title" className="t-h3 mt-2">
+            출입 · 예약 · 이용료 정산은 다짐의 운영 시스템 HILINK로 관리합니다.
+          </h2>
         </div>
-        <div className="grid grid-cols-3 gap-2 sm:gap-4" aria-label="HILINK 주요 기능">
-          {["출입", "예약", "정산"].map((name, index) => (
-            <div key={name} className="flex aspect-square items-end border border-line bg-white p-4 sm:p-6">
-              <span className="text-base font-semibold sm:text-xl"><span className="mb-2 block text-xs text-brand">0{index + 1}</span>{name}</span>
-            </div>
-          ))}
-        </div>
+        <Link href="/hilink" className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-ink hover:text-muted">
+          HILINK 알아보기 <ArrowRight className="size-4" aria-hidden />
+        </Link>
       </div>
     </section>
   );

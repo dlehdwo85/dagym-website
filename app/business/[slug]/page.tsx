@@ -110,8 +110,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
       {b.slug === "apartment-community" && (
         <FacilityMedia
           id="apt-facility-media"
-          title={"단지 커뮤니티의\n모든 시설을 맡습니다."}
-          description="헬스장과 골프연습장뿐 아니라 수영장, GX룸, 카페, 작은도서관, 게스트하우스까지 운영 범위에 포함됩니다."
+          title="운영하는 시설"
         />
       )}
 

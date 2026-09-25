@@ -59,7 +59,7 @@ export function VideoPlayer({ mode, src, poster, title, className, sizes = "(min
         <button type="button" onClick={start} className="group absolute inset-0 text-left" aria-label={`${title} 영상 재생`}>
           {mode === "embed" && <Image src={poster} alt="" fill sizes={sizes} className="object-cover" />}
           <span className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" aria-hidden />
-          <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-ink shadow-lg transition-transform group-hover:scale-105">
+          <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-ink shadow-lg">
             <Play className="ml-1 size-6 fill-current" aria-hidden />
           </span>
         </button>

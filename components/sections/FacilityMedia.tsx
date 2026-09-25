@@ -6,17 +6,15 @@ import { videos, type VideoId } from "@/data/videos";
 import { hasPhoto, showPhotoSlots } from "@/lib/photos";
 import { getPlayableVideo } from "@/lib/videos";
 import { cn } from "@/lib/cn";
-import { Reveal } from "@/components/ui/Reveal";
 
 /** 커뮤니티 복합시설 구성 — 한 시설당 사진 또는 영상 하나 (같은 시설 반복 없음) */
+// 수영장(출처 불분명 · 초광각 배너)과 게스트하우스(275px 저해상도)는 품질 · 출처 문제로 제외
 const facilityMedia: { name: string; photo: PhotoId; video?: VideoId }[] = [
-  { name: "수영장", photo: "facility-pool" },
   { name: "헬스장", photo: "facility-fitness", video: "video-fitness" },
+  { name: "필라테스 · GX", photo: "facility-gx", video: "video-gx" },
   { name: "골프연습장", photo: "facility-golf", video: "video-golf" },
-  { name: "GX룸", photo: "facility-gx", video: "video-gx" },
   { name: "카페", photo: "facility-cafe", video: "video-cafe" },
-  { name: "작은도서관", photo: "facility-library", video: "video-library" },
-  { name: "게스트하우스", photo: "facility-guesthouse", video: "video-guesthouse" },
+  { name: "독서실", photo: "facility-library", video: "video-library" },
 ];
 
 function Caption({ name, isVideo, siteName }: { name: string; isVideo: boolean; siteName?: string }) {
@@ -48,27 +46,26 @@ export function FacilityMedia({ title, description, id }: { title: string; descr
   const realCount = items.filter((i) => i.kind !== "slot").length;
   if (!showPhotoSlots && realCount < 3) return null;
   if (items.length === 0) return null;
-  // 4열 그리드에서 마지막 줄이 비지 않도록, 개수가 4n+3 이면 첫 타일을 2칸으로
-  const featureFirst = items.length % 4 === 3;
+  // 원본 해상도(약 1000px)를 넘겨 확대하지 않도록 모든 타일을 같은 크기로 배치
+  const featureFirst = false;
 
   return (
     <section className="section-y bg-white" aria-labelledby={id}>
       <div className="container-x">
         <div className="max-w-3xl">
-          <p className="t-label text-brand">운영 시설</p>
-          <h2 id={id} className="t-h2 mt-3 sm:whitespace-pre-line">
+          <h2 id={id} className="t-h2 sm:whitespace-pre-line">
             {title}
           </h2>
           {description && <p className="t-lead mt-5 text-body">{description}</p>}
         </div>
-        <ul className="mt-12 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => {
             const big = featureFirst && i === 0;
-            const aspect = big ? "aspect-[4/3] sm:aspect-[2.75/1] lg:aspect-[2.85/1]" : "aspect-[4/3]";
+            const aspect = big ? "aspect-[4/3] sm:aspect-[2.75/1]" : "aspect-[4/3]";
             const photoSlot: PhotoSlot = photos[it.photo];
             const siteName = photoSlot.provenance === "dagym-site" ? photoSlot.siteName : undefined;
             return (
-              <Reveal as="li" key={it.name} delay={(i % 4) * 70} className={cn(big && "sm:col-span-2")}>
+              <li key={it.name} className={cn(big && "sm:col-span-2")}>
                 <figure>
                   {it.kind === "video" && (
                     <VideoPlayer
@@ -79,7 +76,7 @@ export function FacilityMedia({ title, description, id }: { title: string; descr
                       className={aspect}
                     />
                   )}
-                  {it.kind === "photo" && <Photo id={it.photo} className={cn("visual-frame", aspect)} />}
+                  {it.kind === "photo" && <Photo id={it.photo} className={aspect} />}
                   {it.kind === "slot" && (
                     <div
                       data-photo-slot={it.photo}
@@ -98,7 +95,7 @@ export function FacilityMedia({ title, description, id }: { title: string; descr
                   )}
                   <Caption name={it.name} isVideo={it.kind === "video"} siteName={siteName} />
                 </figure>
-              </Reveal>
+              </li>
             );
           })}
         </ul>
