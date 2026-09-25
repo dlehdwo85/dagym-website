@@ -6,31 +6,38 @@ import { photoRef } from "@/lib/photos";
 import { cn } from "@/lib/cn";
 
 /**
- * 첫 화면 — 와이드 Hero
- * 텍스트는 왼쪽, 인물 · 주요 피사체는 오른쪽 (이미지는 data/corporate.ts homeHero.image).
- * 데스크톱: 이미지 전체 배경 + 왼쪽 그라데이션 / 모바일 · 태블릿: 이미지 위, 텍스트 아래.
+ * 첫 화면 Hero — 텍스트는 왼쪽 (이미지 · 배치는 data/corporate.ts homeHero.image · layout)
+ * split: 데스크톱에서 오른쪽 약 절반을 공간 사진 패널로 / wide: 이미지 전체 배경 + 왼쪽 그라데이션.
+ * 모바일 · 태블릿은 두 방식 모두 이미지 위, 텍스트 아래.
  * 이미지는 생성 브랜드 비주얼이므로 실제 현장 · 직원으로 표기하지 않습니다.
  */
 export function Hero() {
   const image = photoRef(homeHero.image) ?? photoRef("facility-fitness");
   const dark = homeHero.tone === "dark";
+  const split = homeHero.layout === "split";
   return (
     <section className={cn("pt-16 lg:pt-[4.75rem]", dark ? "bg-navy-deep" : "bg-white")} aria-labelledby="hero-title">
       <div className="relative">
         {image && (
-          <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:absolute lg:inset-0 lg:aspect-auto">
+          <div
+            className={cn(
+              "relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:absolute lg:aspect-auto",
+              split ? "lg:inset-y-0 lg:right-0 lg:w-[50%]" : "lg:inset-0",
+            )}
+          >
             <Image
               src={image.src}
               alt={image.alt}
               fill
               priority
-              sizes="100vw"
+              sizes={split ? "(min-width: 1024px) 50vw, 100vw" : "100vw"}
               className="object-cover"
               style={{ objectPosition: image.focus ?? "70% center" }}
             />
             <div
               className={cn(
-                "absolute inset-0 hidden lg:block",
+                "absolute inset-0 hidden",
+                !split && "lg:block",
                 dark
                   ? "bg-[linear-gradient(90deg,rgba(12,34,66,0.92)_0%,rgba(12,34,66,0.7)_34%,rgba(12,34,66,0)_60%)]"
                   : "bg-[linear-gradient(90deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.72)_30%,rgba(255,255,255,0)_56%)]",
@@ -40,7 +47,7 @@ export function Hero() {
           </div>
         )}
         <div className="container-x relative lg:flex lg:min-h-[min(84vh,52vw)] lg:items-center">
-          <Reveal className="max-w-[36rem] py-12 sm:py-14 lg:py-24">
+          <Reveal className={cn("py-12 sm:py-14 lg:py-24", split ? "max-w-[36rem] lg:max-w-[44%]" : "max-w-[36rem]")}>
             <p className={cn("label-en font-semibold tracking-[0.14em]", dark ? "text-[#9fb6d8]" : "text-accent")}>{homeHero.eyebrow}</p>
             <h1 id="hero-title" className={cn("t-hero mt-5 whitespace-pre-line", dark ? "text-white" : "text-navy")}>
               {homeHero.title}

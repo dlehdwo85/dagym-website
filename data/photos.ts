@@ -60,15 +60,15 @@ export const photos = {
    * 브랜드 비주얼 (실제 사진이 없으면 생성 이미지 허용 — docs/IMAGE_POLICY.md)
    * 생성 이미지는 provenance: "generated" 로 두고, 실제 현장 · 직원으로 표기하지 않습니다.
    * ------------------------------------------------------------- */
-  /* 홈 Hero — 생성 이미지 (브랜드 비주얼). 실제 현장 · 직원이 아님. 02 · 05 후보와 비교 후 선정 */
-  "hero-operations": {
-    file: "/images/hero/hero-operations-21x9.webp",
-    subject: "커뮤니티센터 로비. 운영 담당자 2명이 태블릿으로 시설 동선을 확인. 인물 오른쪽, 왼쪽은 텍스트 여백",
-    size: "2560 × 1097 (21:9)",
-    ratio: "21:9",
-    usedIn: "홈 첫 화면 (와이드 Hero)",
-    alt: "커뮤니티센터 로비에서 운영 담당자들이 태블릿으로 시설 동선을 확인하는 장면",
-    focus: "72% center",
+  /* 홈 Hero — 생성 이미지 (브랜드 비주얼)에서 인물이 없는 공간 부분만 잘라 사용. 실제 현장이 아님 */
+  "hero-community-space": {
+    file: "/images/hero/hero-community-space.webp",
+    subject: "커뮤니티센터 인포메이션 데스크 · 출입 게이트 · 유리 너머 피트니스. 인물 없이 공간만",
+    size: "1010 × 1520",
+    ratio: "2:3 (세로)",
+    usedIn: "홈 첫 화면 (분할 Hero 오른쪽)",
+    alt: "커뮤니티센터 인포메이션 데스크와 유리 너머 피트니스 공간",
+    focus: "50% 40%",
     provenance: "generated",
   },
   "visual-site-inspection": {

@@ -41,7 +41,9 @@ export const homeHero = {
   title: "공간을 운영하고,\n운영을 시스템으로 연결합니다.",
   sub: "아파트 커뮤니티 전문 운영부터\n자체 플랫폼 HILINK 구축까지.",
   /** 와이드 Hero 이미지 (생성 브랜드 비주얼 — 실제 현장 아님) */
-  image: "hero-operations" as PhotoId,
+  image: "hero-community-space" as PhotoId,
+  /** split: 텍스트 왼쪽 · 공간 사진 오른쪽 패널 / wide: 전체 배경 */
+  layout: "split" as "split" | "wide",
   tone: "light" as "light" | "dark",
   ctas: [
     { label: "커뮤니티 운영", href: "/business" },

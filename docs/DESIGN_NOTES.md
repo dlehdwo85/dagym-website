@@ -10,9 +10,11 @@ Hero → 핵심사업 2개 → 운영실적(12개 단지) → 커뮤니티 운�
 
 ## V5 Hero
 - 카피: COMMUNITY OPERATION & PLATFORM / 공간을 운영하고, 운영을 시스템으로 연결합니다. / CTA 커뮤니티 운영 · HILINK.
-- 이미지: `public/images/hero/hero-operations-21x9.webp` (생성 브랜드 비주얼, 21:9). 16:9 커뮤니티센터 · 16:9 다크 코퍼레이트 후보와 1440 · 1280 · 768 · 390 에서 비교 후 선정
-  (다크 후보는 도면이 분양 광고처럼 보이고 1344px 로 해상도 부족, 커뮤니티센터 후보는 텍스트 뒤 배경이 복잡).
-- 교체: `homeHero.image` · `homeHero.tone`("dark" 지원).
+- 이미지: `public/images/hero/hero-community-space.webp` — 인물 없이 공간만 (인포메이션 데스크 · 출입 게이트 · 유리 너머 피트니스).
+  생성 브랜드 비주얼(16:9 커뮤니티센터)에서 인물이 없는 왼쪽 영역만 잘라 사용. 인물 중심 이미지는 사용자 검토 후 제외.
+- 배치: `layout: "split"` — 데스크톱은 텍스트 왼쪽 · 공간 사진 오른쪽 절반, 모바일 · 태블릿은 사진 위 · 텍스트 아래.
+  21:9 이상 인물 없는 와이드 이미지를 확보하면 `layout: "wide"` 로 전체 배경 Hero 사용 가능.
+- 교체: `homeHero.image` · `homeHero.layout` · `homeHero.tone`("dark" 지원).
 
 
 
