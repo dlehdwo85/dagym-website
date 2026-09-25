@@ -27,7 +27,8 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Portfolio"
+        eyebrow="운영실적"
+        en="Track record"
         title={hasProjects ? "다짐이 운영하는 현장" : "다짐이 운영하는 시설"}
         description={
           hasProjects

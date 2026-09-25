@@ -99,4 +99,7 @@ export const brandAssets: {
   dagym?: { src: string; width: number; height: number };
   dagymWhite?: { src: string; width: number; height: number };
   hilink?: { src: string; width: number; height: number };
-} = {};
+} = {
+  // HILINK 공식 로고 (HILINK 사이트 공개 자산)
+  hilink: { src: "/images/brand/hilink-logo.png", width: 304, height: 48 },
+};

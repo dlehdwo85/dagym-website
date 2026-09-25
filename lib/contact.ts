@@ -1,12 +1,14 @@
 /** 문의폼 스키마 · 검증 — 클라이언트와 API Route 에서 동일하게 사용합니다. */
 
 export const inquiryTypes = [
+  { value: "proposal", label: "운영 제안 문의 (위탁운영)" },
+  { value: "diagnosis", label: "현장 진단 문의" },
   { value: "apartment", label: "아파트 커뮤니티 위탁운영" },
   { value: "sports", label: "스포츠시설 위탁운영" },
   { value: "hilink", label: "HILINK 도입" },
   { value: "new-community", label: "신규 커뮤니티 구축" },
   { value: "consulting", label: "운영 컨설팅" },
-  { value: "equipment", label: "기구 납품" },
+  { value: "equipment", label: "시설 개선 · 기구 · 스크린골프" },
   { value: "etc", label: "기타" },
 ] as const;
 
@@ -55,6 +57,8 @@ export const organizationRoles = [
   "기타",
 ] as const;
 
+export const operationModes = ["입주 전 (운영 미정)", "직영 운영", "타 운영사 위탁", "일부 시설만 위탁", "운영 중단 · 미운영", "기타"] as const;
+
 export type ContactPayload = {
   type: string;
   organization: string;
@@ -65,6 +69,8 @@ export type ContactPayload = {
   region: string;
   facilities: string[];
   scale: string;
+  /** 현재 운영 방식 */
+  currentOperation: string;
   message: string;
   privacy: boolean;
   /** 스팸 방지용 honeypot — 사람이 입력하지 않는 필드 */

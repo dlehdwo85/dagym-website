@@ -50,6 +50,7 @@ export async function POST(request: Request) {
     region: str(body.region),
     facilities: Array.isArray(body.facilities) ? body.facilities.filter((f): f is string => typeof f === "string").slice(0, 20) : [],
     scale: str(body.scale),
+    currentOperation: str(body.currentOperation),
     message: str(body.message, 3000),
   };
 

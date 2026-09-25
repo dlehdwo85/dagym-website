@@ -1,5 +1,5 @@
 import { ButtonLink } from "@/components/ui/Button";
-import { MaskText } from "@/components/motion/MaskText";
+import { Reveal } from "@/components/motion/Reveal";
 
 type Props = {
   eyebrow?: string;
@@ -9,24 +9,26 @@ type Props = {
   secondary?: { label: string; href: string };
 };
 
-/** 페이지 하단 상담 안내 — 풀폭 다크, 큰 타이포그래피 */
+/** 페이지 하단 문의 — 입찰 · 운영 상담 전환 */
 export function CTASection({
-  eyebrow = "Let's operate together",
-  title = "운영을 맡길 공간이\n있으신가요?",
-  description = "단지명, 세대수, 운영 중인 시설과 현재 운영 방식을 알려주시면 현장 확인 후 운영안을 제안해 드립니다.",
-  primary = { label: "운영 문의하기", href: "/contact" },
-  secondary = { label: "HILINK 알아보기", href: "/hilink" },
+  eyebrow = "운영 문의",
+  title = "운영을 맡길 공간이 있다면,\n현장부터 확인하겠습니다.",
+  description = "단지명 · 세대수 · 운영 시설과 현재 운영 방식을 알려주시면 현장을 진단하고 운영안을 제안드립니다.",
+  primary = { label: "운영 제안 문의", href: "/contact?type=proposal" },
+  secondary = { label: "현장 진단 문의", href: "/contact?type=diagnosis" },
 }: Props) {
   return (
-    <section className="bg-charcoal text-white" aria-labelledby="cta-title">
-      <div className="container-x grid gap-12 py-24 lg:grid-cols-12 lg:items-end lg:py-36">
-        <div className="lg:col-span-8">
-          <p className="eyebrow text-white/45">{eyebrow}</p>
-          <MaskText id="cta-title" text={title} className="t-section mt-6" />
+    <section className="bg-navy text-white" aria-labelledby="cta-title">
+      <Reveal className="container-x grid gap-10 py-20 lg:grid-cols-12 lg:items-end lg:py-28">
+        <div className="lg:col-span-7">
+          <p className="eyebrow !text-[#9dbcf0]">{eyebrow}</p>
+          <h2 id="cta-title" className="t-section mt-4 sm:whitespace-pre-line">
+            {title}
+          </h2>
         </div>
-        <div className="lg:col-span-4">
-          <p className="t-body text-white/65">{description}</p>
-          <div className="mt-8 flex flex-col gap-3 xs:flex-row lg:flex-col xl:flex-row">
+        <div className="lg:col-span-5">
+          <p className="t-body text-white/75">{description}</p>
+          <div className="mt-8 flex flex-col gap-3 xs:flex-row">
             <ButtonLink href={primary.href} variant="white" size="lg">
               {primary.label}
             </ButtonLink>
@@ -37,7 +39,7 @@ export function CTASection({
             )}
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

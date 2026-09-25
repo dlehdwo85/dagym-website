@@ -4,10 +4,9 @@ import "@fontsource-variable/inter/wght.css";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { businessAreas } from "@/data/business";
-import { businessStory } from "@/data/showroom";
 import { photos } from "@/data/photos";
+import { businessPhoto } from "@/data/corporate";
 import { hasPhoto } from "@/lib/photos";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { siteConfig } from "@/data/config";
@@ -40,21 +39,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d0e10",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const megaBusiness = businessAreas.map((b) => {
-    const story = businessStory[b.slug];
-    const photo = story && hasPhoto(story.photo) ? photos[story.photo] : undefined;
+    const photoId = businessPhoto[b.slug];
+    const photo = photoId && hasPhoto(photoId) ? photos[photoId] : undefined;
     return {
       href: b.href,
       no: b.no,
       title: b.title,
-      en: story?.en ?? "",
-      line: story?.line ?? b.summary,
+      en: "",
+      line: b.summary,
       image: photo ? { src: photo.file, alt: photo.alt } : undefined,
     };
   });
@@ -63,7 +62,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" suppressHydrationWarning>
       <body className="min-h-dvh bg-white">
         <JsonLd data={organizationJsonLd()} />
-        <ScrollProgress />
         <Header business={megaBusiness} />
         <main id="main">{children}</main>
         <Footer />

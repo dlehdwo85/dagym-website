@@ -44,7 +44,7 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <PageHero eyebrow="Privacy" compact title="개인정보처리방침" breadcrumbs={[{ name: "개인정보처리방침", path: "/privacy" }]} />
+      <PageHero eyebrow="개인정보처리방침" compact title="개인정보처리방침" breadcrumbs={[{ name: "개인정보처리방침", path: "/privacy" }]} />
       <section className="bg-white py-16 lg:py-24">
         <div className="container-x">
           <div className="mx-auto max-w-3xl">

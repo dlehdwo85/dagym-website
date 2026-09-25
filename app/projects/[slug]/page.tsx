@@ -25,18 +25,18 @@ export function generateStaticParams() {
   return publishedProjects.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/project/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) return {};
-  return pageMetadata({ title: `${p.name} — 운영 사례`, description: p.summary, path: `/project/${p.slug}` });
+  return pageMetadata({ title: `${p.name} — 운영 사례`, description: p.summary, path: `/projects/${p.slug}` });
 }
 
 function Block({ eyebrow, title, children, id }: { eyebrow: string; title: string; children: React.ReactNode; id: string }) {
   return (
     <section className="border-t border-line py-16 lg:grid lg:grid-cols-12 lg:gap-10 lg:py-24" aria-labelledby={id}>
       <div className="lg:col-span-4">
-        <p className="eyebrow text-steel">{eyebrow}</p>
+        <p className="label-en text-steel">{eyebrow}</p>
         <h2 id={id} className="t-h2 mt-4">
           {title}
         </h2>
@@ -58,7 +58,7 @@ function Lines({ items }: { items: string[] }) {
   );
 }
 
-export default async function ProjectCasePage({ params }: PageProps<"/project/[slug]">) {
+export default async function ProjectCasePage({ params }: PageProps<"/projects/[slug]">) {
   const { slug } = await params;
   const p = getProject(slug);
   if (!p) notFound();
@@ -82,10 +82,10 @@ export default async function ProjectCasePage({ params }: PageProps<"/project/[s
         data={breadcrumbJsonLd([
           { name: "홈", path: "/" },
           { name: "운영사례", path: "/projects" },
-          { name: p.name, path: `/project/${p.slug}` },
+          { name: p.name, path: `/projects/${p.slug}` },
         ])}
       />
-      <PageHero eyebrow={`Case Study · ${categoryLabel[p.category]}`} title={p.name} description={p.summary}>
+      <PageHero eyebrow={`운영실적 · ${categoryLabel[p.category]}`} title={p.name} description={p.summary}>
         {p.cover && (
           <div className="container-x pb-16">
             <ClipReveal className="aspect-[16/9] max-h-[80vh]">
@@ -101,7 +101,7 @@ export default async function ProjectCasePage({ params }: PageProps<"/project/[s
             .filter(([, v]) => v)
             .map(([k, v]) => (
               <div key={k} className="border-t border-ink py-5">
-                <p className="eyebrow text-steel">{k}</p>
+                <p className="label-en text-steel">{k}</p>
                 <p className="mt-3 font-semibold">{v}</p>
               </div>
             ))}
@@ -124,8 +124,13 @@ export default async function ProjectCasePage({ params }: PageProps<"/project/[s
           </Block>
         )}
         {p.challenge && p.challenge.length > 0 && (
-          <Block eyebrow="Challenge" title="운영 전 과제" id="pf-challenge">
+          <Block eyebrow="Before" title="운영 전 상태" id="pf-challenge">
             <Lines items={p.challenge} />
+          </Block>
+        )}
+        {p.diagnosis && p.diagnosis.length > 0 && (
+          <Block eyebrow="Diagnosis" title="현장 진단" id="pf-diagnosis">
+            <Lines items={p.diagnosis} />
           </Block>
         )}
         {p.solutions.length > 0 && (
@@ -140,6 +145,16 @@ export default async function ProjectCasePage({ params }: PageProps<"/project/[s
             </dl>
           </Block>
         )}
+        {p.operationalChanges && p.operationalChanges.length > 0 && (
+          <Block eyebrow="Operation" title="운영 변화" id="pf-operation">
+            <Lines items={p.operationalChanges} />
+          </Block>
+        )}
+        {p.facilityImprovement && p.facilityImprovement.length > 0 && (
+          <Block eyebrow="Facility" title="시설 개선" id="pf-facility">
+            <Lines items={p.facilityImprovement} />
+          </Block>
+        )}
         {p.hilink && p.hilinkScope && p.hilinkScope.length > 0 && (
           <Block eyebrow="HILINK" title="적용한 시스템" id="pf-hilink">
             <Lines items={p.hilinkScope} />
@@ -151,7 +166,7 @@ export default async function ProjectCasePage({ params }: PageProps<"/project/[s
       </div>
 
       {p.gallery && p.gallery.length > 0 && (
-        <section aria-label="현장 사진" className="bg-night py-16 lg:py-24">
+        <section aria-label="현장 사진" className="bg-navy-deep py-16 lg:py-24">
           <ul className="container-x grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {p.gallery.map((g, i) => (
               <li key={g} className={i === 0 ? "sm:col-span-2" : undefined}>
@@ -173,10 +188,10 @@ export default async function ProjectCasePage({ params }: PageProps<"/project/[s
       )}
 
       {next && (
-        <Link href={`/project/${next.slug}`} className="group block bg-charcoal text-white">
+        <Link href={`/projects/${next.slug}`} className="group block bg-navy text-white">
           <Reveal className="container-x flex items-end justify-between gap-6 py-20 lg:py-28">
             <div>
-              <p className="eyebrow text-white/45">Next project</p>
+              <p className="label-en text-white/50">Related project</p>
               <p className="t-h1 mt-4">{next.name}</p>
             </div>
             <ArrowRight className="btn-arrow size-10 shrink-0" strokeWidth={1} aria-hidden />

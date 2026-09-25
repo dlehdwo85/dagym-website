@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: path === "" ? 1 : path === "/contact" ? 0.9 : 0.8,
     })),
     ...businessAreas.map((b) => ({ url: `${siteConfig.url}${b.href}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.9 })),
-    ...projects.map((p) => ({ url: `${siteConfig.url}/project/${p.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 })),
+    ...projects.map((p) => ({ url: `${siteConfig.url}/projects/${p.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 })),
     ...posts.map((p) => ({ url: `${siteConfig.url}/insight/${p.slug}`, lastModified: new Date(p.date), changeFrequency: "yearly" as const, priority: 0.4 })),
   ];
 }

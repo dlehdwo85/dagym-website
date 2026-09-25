@@ -9,7 +9,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const facilityNames = project.facilities.map((k) => getFacility(k)?.ko).filter(Boolean);
   return (
     <article>
-      <Link href={`/project/${project.slug}`} className="group block">
+      <Link href={`/projects/${project.slug}`} className="group block">
         {project.cover && (
           <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-mist">
             <Image

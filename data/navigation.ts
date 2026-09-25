@@ -16,29 +16,32 @@ export const mainNav: NavItem[] = [
     mega: "business",
     children: businessAreas.map((b) => ({ label: b.title, href: b.href })),
   },
+  { label: "운영 개선", en: "Transformation", href: "/cases" },
   { label: "HILINK", en: "Platform", href: "/hilink", mega: "hilink" },
-  ...(hasProjects ? [{ label: "운영사례", en: "Portfolio", href: "/projects" }] : []),
+  ...(hasProjects ? [{ label: "운영실적", en: "Track record", href: "/projects" }] : []),
   { label: "인사이트", en: "Insight", href: "/insight" },
 ];
 
 export const footerNav: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Business",
+    title: "사업영역",
     links: businessAreas.map((b) => ({ label: b.title, href: b.href })),
   },
   {
-    title: "Company",
+    title: "회사",
     links: [
       { label: "회사소개", href: "/company" },
+      { label: "운영 개선 사례", href: "/cases" },
       { label: "HILINK", href: "/hilink" },
-      ...(hasProjects ? [{ label: "운영사례", href: "/projects" }] : []),
+      ...(hasProjects ? [{ label: "운영실적", href: "/projects" }] : []),
       { label: "공지 · 자주 묻는 질문", href: "/insight" },
     ],
   },
   {
-    title: "Contact",
+    title: "문의",
     links: [
-      { label: "운영 문의하기", href: "/contact" },
+      { label: "운영 제안 문의", href: "/contact?type=proposal" },
+      { label: "현장 진단 문의", href: "/contact?type=diagnosis" },
       { label: "HILINK 도입 문의", href: "/contact?type=hilink" },
     ],
   },

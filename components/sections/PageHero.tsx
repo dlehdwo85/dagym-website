@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { MaskText } from "@/components/motion/MaskText";
 import { Reveal } from "@/components/motion/Reveal";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import { cn } from "@/lib/cn";
@@ -8,40 +8,39 @@ import { cn } from "@/lib/cn";
 type Crumb = { name: string; path: string };
 
 type Props = {
-  /** 영문 대문자 라벨 */
+  /** 한글 소제목 */
   eyebrow?: string;
-  /** 큰 영문 디스플레이 (선택) */
-  display?: string;
+  /** 보조 영문 라벨 */
+  en?: string;
   title: string;
   description?: React.ReactNode;
   breadcrumbs?: Crumb[];
   actions?: React.ReactNode;
-  /** 오른쪽 또는 하단 비주얼 */
+  /** 오른쪽 비주얼 */
   aside?: React.ReactNode;
-  tone?: "night" | "navy";
   compact?: boolean;
   children?: React.ReactNode;
 };
 
-/** 서브페이지 상단 — 어두운 배경 · 큰 제목 (헤더가 투명 상태로 겹침) */
-export function PageHero({ eyebrow, display, title, description, breadcrumbs, actions, aside, tone = "night", compact, children }: Props) {
+/** 서브페이지 상단 — 옅은 쿨 그레이 배경, 한글 제목 중심 */
+export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions, aside, compact, children }: Props) {
   const crumbs = breadcrumbs ? [{ name: "홈", path: "/" }, ...breadcrumbs] : undefined;
   return (
-    <section className={cn("relative overflow-hidden text-white", tone === "navy" ? "bg-navy-deep" : "bg-night")}>
+    <section className="border-b border-line bg-mist">
       {crumbs && <JsonLd data={breadcrumbJsonLd(crumbs)} />}
-      <div className={cn("container-x relative", compact ? "pb-16 pt-32 lg:pb-20 lg:pt-44" : "pb-20 pt-36 lg:pb-28 lg:pt-52")}>
+      <div className={cn("container-x", compact ? "pb-12 pt-28 lg:pb-16 lg:pt-36" : "pb-16 pt-28 lg:pb-24 lg:pt-40")}>
         {crumbs && (
-          <nav aria-label="현재 위치" className="mb-10">
-            <ol className="flex flex-wrap items-center gap-2 font-display text-xs uppercase tracking-[0.14em] text-white/40">
+          <nav aria-label="현재 위치" className="mb-8">
+            <ol className="flex flex-wrap items-center gap-1 text-sm text-muted">
               {crumbs.map((c, i) => (
-                <li key={c.path} className="flex items-center gap-2">
-                  {i > 0 && <span aria-hidden>/</span>}
+                <li key={c.path} className="flex items-center gap-1">
+                  {i > 0 && <ChevronRight className="size-3.5" aria-hidden />}
                   {i === crumbs.length - 1 ? (
-                    <span aria-current="page" className="text-white/75">
+                    <span aria-current="page" className="text-ink">
                       {c.name}
                     </span>
                   ) : (
-                    <Link href={c.path} className="hover:text-white">
+                    <Link href={c.path} className="hover:text-navy">
                       {c.name}
                     </Link>
                   )}
@@ -50,23 +49,19 @@ export function PageHero({ eyebrow, display, title, description, breadcrumbs, ac
             </ol>
           </nav>
         )}
-        <div className={cn(!!aside && "grid gap-14 lg:grid-cols-12 lg:items-end")}>
-          <div className={cn(!!aside && "lg:col-span-7")}>
-            {eyebrow && <p className="eyebrow text-signal">{eyebrow}</p>}
-            {display && <p className="display mt-6 whitespace-pre-line text-[3rem] text-white/95 sm:text-[5rem] lg:text-[7.5rem]" aria-hidden>{display}</p>}
-            <MaskText as="h1" immediate text={title} className={cn("t-h1", display ? "mt-8" : "mt-6")} />
-            {description && (
-              <Reveal delay={0.25}>
-                <p className="t-lead mt-8 max-w-2xl text-white/70">{description}</p>
-              </Reveal>
+        <div className={cn(!!aside && "grid gap-12 lg:grid-cols-12 lg:items-center")}>
+          <Reveal className={cn(aside ? "lg:col-span-6" : "max-w-4xl")}>
+            {(eyebrow || en) && (
+              <p className="flex items-center gap-3">
+                {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+                {en && <span className="label-en text-steel">{en}</span>}
+              </p>
             )}
-            {actions && (
-              <Reveal delay={0.35}>
-                <div className="mt-10 flex flex-col gap-3 xs:flex-row">{actions}</div>
-              </Reveal>
-            )}
-          </div>
-          {aside && <div className="lg:col-span-5">{aside}</div>}
+            <h1 className="t-h1 mt-4 sm:whitespace-pre-line">{title}</h1>
+            {description && <p className="t-lead mt-6 max-w-2xl text-body">{description}</p>}
+            {actions && <div className="mt-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">{actions}</div>}
+          </Reveal>
+          {aside && <div className="lg:col-span-6">{aside}</div>}
         </div>
       </div>
       {children}
