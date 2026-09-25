@@ -1,26 +1,26 @@
+import { MaskText } from "@/components/motion/MaskText";
 import { cn } from "@/lib/cn";
 
 type Props = {
+  /** 영문 대문자 라벨 */
+  eyebrow?: string;
+  /** 이전 버전 호환 (한글 라벨) */
   label?: string;
-  title: React.ReactNode;
+  title: string;
   description?: React.ReactNode;
   id?: string;
-  as?: "h1" | "h2";
-  className?: string;
-  align?: "left" | "center";
   tone?: "light" | "dark";
+  size?: "section" | "h2";
+  className?: string;
 };
 
-/** 섹션 제목 — 짧은 한글 라벨 + 한글 제목 + 설명 */
-export function SectionHeader({ label, title, description, id, as: Tag = "h2", className, align = "left", tone = "light" }: Props) {
+export function SectionHeader({ eyebrow, label, title, description, id, tone = "light", size = "section", className }: Props) {
   const dark = tone === "dark";
   return (
-    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
-      {label && <p className={cn("t-label", dark ? "text-white/70" : "text-brand")}>{label}</p>}
-      <Tag id={id} className={cn("t-h2 sm:whitespace-pre-line", label && "mt-3", dark ? "text-white" : "text-ink")}>
-        {title}
-      </Tag>
-      {description && <div className={cn("t-lead mt-5", dark ? "text-white/75" : "text-body")}>{description}</div>}
+    <div className={cn("max-w-4xl", className)}>
+      {(eyebrow || label) && <p className={cn("eyebrow", dark ? "text-white/45" : "text-steel")}>{eyebrow ?? label}</p>}
+      <MaskText id={id} text={title} className={cn(size === "section" ? "t-section" : "t-h2", "mt-5")} />
+      {description && <p className={cn("t-lead mt-7 max-w-2xl", dark ? "text-white/65" : "text-body")}>{description}</p>}
     </div>
   );
 }

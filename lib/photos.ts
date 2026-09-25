@@ -16,3 +16,12 @@ export function getPhoto(id: PhotoId) {
 export const showPhotoSlots =
   process.env.NEXT_PUBLIC_SHOW_PHOTO_SLOTS === "1" ||
   (process.env.NODE_ENV === "development" && process.env.NEXT_PUBLIC_SHOW_PHOTO_SLOTS !== "0");
+
+export type PhotoRef = { src: string; alt: string; focus?: string };
+
+/** 클라이언트 컴포넌트에 넘길 사진 정보 (파일이 없으면 undefined) */
+export function photoRef(id: PhotoId): PhotoRef | undefined {
+  if (!hasPhoto(id)) return undefined;
+  const slot = photos[id];
+  return { src: slot.file, alt: slot.alt, focus: "focus" in slot ? slot.focus : undefined };
+}

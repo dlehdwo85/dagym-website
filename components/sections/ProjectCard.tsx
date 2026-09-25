@@ -9,9 +9,9 @@ export function ProjectCard({ project }: { project: Project }) {
   const facilityNames = project.facilities.map((k) => getFacility(k)?.ko).filter(Boolean);
   return (
     <article>
-      <Link href={`/projects/${project.slug}`} className="group block">
+      <Link href={`/project/${project.slug}`} className="group block">
         {project.cover && (
-          <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-paper-deep">
+          <div className="relative mb-5 aspect-[4/3] overflow-hidden bg-mist">
             <Image
               src={project.cover}
               alt={`${project.name} 현장`}
@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {categoryLabel[project.category]}
           {isVerified(project.region) && ` · ${project.region}`}
         </p>
-        <h3 className="t-h4 mt-1 group-hover:text-brand">{project.name}</h3>
+        <h3 className="t-h4 mt-1 group-hover:text-navy">{project.name}</h3>
         <dl className="mt-3 space-y-1 text-[0.9375rem] text-body">
           {isVerified(project.scale) && (
             <div className="flex gap-3">

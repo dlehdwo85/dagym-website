@@ -4,6 +4,11 @@ import "@fontsource-variable/inter/wght.css";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { businessAreas } from "@/data/business";
+import { businessStory } from "@/data/showroom";
+import { photos } from "@/data/photos";
+import { hasPhoto } from "@/lib/photos";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { siteConfig } from "@/data/config";
 import { organizationJsonLd } from "@/lib/seo";
@@ -35,21 +40,31 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#0d0e10",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const megaBusiness = businessAreas.map((b) => {
+    const story = businessStory[b.slug];
+    const photo = story && hasPhoto(story.photo) ? photos[story.photo] : undefined;
+    return {
+      href: b.href,
+      no: b.no,
+      title: b.title,
+      en: story?.en ?? "",
+      line: story?.line ?? b.summary,
+      image: photo ? { src: photo.file, alt: photo.alt } : undefined,
+    };
+  });
+
   return (
     <html lang="ko" suppressHydrationWarning>
-      <head>
-        {/* 스크롤 reveal 은 JS 가 동작할 때만 적용 — 비활성 환경에서도 콘텐츠가 보이도록 */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
       <body className="min-h-dvh bg-white">
         <JsonLd data={organizationJsonLd()} />
-        <Header />
+        <ScrollProgress />
+        <Header business={megaBusiness} />
         <main id="main">{children}</main>
         <Footer />
       </body>

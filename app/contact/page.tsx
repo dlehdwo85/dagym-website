@@ -34,7 +34,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        label="운영 문의하기"
+        eyebrow="Contact"
         title={"단지와 시설 정보를 알려주시면\n운영안을 제안해 드립니다."}
         description="입주 전 단지, 운영사 교체를 검토 중인 단지, 일부 시설만 맡기려는 경우 모두 상담할 수 있습니다."
         breadcrumbs={[{ name: "운영 문의하기", path: "/contact" }]}

@@ -1,35 +1,48 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   DAGYM Design System v3 — 화이트 · 차콜 · 차가운 회색
-   - 배경: 흰색 / 차가운 연회색 (아이보리 · 베이지 톤 사용하지 않음)
-   - 기본 강조: 차콜 (버튼 · 링크 · 라벨)
-   - 네이비(--color-navy)는 HILINK 표기 등 꼭 필요한 곳에만
-   - 움직임: 스크롤 등장 · 사진 확대 효과 없음. 버튼 · 링크 색 변화만 사용
-   TODO_VERIFY: 공식 로고 컬러 확정 시 --color-navy 만 교체
+   DAGYM Design System V2 — Digital Showroom
+   - 뉴트럴 화이트 · 딥 차콜 · 니어 블랙 · 쿨 그레이 · 다크 네이비
+   - 베이지 · 크림 · 강한 그라데이션 사용하지 않음
+   - 강조색(--color-signal)은 HILINK 표기 · 진행 표시에만 제한 사용
+   - radius: 0 / 2 / 4 / 8px 만 사용
+   TODO_VERIFY: 공식 로고 컬러 확정 시 --color-signal 만 교체
 ------------------------------------------------------------------- */
 @theme {
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
     "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --font-display: "Inter Variable", "Pretendard Variable", Pretendard, system-ui, sans-serif;
 
-  --color-ink: #1c1e21;
-  --color-body: #4a4f56;
-  --color-muted: #72787f;
-  --color-line: #e3e6ea;
-  --color-line-strong: #c9ced4;
-  --color-paper: #f3f4f6;
-  --color-paper-deep: #e7e9ec;
+  /* 뉴트럴 */
+  --color-white: #ffffff;
+  --color-mist: #f2f3f5;
+  --color-fog: #e6e8eb;
+  --color-line: #dfe2e6;
+  --color-line-strong: #c3c8ce;
+  --color-steel: #8b919a;
+  --color-muted: #6b717a;
+  --color-body: #464b53;
+  --color-ink: #16181b;
 
-  /* 기본 강조색 = 차콜 */
-  --color-brand: #2a2e33;
-  --color-brand-dark: #141619;
+  /* 다크 */
+  --color-graphite: #2b2e33;
+  --color-charcoal: #1c1e22;
+  --color-night: #0d0e10;
+  --color-navy: #111c2e;
+  --color-navy-deep: #0a1220;
+  --color-line-dark: #2e3238;
+
+  /* 제한적 강조 */
+  --color-signal: #6f9bdc;
+
+  /* 이전 토큰 호환 (폼 · 인사이트 등) */
+  --color-paper: #f2f3f5;
+  --color-paper-deep: #e6e8eb;
+  --color-brand: #16181b;
+  --color-brand-dark: #0d0e10;
   --color-brand-soft: #eceef1;
 
-  /* 제한적으로만 사용 */
-  --color-navy: #1f3a5c;
-
-  --color-hero: #2a2e33;
-
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.25, 0.8, 0.3, 1);
 
   --breakpoint-xs: 26rem;
@@ -47,23 +60,20 @@
     background: #ffffff;
     color: var(--color-ink);
     font-family: var(--font-sans);
+    font-size: 1.0625rem;
     word-break: keep-all;
     overflow-wrap: break-word;
   }
 
   ::selection {
-    background: var(--color-brand);
+    background: var(--color-ink);
     color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand);
+    outline: 2px solid var(--color-signal);
     outline-offset: 3px;
     border-radius: 2px;
-  }
-
-  .on-dark :focus-visible {
-    outline-color: #ffffff;
   }
 
   button {
@@ -72,76 +82,118 @@
 }
 
 @layer components {
-  /* 한글 제목 중심 타이포그래피 */
+  /* ---------- 타이포그래피 ---------- */
+
+  /* 영문 대문자 라벨 — 디자인 요소로 사용 */
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  /* 영문 디스플레이 (DAGYM, HILINK, 섹션 키워드) */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  /* Hero: 모바일은 별도 크기, sm 이상 clamp(64px, 6vw, 110px) */
   .t-hero {
-    font-size: clamp(2.125rem, 1.5rem + 2.8vw, 3.75rem);
-    line-height: 1.22;
-    letter-spacing: -0.03em;
+    font-size: 2.625rem;
+    line-height: 1.16;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+  }
+  @media (min-width: 40rem) {
+    .t-hero {
+      font-size: clamp(4rem, 6vw, 6.875rem);
+      line-height: 1.08;
+    }
+  }
+
+  /* 섹션 제목 48 – 72px (모바일 32px부터) */
+  .t-section {
+    font-size: clamp(2rem, 1.1rem + 3.6vw, 4.5rem);
+    line-height: 1.14;
+    letter-spacing: -0.038em;
     font-weight: 700;
   }
   .t-h1 {
-    font-size: clamp(1.875rem, 1.45rem + 1.9vw, 3rem);
-    line-height: 1.25;
-    letter-spacing: -0.028em;
+    font-size: clamp(2.25rem, 1.3rem + 3.8vw, 4.5rem);
+    line-height: 1.12;
+    letter-spacing: -0.04em;
     font-weight: 700;
   }
   .t-h2 {
-    font-size: clamp(1.625rem, 1.3rem + 1.3vw, 2.375rem);
-    line-height: 1.3;
-    letter-spacing: -0.025em;
+    font-size: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: -0.035em;
     font-weight: 700;
   }
   .t-h3 {
-    font-size: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
-    line-height: 1.4;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.875rem);
+    line-height: 1.3;
+    letter-spacing: -0.028em;
     font-weight: 650;
   }
   .t-h4 {
-    font-size: 1.125rem;
+    font-size: 1.1875rem;
     line-height: 1.45;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     font-weight: 650;
   }
+  /* 본문 17 – 20px */
   .t-lead {
-    font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-    line-height: 1.75;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.25rem);
+    line-height: 1.72;
+    letter-spacing: -0.012em;
   }
   .t-body {
-    font-size: 1rem;
-    line-height: 1.8;
-    letter-spacing: -0.005em;
+    font-size: 1.0625rem;
+    line-height: 1.78;
+    letter-spacing: -0.008em;
   }
+  .t-small {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+  /* 호환 */
   .t-label {
     font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
 
+  /* ---------- 레이아웃 ---------- */
   .container-x {
     width: 100%;
-    max-width: 80rem;
+    max-width: 90rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
   @media (min-width: 48rem) {
     .container-x {
-      padding-inline: 2rem;
+      padding-inline: 2.5rem;
     }
   }
-  @media (min-width: 80rem) {
+  @media (min-width: 90rem) {
     .container-x {
-      padding-inline: 2.5rem;
+      padding-inline: 3.5rem;
     }
   }
 
   .section-y {
-    padding-block: 4.5rem;
+    padding-block: 5.5rem;
   }
   @media (min-width: 64rem) {
     .section-y {
-      padding-block: 7rem;
+      padding-block: 10rem;
     }
   }
 
@@ -155,12 +207,51 @@
   .link-underline:hover {
     text-decoration-color: currentColor;
   }
-}
 
-/*
- * 움직임 최소화: 스크롤 진입 페이드 · 사진 순차 등장 · 사진 확대 효과를 쓰지 않습니다.
- * (Reveal 컴포넌트는 남아 있지만 시각 효과 없이 콘텐츠를 바로 보여줍니다.)
- */
+  /* ---------- 버튼 마이크로 인터랙션: 배경 wipe + 화살표 이동 ---------- */
+  .btn-wipe {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .btn-wipe::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--wipe, #fff);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.55s var(--ease-out-expo);
+  }
+  .btn-wipe:hover::before,
+  .btn-wipe:focus-visible::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .btn-arrow {
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+  .group:hover .btn-arrow,
+  .group:focus-visible .btn-arrow {
+    transform: translateX(0.3rem);
+  }
+
+  /* 이미지 hover scale */
+  .img-zoom img {
+    transition: transform 1.2s var(--ease-out-expo);
+  }
+  .group:hover .img-zoom img {
+    transform: scale(1.045);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -170,5 +261,14 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@keyframes scrollcue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(300%);
   }
 }

@@ -19,7 +19,7 @@ export default async function InsightPage() {
   return (
     <>
       <PageHero
-        label="고객지원"
+        eyebrow="Insight · FAQ"
         title="자주 묻는 질문"
         description="위탁운영 전환, 입주 전 준비, HILINK 도입, 운영 보고 방식에 대해 자주 받는 질문입니다."
         breadcrumbs={[{ name: "자주 묻는 질문", path: "/insight" }]}
@@ -32,7 +32,7 @@ export default async function InsightPage() {
       {posts.length > 0 && (
         <section className="section-y border-t border-line bg-paper" aria-labelledby="notice-title">
           <div className="container-x">
-            <SectionHeader label="공지" id="notice-title" title="공지사항" />
+            <SectionHeader eyebrow="Notice" id="notice-title" title="공지사항" size="h2" />
             <ul className="mt-10 border-t border-ink">
               {posts.map((p) => (
                 <li key={p.slug} className="border-b border-line-strong">

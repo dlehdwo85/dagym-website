@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTASection } from "@/components/sections/CTASection";
-import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Photo, photoVisible } from "@/components/ui/Photo";
+import { OperatingModel } from "@/components/home/OperatingModel";
+import { ClipReveal } from "@/components/motion/ClipReveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { businessAreas } from "@/data/business";
-import { operationProcess } from "@/data/home";
+import { businessStory, operatingModel } from "@/data/showroom";
+import { photos } from "@/data/photos";
+import { hasPhoto } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/cn";
 
@@ -22,56 +25,58 @@ export default function BusinessPage() {
   return (
     <>
       <PageHero
-        label="사업영역"
-        title={"시설과 상황에 맞춰\n운영 범위를 정합니다."}
-        description="커뮤니티 전체를 맡길 수도 있고, 일부 시설이나 출입 · 예약 시스템만 도입할 수도 있습니다. 사업영역별로 대상 고객, 운영 인력, 관리 방식을 확인하세요."
+        eyebrow="Our Business"
+        title={"공간은 달라도\n운영의 기준은 같습니다."}
+        description="아파트 커뮤니티센터, 스포츠시설, 기업 · 호텔 공용 시설까지. 사람을 배치하고, HILINK로 기록하고, 매달 보고합니다."
         breadcrumbs={[{ name: "사업영역", path: "/business" }]}
       />
 
-      <section className="section-y bg-white" aria-label="사업영역 목록">
-        <div className="container-x space-y-16 lg:space-y-24">
+      <section aria-label="사업영역 목록" className="bg-white">
+        <ol>
           {businessAreas.map((b, i) => {
-            const showPhoto = photoVisible(b.photo);
+            const story = businessStory[b.slug];
+            const img = story && hasPhoto(story.photo) ? photos[story.photo] : undefined;
+            const flip = i % 2 === 1;
             return (
-              <article
-                key={b.slug}
-                className={cn("grid gap-8 border-t border-ink pt-10", showPhoto ? "lg:grid-cols-2 lg:items-center lg:gap-14" : "lg:grid-cols-12")}
-              >
-                {showPhoto && <Photo id={b.photo} className={cn("aspect-[4/3]", i % 2 === 1 && "lg:order-2")} />}
-                <div className={cn(!showPhoto && "lg:col-span-6")}>
-                  <p className="text-sm font-semibold text-brand">{b.no}</p>
-                  <h2 className="t-h2 mt-2">{b.title}</h2>
-                  <p className="t-lead mt-4 text-body">{b.summary}</p>
-                </div>
-                <div className={cn(!showPhoto && "lg:col-span-5 lg:col-start-8")}>
-                  <p className="text-sm font-semibold text-muted">주요 대상</p>
-                  <p className="mt-1.5 text-ink">{b.detail.targets.map((t) => t.title).join(", ")}</p>
-                  <p className="mt-5 text-sm font-semibold text-muted">운영 시설</p>
-                  <p className="mt-1.5 text-ink">{b.detail.facilities.slice(0, 6).join(", ")}</p>
-                  <Link href={b.href} className="mt-7 inline-flex items-center gap-2 font-semibold text-brand hover:text-brand-dark">
-                    {b.title} 자세히 보기 <ArrowRight className="size-4" aria-hidden />
-                  </Link>
-                </div>
-              </article>
+              <li key={b.slug} className="border-b border-line">
+                <Link href={b.href} className="group container-x grid gap-10 py-16 lg:grid-cols-12 lg:items-center lg:gap-14 lg:py-28">
+                  <div className={cn("lg:col-span-6", flip && "lg:order-2 lg:col-start-7")}>
+                    <p className="flex items-baseline gap-4">
+                      <span className="font-display text-sm text-steel">{b.no}</span>
+                      <span className="eyebrow text-steel">{story?.en}</span>
+                    </p>
+                    <h2 className="t-h1 mt-6 transition-colors duration-500 group-hover:text-navy">{b.title}</h2>
+                    <p className="t-lead mt-6 max-w-xl text-body">{b.summary}</p>
+                    <ul className="mt-8 border-t border-line">
+                      {b.points.map((p) => (
+                        <li key={p} className="t-small border-b border-line py-3 text-body">
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="mt-8 inline-flex items-center gap-2 border-b border-ink/30 pb-0.5 font-semibold">
+                      자세히 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+                    </span>
+                  </div>
+                  <div className={cn("lg:col-span-5", flip ? "lg:order-1 lg:col-start-1" : "lg:col-start-8")}>
+                    {img ? (
+                      <ClipReveal className="img-zoom aspect-[4/5] max-h-[720px] bg-mist" from={flip ? "left" : "right"}>
+                        <Image src={img.file} alt={img.alt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+                      </ClipReveal>
+                    ) : (
+                      <Reveal className="hidden aspect-[4/5] items-center justify-center bg-charcoal lg:flex">
+                        <span className="display text-[9rem] text-white/8">{b.no}</span>
+                      </Reveal>
+                    )}
+                  </div>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </section>
 
-      <section className="section-y bg-paper" aria-labelledby="process-title">
-        <div className="container-x">
-          <SectionHeader
-            label="진행 방식"
-            id="process-title"
-            title="상담부터 정기 보고까지"
-            description="모든 사업은 현장 확인에서 시작합니다. 운영이 시작된 뒤에는 본사가 매주 현장을 점검하고 매월 보고합니다."
-          />
-          <div className="mt-12">
-            <ProcessSteps steps={operationProcess} />
-          </div>
-        </div>
-      </section>
-
+      <OperatingModel steps={operatingModel} tone="mist" />
       <CTASection />
     </>
   );

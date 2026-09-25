@@ -8,7 +8,7 @@ import type { Verifiable } from "./config";
  *   1) 아래 projects 배열에 객체 하나를 추가합니다.
  *   2) 사진은 /public/images/projects/<slug>/ 에 넣고 cover · gallery 에 경로를 입력합니다.
  *   3) 계약 · 공개 동의가 확인된 현장만 verified: true 로 입력합니다.
- *      verified: true 인 현장이 하나 이상 생기면 홈 · 메뉴 · 운영사례 페이지에 자동으로 노출됩니다.
+ *      verified: true 인 현장이 하나 이상 생기면 홈 · 메뉴 · 운영사례 목록 · /project/<slug> 사례 페이지에 자동으로 노출됩니다.
  *
  * 향후 Supabase / Headless CMS 로 옮길 때도 이 타입을 그대로 테이블 스키마로 사용할 수 있습니다.
  */
@@ -39,6 +39,8 @@ export type Project = {
   region: Verifiable<string>;
   /** 세대수 또는 시설 규모 (예: "1,200세대", "연면적 2,000㎡") */
   scale: Verifiable<string>;
+  /** 세대수 (아파트 현장) */
+  households?: Verifiable<string>;
   facilities: FacilityIcon[];
   operationTypes: OperationType[];
   hilink: boolean;
@@ -46,6 +48,12 @@ export type Project = {
   summary: string;
   scope: string[];
   solutions: { title: string; body: string }[];
+  /** 운영 전 과제 (사례 페이지 Challenge) */
+  challenge?: string[];
+  /** HILINK 적용 내용 */
+  hilinkScope?: string[];
+  /** 결과 — 확인된 내용만 (수치는 근거 자료가 있을 때만) */
+  result?: string[];
   cover?: string;
   gallery?: string[];
   featured?: boolean;
