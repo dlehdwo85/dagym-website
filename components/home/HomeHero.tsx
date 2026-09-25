@@ -1,52 +1,37 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { heroFacts, homeHero } from "@/data/home";
-import { photos } from "@/data/photos";
-import { hasPhoto, showPhotoSlots } from "@/lib/photos";
 
-/**
- * 첫 화면 — 실제 운영 현장 사진 위에 사업 소개와 문의 버튼.
- * 사진(public/images/home/hero.jpg)이 없으면 단색 배경으로 표시됩니다.
- */
+/** 기존 공식 홈페이지에 게시된 커뮤니티 시설 영상의 포스터를 사용합니다. */
 export function HomeHero() {
-  const slot = photos["home-hero"];
-  const withPhoto = hasPhoto("home-hero");
   return (
     <>
-      <section className="on-dark relative isolate flex min-h-[34rem] items-end bg-hero pt-16 text-white sm:min-h-[38rem] lg:min-h-[44rem] lg:pt-[4.5rem]">
-        {withPhoto && (
-          <>
-            <Image
-              src={slot.file}
-              alt={slot.alt}
-              fill
-              priority
-              sizes="100vw"
-              className="-z-20 object-cover"
-              style={{ objectPosition: slot.focus }}
-            />
-            {/* 글자 가독성을 위한 하단 · 좌측 음영 */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/70 via-black/30 to-black/10" aria-hidden />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/40 to-transparent" aria-hidden />
-          </>
-        )}
-        {!withPhoto && showPhotoSlots && (
-          <p className="absolute right-4 top-20 max-w-xs border border-dashed border-white/40 px-3 py-2 text-xs leading-relaxed text-white/70 lg:right-8 lg:top-24">
-            사진 필요 · home-hero
-            <br />
-            public{slot.file} · {slot.size}
-          </p>
-        )}
-        <div className="container-x pb-14 pt-20 lg:pb-20">
-          <h1 className="t-hero max-w-3xl whitespace-pre-line [text-shadow:0_1px_24px_rgb(0_0_0/0.25)]">{homeHero.title}</h1>
-          <p className="t-lead mt-6 max-w-2xl text-white/85 sm:whitespace-pre-line">{homeHero.sub}</p>
-          <div className="mt-9 flex flex-col gap-3 xs:flex-row">
-            <ButtonLink href={homeHero.primary.href} variant="white" size="lg">
-              {homeHero.primary.label}
-            </ButtonLink>
-            <ButtonLink href={homeHero.secondary.href} variant="outline-white" size="lg" arrow={false}>
-              {homeHero.secondary.label}
-            </ButtonLink>
+      <section className="overflow-hidden bg-[#f5f4f0] pt-20 text-ink lg:pt-24">
+        <div className="container-x grid min-h-[640px] items-center gap-12 py-16 lg:grid-cols-[0.96fr_1.04fr] lg:gap-16 lg:py-20">
+          <div className="relative z-10 max-w-[650px]">
+            <p className="mb-6 text-sm font-semibold tracking-[0.12em] text-brand">주식회사 다짐 · 커뮤니티 위탁운영</p>
+            <h1 className="t-hero whitespace-pre-line text-ink">{homeHero.title}</h1>
+            <p className="t-lead mt-7 max-w-xl text-body sm:whitespace-pre-line">{homeHero.sub}</p>
+            <div className="mt-9 flex flex-col gap-3 xs:flex-row">
+              <ButtonLink href={homeHero.primary.href} size="lg">{homeHero.primary.label}</ButtonLink>
+              <ButtonLink href={homeHero.secondary.href} variant="secondary" size="lg" arrow={false}>{homeHero.secondary.label}</ButtonLink>
+            </div>
+          </div>
+          <div className="grid h-[390px] grid-cols-[1.25fr_0.75fr] gap-2.5 sm:h-[490px] lg:h-[570px] lg:gap-4" aria-label="기존 다짐 홈페이지에 게시된 커뮤니티 시설 영상 장면">
+            <div className="relative overflow-hidden bg-[#dadbd5]">
+              <Image src="/images/facilities/cafe.jpg" alt="기존 홈페이지 커뮤니티 시설 영상 속 카페 공간" fill priority sizes="(min-width: 1024px) 38vw, 60vw" className="object-cover" />
+              <span className="absolute bottom-4 left-4 bg-white/90 px-3 py-2 text-xs font-semibold text-ink">카페 · 커뮤니티 공간</span>
+            </div>
+            <div className="grid min-h-0 grid-rows-2 gap-2.5 lg:gap-4">
+              <div className="relative overflow-hidden bg-[#dadbd5]">
+                <Image src="/images/facilities/fitness.jpg" alt="기존 홈페이지 영상 속 피트니스 시설" fill priority sizes="(min-width: 1024px) 18vw, 35vw" className="object-cover" />
+                <span className="absolute bottom-3 left-3 bg-white/90 px-2 py-1 text-[11px] font-semibold text-ink">피트니스</span>
+              </div>
+              <div className="relative overflow-hidden bg-[#dadbd5]">
+                <Image src="/images/facilities/library.jpg" alt="기존 홈페이지 영상 속 독서실" fill sizes="(min-width: 1024px) 18vw, 35vw" className="object-cover" />
+                <span className="absolute bottom-3 left-3 bg-white/90 px-2 py-1 text-[11px] font-semibold text-ink">독서실</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
