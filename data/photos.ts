@@ -56,6 +56,66 @@ export const photos = {
     alt: "다짐이 운영하는 커뮤니티 피트니스센터",
     focus: "center",
   },
+  /* ---------------------------------------------------------------
+   * 브랜드 비주얼 (실제 사진이 없으면 생성 이미지 허용 — docs/IMAGE_POLICY.md)
+   * 생성 이미지는 provenance: "generated" 로 두고, 실제 현장 · 직원으로 표기하지 않습니다.
+   * ------------------------------------------------------------- */
+  "hero-wide": {
+    file: "/images/visual/hero-wide.jpg",
+    subject:
+      "프리미엄 아파트 커뮤니티센터 인포메이션 · 라운지. 운영 담당자 2명이 태블릿으로 시설 이용 현황을 확인하며 동선을 점검. 인물은 오른쪽 1/3, 왼쪽 절반은 텍스트용 여백",
+    size: "2560 × 1440 이상 (16:9 이상 와이드)",
+    ratio: "16:9 또는 21:9",
+    usedIn: "홈 첫 화면 — 파일이 있으면 와이드 Hero 로 자동 전환",
+    alt: "커뮤니티센터 라운지에서 운영 담당자들이 태블릿으로 시설 이용 현황을 확인하는 모습",
+    focus: "70% center",
+    provenance: "generated",
+  },
+  "visual-site-inspection": {
+    file: "/images/visual/site-inspection.jpg",
+    subject: "운영 담당자가 태블릿을 들고 커뮤니티 헬스장 · GX룸 시설을 점검하는 장면",
+    size: "2000 × 1500 이상",
+    ratio: "4:3",
+    usedIn: "홈 사업 구조 · 본사 운영체계",
+    alt: "운영 담당자가 태블릿으로 커뮤니티 시설을 점검하는 모습",
+    provenance: "generated",
+  },
+  "visual-ops-meeting": {
+    file: "/images/visual/ops-meeting.jpg",
+    subject: "커뮤니티센터 인포메이션 옆 테이블에서 운영 담당자들이 시설 동선 도면과 태블릿의 이용 데이터를 보며 운영 계획을 논의",
+    size: "2000 × 1500 이상",
+    ratio: "4:3",
+    usedIn: "회사소개 · 본사 운영체계",
+    alt: "운영 담당자들이 커뮤니티 운영 계획을 논의하는 모습",
+    provenance: "generated",
+  },
+  "visual-facility-check": {
+    file: "/images/visual/facility-check.jpg",
+    subject: "직원이 체크리스트를 들고 운동기구 상태를 점검하는 장면 (근접, 손과 기구 중심)",
+    size: "2000 × 1500 이상",
+    ratio: "4:3",
+    usedIn: "본사 운영체계 · 사업 상세",
+    alt: "직원이 체크리스트로 운동기구를 점검하는 모습",
+    provenance: "generated",
+  },
+  "visual-data-review": {
+    file: "/images/visual/data-review.jpg",
+    subject: "인포메이션 데스크에서 운영 담당자가 태블릿 화면의 예약 · 출입 현황을 확인. 뒤로 커뮤니티 라운지와 안면인식 출입 단말기",
+    size: "2000 × 1500 이상",
+    ratio: "4:3",
+    usedIn: "HILINK 섹션 · 사업 상세",
+    alt: "운영 담당자가 태블릿으로 예약 · 출입 현황을 확인하는 모습",
+    provenance: "generated",
+  },
+  "visual-staff-training": {
+    file: "/images/visual/staff-training.jpg",
+    subject: "커뮤니티 GX룸에서 트레이너 · 안내 인력 대상 안전 · 서비스 교육이 진행되는 장면",
+    size: "2000 × 1500 이상",
+    ratio: "4:3",
+    usedIn: "본사 운영체계",
+    alt: "커뮤니티 운영 인력 교육 장면",
+    provenance: "generated",
+  },
   "home-apartment": {
     file: "/images/home/apartment-community.jpg",
     subject: "아파트 커뮤니티센터 내부 (인포메이션 데스크 또는 라운지 전경)",

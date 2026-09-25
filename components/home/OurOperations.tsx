@@ -8,8 +8,9 @@ import { portfolio, type PortfolioProject } from "@/data/projects";
 import { showPhotoSlots } from "@/lib/photos";
 import { cn } from "@/lib/cn";
 
+/** 출처 유형(imageSource)이 지정되고 파일이 있을 때만 이미지 표시 */
 function hasImage(p: PortfolioProject) {
-  return fs.existsSync(path.join(process.cwd(), "public", p.image));
+  return Boolean(p.imageSource) && fs.existsSync(path.join(process.cwd(), "public", p.image));
 }
 
 /** 이미지가 아직 없을 때 — 사진처럼 보이지 않는 절제된 건축 패턴 (가짜 이미지 아님) */

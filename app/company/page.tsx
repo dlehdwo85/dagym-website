@@ -36,7 +36,8 @@ export default function CompanyPage() {
   ];
   const visibleInfo = infoRows.filter(([, v]) => isVerified(v));
   const facts = publicFacts();
-  const photo = photoRef("facility-fitness");
+  const meeting = photoRef("visual-ops-meeting");
+  const photo = meeting ?? photoRef("facility-fitness");
 
   return (
     <>
@@ -79,7 +80,7 @@ export default function CompanyPage() {
               <ClipReveal className="aspect-[4/3] rounded-[4px] bg-mist" from="right">
                 <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
               </ClipReveal>
-              <figcaption className="mt-2 text-sm text-muted">커뮤니티 헬스장 — 시설 예시</figcaption>
+              {!meeting && <figcaption className="mt-2 text-sm text-muted">커뮤니티 헬스장 — 시설 예시</figcaption>}
             </figure>
           )}
         </div>

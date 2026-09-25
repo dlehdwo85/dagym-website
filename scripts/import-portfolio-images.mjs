@@ -8,6 +8,8 @@
  * - 긴 변 1600px 이하로 줄이고(확대하지 않음) JPG(품질 85)로 public/images/projects/<slug>.jpg 에 저장합니다.
  * - slug 목록은 data/projects.ts 와 같습니다. 모르는 파일명은 건너뜁니다.
  * - 가로 1200px 미만 원본은 경고를 출력합니다 (카드에서 흐리게 보일 수 있음).
+ * - 해당 단지의 공식 조감도 · 투시도 · 실제 외관 사진만 사용합니다. AI 생성 · 스톡 이미지 금지.
+ *   가져온 뒤 data/projects.ts 에서 단지별 imageSource 를 지정해야 사이트에 표시됩니다.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -51,4 +53,5 @@ for (const file of fs.readdirSync(src)) {
   done++;
 }
 const missing = slugs.filter((s) => !fs.existsSync(path.join(out, `${s}.jpg`)));
-console.log(`\n${done}개 저장. 아직 없는 단지: ${missing.length ? missing.join(", ") : "없음"}`);
+console.log(`\n다음: data/projects.ts 에서 저장한 단지의 imageSource 를 지정하세요.`);
+console.log(`${done}개 저장. 아직 없는 단지: ${missing.length ? missing.join(", ") : "없음"}`);

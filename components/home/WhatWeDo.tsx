@@ -22,8 +22,9 @@ export function WhatWeDo() {
         />
         <div className="mt-14 space-y-20 lg:mt-20 lg:space-y-28">
           {pillars.map((p, i) => {
-            const img = hasPhoto(p.photo) ? photos[p.photo] : undefined;
-            const isApp = p.photo === "hilink-app";
+            const pref = p.no === "01" && hasPhoto("visual-site-inspection") ? "visual-site-inspection" : p.photo;
+            const img = hasPhoto(pref) ? photos[pref] : undefined;
+            const isApp = pref === "hilink-app";
             const flip = i % 2 === 1;
             return (
               <article key={p.no} className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14" aria-labelledby={`pillar-${p.no}`}>
