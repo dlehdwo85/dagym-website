@@ -42,8 +42,13 @@ export function Header({ business }: Props) {
 
   useEffect(() => {
     document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
+    // 창을 넓혀 데스크톱 메뉴가 보이면 모바일 메뉴를 닫습니다 (md = 768px)
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => mq.matches && setMobileOpen(false);
+    mq.addEventListener("change", onChange);
     return () => {
       document.documentElement.style.overflow = "";
+      mq.removeEventListener("change", onChange);
     };
   }, [mobileOpen]);
 
@@ -85,7 +90,7 @@ export function Header({ business }: Props) {
             <Logo />
           </Link>
 
-          <nav aria-label="주 메뉴" className="hidden h-full lg:block">
+          <nav aria-label="주 메뉴" className="hidden h-full md:block">
             <ul className="flex h-full items-center">
               {mainNav.map((item) => (
                 <li key={item.href} className="h-full" onMouseEnter={() => open(item.mega ?? null)} onFocus={() => open(item.mega ?? null)}>
@@ -94,7 +99,7 @@ export function Header({ business }: Props) {
                     aria-current={isActive(item.href) ? "page" : undefined}
                     aria-expanded={item.mega ? openMenu === item.mega : undefined}
                     className={cn(
-                      "relative flex h-full items-center gap-1 px-4 text-[0.9875rem] font-semibold transition-colors hover:text-accent xl:px-5",
+                      "relative flex h-full items-center gap-1 whitespace-nowrap px-2.5 text-[0.9375rem] font-semibold transition-colors hover:text-accent lg:px-4 lg:text-[0.9875rem] xl:px-5",
                       isActive(item.href) ? "text-navy" : "text-ink",
                     )}
                   >
@@ -102,7 +107,7 @@ export function Header({ business }: Props) {
                     {item.mega && <ChevronDown className="size-4 text-muted" aria-hidden />}
                     <span
                       className={cn(
-                        "absolute inset-x-4 bottom-0 h-[2px] bg-navy transition-opacity xl:inset-x-5",
+                        "absolute inset-x-2.5 bottom-0 h-[2px] bg-navy transition-opacity lg:inset-x-4 xl:inset-x-5",
                         isActive(item.href) ? "opacity-100" : "opacity-0",
                       )}
                     />
@@ -115,14 +120,14 @@ export function Header({ business }: Props) {
           <div className="flex items-center gap-1">
             <Link
               href="/contact?type=proposal"
-              className="btn-wipe group inline-flex h-10 items-center gap-2 rounded-[4px] bg-navy px-4 text-sm font-semibold text-white [--wipe:var(--color-navy-deep)] lg:h-11 lg:px-5 lg:text-[0.9375rem]"
+              className="btn-wipe group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[4px] bg-navy px-4 text-sm font-semibold text-white [--wipe:var(--color-navy-deep)] md:max-[899px]:hidden lg:h-11 lg:px-5 lg:text-[0.9375rem]"
             >
               운영 제안 문의
               <ArrowRight className="btn-arrow hidden size-4 sm:block" aria-hidden />
             </Link>
             <button
               type="button"
-              className="-mr-2 inline-flex size-11 items-center justify-center lg:hidden"
+              className="-mr-2 inline-flex size-11 items-center justify-center md:hidden"
               aria-label="전체 메뉴 열기"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -233,7 +238,7 @@ function MobileMenu({ onClose, isActive, business }: { onClose: () => void; isAc
   useEffect(() => closeRef.current?.focus(), []);
 
   return (
-    <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="전체 메뉴" className="fixed inset-0 z-[70] flex flex-col bg-white lg:hidden">
+    <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="전체 메뉴" className="fixed inset-0 z-[70] flex flex-col bg-white md:hidden">
       <div className="container-x flex h-16 shrink-0 items-center justify-between border-b border-line">
         <Link href="/" onClick={onClose} aria-label="DAGYM 다짐 홈">
           <Logo />
