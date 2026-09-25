@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
@@ -31,8 +32,13 @@ export function Hero() {
               fill
               priority
               sizes={split ? "(min-width: 1024px) 50vw, 100vw" : "100vw"}
-              className="object-cover"
-              style={{ objectPosition: image.focus ?? "70% center" }}
+              className="object-cover [object-position:var(--focus)] lg:[object-position:var(--focus-lg)]"
+              style={
+                {
+                  "--focus": image.focus ?? "70% center",
+                  "--focus-lg": image.focusLg ?? image.focus ?? "70% center",
+                } as CSSProperties
+              }
             />
             <div
               className={cn(

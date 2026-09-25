@@ -33,6 +33,8 @@ export type PhotoSlot = {
   alt: string;
   /** 크롭 시 중심점 (CSS object-position) */
   focus?: string;
+  /** 데스크톱(lg 이상) 크롭 중심점 — 모바일과 달라야 할 때만 */
+  focusLg?: string;
   /** 기존 공식 사이트(dagym1.com)에서 가져올 자산이면 해당 페이지 */
   legacyPage?: string;
   /**
@@ -61,6 +63,18 @@ export const photos = {
    * 생성 이미지는 provenance: "generated" 로 두고, 실제 현장 · 직원으로 표기하지 않습니다.
    * ------------------------------------------------------------- */
   /* 홈 Hero — 생성 이미지 (브랜드 비주얼)에서 인물이 없는 공간 부분만 잘라 사용. 실제 현장이 아님 */
+  /* 홈 Hero (wide) — 인물 없는 21:9 생성 이미지. 왼쪽 40%는 흰 벽(텍스트 영역), 오른쪽에 데스크 · 게이트 · 피트니스 */
+  "hero-community-lobby": {
+    file: "/images/hero/hero-community-lobby-21x9.webp",
+    subject: "커뮤니티센터 로비 — 인포메이션 데스크 · 얼굴인식 출입 게이트 · 유리 너머 피트니스. 인물 없이 공간만",
+    size: "2400 × 1029",
+    ratio: "21:9 (가로)",
+    usedIn: "홈 첫 화면 (와이드 Hero 배경)",
+    alt: "인포메이션 데스크와 출입 게이트, 유리 너머 피트니스가 있는 커뮤니티센터 로비",
+    focus: "72% center",
+    focusLg: "20% center",
+    provenance: "generated",
+  },
   "hero-community-space": {
     file: "/images/hero/hero-community-space.webp",
     subject: "커뮤니티센터 인포메이션 데스크 · 출입 게이트 · 유리 너머 피트니스. 인물 없이 공간만",

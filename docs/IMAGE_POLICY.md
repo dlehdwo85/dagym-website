@@ -13,9 +13,10 @@
 
 허용 영역: 홈 Hero · 회사소개 · 커뮤니티 운영 장면 · 현장 관리 · 운영회의 · 시설점검 · 운영 데이터 확인 · 직원 교육 · B2B 비주얼.
 
-- 슬롯: `data/photos.ts` 의 `hero-community-space`, `visual-*` (provenance `"generated"`). 파일을 넣으면 자동 반영됩니다.
+- 슬롯: `data/photos.ts` 의 `hero-community-lobby`, `hero-community-space`, `visual-*` (provenance `"generated"`). 파일을 넣으면 자동 반영됩니다.
 - 현재 적용 (생성 이미지, WebP):
-  - `public/images/hero/hero-community-space.webp` — 홈 Hero (인물 없는 공간 부분만 크롭)
+  - `public/images/hero/hero-community-lobby-21x9.webp` — 홈 Hero (wide, 인물 없는 21:9 공간)
+  - `public/images/hero/hero-community-space.webp` — split Hero 대안 (인물 없는 공간 부분만 크롭, 현재 미사용)
   - `public/images/operation/field-inspection.webp` — 운영 방식 · 본사 운영체계 (현장 점검)
   - `public/images/operation/staff-training.webp` — 운영 방식 · 본사 운영체계 (직원 · 안전 교육)
   - 해당 영역에는 "운영 방식을 설명하기 위한 연출 이미지" 문구를 함께 표시합니다.

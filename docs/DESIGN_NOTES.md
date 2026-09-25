@@ -10,10 +10,11 @@ Hero → 핵심사업 2개 → 운영실적(12개 단지) → 커뮤니티 운�
 
 ## V5 Hero
 - 카피: COMMUNITY OPERATION & PLATFORM / 공간을 운영하고, 운영을 시스템으로 연결합니다. / CTA 커뮤니티 운영 · HILINK.
-- 이미지: `public/images/hero/hero-community-space.webp` — 인물 없이 공간만 (인포메이션 데스크 · 출입 게이트 · 유리 너머 피트니스).
-  생성 브랜드 비주얼(16:9 커뮤니티센터)에서 인물이 없는 왼쪽 영역만 잘라 사용. 인물 중심 이미지는 사용자 검토 후 제외.
-- 배치: `layout: "split"` — 데스크톱은 텍스트 왼쪽 · 공간 사진 오른쪽 절반, 모바일 · 태블릿은 사진 위 · 텍스트 아래.
-  21:9 이상 인물 없는 와이드 이미지를 확보하면 `layout: "wide"` 로 전체 배경 Hero 사용 가능.
+- 이미지: `public/images/hero/hero-community-lobby-21x9.webp` (2400×1029) — 인물 없는 21:9 생성 이미지.
+  왼쪽 약 40%는 흰 벽(텍스트 영역), 오른쪽에 인포메이션 데스크 · 출입 게이트 · 유리 너머 피트니스.
+- 배치: `layout: "wide"` — 데스크톱은 이미지 전체 배경 + 왼쪽 흰색 그라데이션, 모바일 · 태블릿은 사진 위 · 텍스트 아래.
+  크롭 중심은 모바일 `focus: "72% center"`(데스크 · 게이트), 데스크톱 `focusLg: "20% center"`(흰 벽을 텍스트 쪽에 유지).
+- 대안: `hero-community-space` (세로 크롭) + `layout: "split"` — 텍스트 왼쪽 · 사진 오른쪽 절반.
 - 교체: `homeHero.image` · `homeHero.layout` · `homeHero.tone`("dark" 지원).
 
 
