@@ -1,40 +1,23 @@
-import { hilinkFunctions } from "@/data/hilink";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Photo, photoVisible } from "@/components/ui/Photo";
-import { ButtonLink } from "@/components/ui/Button";
-import { cn } from "@/lib/cn";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
-/** HILINK 가 현장 운영을 어떻게 지원하는지 — 실제 앱 화면이 있을 때만 화면을 보여줍니다 */
 export function HomeHilink() {
-  const showPhoto = photoVisible("hilink-app");
-  const items = hilinkFunctions.slice(0, 4);
   return (
-    <section className="section-y border-t border-line bg-white" aria-labelledby="home-hilink-title">
-      <div className={cn("container-x grid gap-12", showPhoto && "lg:grid-cols-12 lg:gap-16")}>
-        <div className={cn(showPhoto && "lg:col-span-7")}>
-          <SectionHeader
-            label="HILINK"
-            id="home-hilink-title"
-            title={"현장 운영을 돕는\n다짐의 출입 · 예약 · 회원관리 시스템"}
-            description="HILINK는 다짐이 직접 만들어 운영 현장에서 쓰는 시스템입니다. 입주민은 앱으로 얼굴을 등록하고 시설을 예약하며, 관리사무소는 이용료 정산과 이용 현황을 한 화면에서 확인합니다."
-          />
-          <dl className={cn("mt-12 grid gap-x-10 border-t border-ink", !showPhoto && "sm:grid-cols-2")}>
-            {items.map((f) => (
-              <div key={f.title} className="border-b border-line py-5">
-                <dt className="font-semibold">{f.title}</dt>
-                <dd className="mt-1 text-[0.9375rem] leading-relaxed text-body">{f.body}</dd>
-              </div>
-            ))}
-          </dl>
-          <ButtonLink href="/hilink" variant="secondary" className="mt-10">
-            HILINK 기능 자세히 보기
-          </ButtonLink>
+    <section className="section-y bg-paper" aria-labelledby="home-hilink-title">
+      <div className="container-x grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end lg:gap-20">
+        <div>
+          <p className="t-label text-brand">HILINK</p>
+          <h2 id="home-hilink-title" className="t-h2 mt-3">운영에 필요한 기술도<br />다짐이 직접 만듭니다.</h2>
+          <p className="mt-5 max-w-xl text-body">출입, 예약, 이용료 정산까지 하나의 시스템으로 관리합니다.</p>
+          <Link href="/hilink" className="mt-8 inline-flex items-center gap-2 font-semibold text-brand hover:text-brand-dark">HILINK 자세히 보기 <ArrowUpRight className="size-5" aria-hidden /></Link>
         </div>
-        {showPhoto && (
-          <div className="lg:col-span-5">
-            <Photo id="hilink-app" className="mx-auto aspect-[9/19] w-full max-w-[20rem]" sizes="320px" />
-          </div>
-        )}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4" aria-label="HILINK 주요 기능">
+          {["출입", "예약", "정산"].map((name, index) => (
+            <div key={name} className="flex aspect-square items-end border border-line bg-white p-4 sm:p-6">
+              <span className="text-base font-semibold sm:text-xl"><span className="mb-2 block text-xs text-brand">0{index + 1}</span>{name}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

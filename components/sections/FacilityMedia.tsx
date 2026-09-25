@@ -6,6 +6,7 @@ import { videos, type VideoId } from "@/data/videos";
 import { hasPhoto, showPhotoSlots } from "@/lib/photos";
 import { getPlayableVideo } from "@/lib/videos";
 import { cn } from "@/lib/cn";
+import { Reveal } from "@/components/ui/Reveal";
 
 /** 커뮤니티 복합시설 구성 — 한 시설당 사진 또는 영상 하나 (같은 시설 반복 없음) */
 const facilityMedia: { name: string; photo: PhotoId; video?: VideoId }[] = [
@@ -67,7 +68,7 @@ export function FacilityMedia({ title, description, id }: { title: string; descr
             const photoSlot: PhotoSlot = photos[it.photo];
             const siteName = photoSlot.provenance === "dagym-site" ? photoSlot.siteName : undefined;
             return (
-              <li key={it.name} className={cn(big && "sm:col-span-2")}>
+              <Reveal as="li" key={it.name} delay={(i % 4) * 70} className={cn(big && "sm:col-span-2")}>
                 <figure>
                   {it.kind === "video" && (
                     <VideoPlayer
@@ -78,7 +79,7 @@ export function FacilityMedia({ title, description, id }: { title: string; descr
                       className={aspect}
                     />
                   )}
-                  {it.kind === "photo" && <Photo id={it.photo} className={aspect} />}
+                  {it.kind === "photo" && <Photo id={it.photo} className={cn("visual-frame", aspect)} />}
                   {it.kind === "slot" && (
                     <div
                       data-photo-slot={it.photo}
@@ -97,7 +98,7 @@ export function FacilityMedia({ title, description, id }: { title: string; descr
                   )}
                   <Caption name={it.name} isVideo={it.kind === "video"} siteName={siteName} />
                 </figure>
-              </li>
+              </Reveal>
             );
           })}
         </ul>

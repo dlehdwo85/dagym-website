@@ -1,59 +1,29 @@
-import { fieldWork, operationProcess, weeklyVisit } from "@/data/home";
+import Image from "next/image";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Photo, photoVisible } from "@/components/ui/Photo";
-import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { cn } from "@/lib/cn";
+import { Reveal } from "@/components/ui/Reveal";
 
-/** 다짐이 현장에서 수행하는 업무와 운영 프로세스 */
+const work = [
+  { title: "상주 인력", detail: "안내 · 트레이너 · 강사" },
+  { title: "시설 관리", detail: "청결 · 기구 · 안전 점검" },
+  { title: "본사 관리", detail: "정기 방문 · 운영 보고" },
+];
+
 export function HomeFieldWork() {
-  const showPhoto = photoVisible("home-work");
   return (
     <section className="section-y bg-paper" aria-labelledby="fieldwork-title">
-      <div className="container-x">
-        <div className={cn("grid gap-12", showPhoto && "lg:grid-cols-12 lg:gap-16")}>
-          {showPhoto && <Photo id="home-work" className="aspect-[4/5] lg:col-span-5" />}
-          <div className={cn(showPhoto && "lg:col-span-7")}>
-            <SectionHeader
-              label="현장 업무"
-              id="fieldwork-title"
-              title={"커뮤니티센터의 하루를\n다짐 직원이 운영합니다."}
-              description="아침 오픈부터 저녁 마감까지 현장에 상주하는 인력과, 매주 현장을 확인하는 본사 담당이 역할을 나눠 일합니다."
-            />
-            <dl className="mt-12 grid gap-x-10 sm:grid-cols-2">
-              {fieldWork.map((w) => (
-                <div key={w.role} className="border-t border-line-strong py-6">
-                  <dt className="t-h4">{w.role}</dt>
-                  <dd>
-                    <ul className="mt-3 space-y-1.5 text-[0.9875rem] text-body">
-                      {w.tasks.map((t) => (
-                        <li key={t}>{t}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-
-        <div className="mt-20 lg:mt-28">
-          <h3 className="t-h2">상담부터 정기 보고까지</h3>
-          <p className="t-lead mt-4 max-w-3xl text-body">현장을 먼저 확인하고 운영안을 제안합니다. 운영이 시작된 뒤에도 본사가 매주 현장을 점검합니다.</p>
-          <div className="mt-10">
-            <ProcessSteps steps={operationProcess} />
-          </div>
-          <div className="mt-12 bg-white p-6 sm:p-8">
-            <p className="font-semibold">운영 중 본사 정기 방문</p>
-            <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {weeklyVisit.map((v) => (
-                <li key={v.week}>
-                  <p className="text-sm font-semibold text-brand">{v.week}</p>
-                  <p className="mt-1 font-semibold">{v.title}</p>
-                  <p className="mt-0.5 text-[0.9375rem] text-body">{v.body}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="container-x grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
+        <Reveal className="visual-frame relative aspect-[4/3] overflow-hidden bg-paper-deep sm:aspect-[16/10]">
+          <Image src="/images/facilities/gx.jpg" alt="기존 다짐 홈페이지의 커뮤니티 GX 시설 영상 장면" fill sizes="(min-width: 1024px) 55vw, 100vw" className="visual-image object-cover" />
+        </Reveal>
+        <div>
+          <SectionHeader label="운영 방식" id="fieldwork-title" title={"현장은 사람이,\n운영은 기준이 지킵니다."} description="현장 직원과 본사 담당자가 함께 시설을 관리합니다." />
+          <dl className="mt-9 border-t border-line-strong">
+            {work.map((item) => (
+              <div key={item.title} className="flex justify-between gap-6 border-b border-line py-4 text-sm sm:text-base">
+                <dt className="font-semibold">{item.title}</dt><dd className="text-right text-body">{item.detail}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

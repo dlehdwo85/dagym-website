@@ -166,6 +166,26 @@
   transform: none;
 }
 
+/* 시설 사진은 짧게 나타나고, 마우스를 올리면 아주 조금 확대됩니다. */
+.visual-frame img {
+  transition: transform 800ms var(--ease-soft);
+}
+@media (hover: hover) {
+  .visual-frame:hover img,
+  .group:hover .visual-frame img {
+    transform: scale(1.045);
+  }
+}
+.hero-photo {
+  animation: photo-arrive 850ms var(--ease-soft) both;
+}
+.hero-photo-second { animation-delay: 110ms; }
+.hero-photo-third { animation-delay: 220ms; }
+@keyframes photo-arrive {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -179,4 +199,6 @@
     opacity: 1;
     transform: none;
   }
+  .hero-photo { animation: none; }
+  .visual-frame img { transition: none; }
 }

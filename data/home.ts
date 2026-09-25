@@ -1,8 +1,8 @@
 /** HOME 콘텐츠 */
 
 export const homeHero = {
-  title: "아파트 커뮤니티와 스포츠시설,\n운영의 기준을 만듭니다.",
-  sub: "헬스장 · 골프연습장 · GX룸 · 독서실을 현장 인력이 직접 운영하고,\n자체 시스템 HILINK로 출입 · 예약 · 회원을 관리합니다.",
+  title: "우리의 공간,\n더 좋은 일상이 되도록.",
+  sub: "다짐은 아파트 커뮤니티와 스포츠시설의 일상을 운영합니다.",
   primary: { label: "운영 문의하기", href: "/contact" },
   secondary: { label: "사업영역 보기", href: "/business" },
 };
