@@ -38,10 +38,10 @@ const allProjects: PortfolioProject[] = (
     { slug: "shin-asan-moaelga-vista-2", name: "신아산모아엘가비스타 2차", imageSource: "official-perspective", imagePosition: "50% 50%" },
     { slug: "eumseong-prugio-the-first", name: "음성푸르지오 더퍼스트", imageSource: "official-perspective", imagePosition: "55% 50%" },
     { slug: "eumseong-woomi-lynn-fullhouse", name: "음성우미린풀하우스", imageSource: "official-perspective", imagePosition: "55% 55%" },
-    { slug: "jincheon-dongil-highvill-park-terrace", name: "진천 동일하이빌파크테라스", imageSource: "actual-exterior", imagePosition: "42% 50%" },
+    { slug: "jincheon-dongil-highvill-park-terrace", name: "진천 동일하이빌파크테라스", imageSource: "official-rendering", imagePosition: "50% 50%" },
     { slug: "samryong-hoban-forescent", name: "삼룡호반포레센트", imageSource: "official-rendering", imagePosition: "50% 50%" },
-    { slug: "forena-notae-1", name: "한화포레나노태1단지", imageSource: "actual-exterior", imagePosition: "50% 50%" },
-    { slug: "forena-notae-2", name: "한화포레나노태2단지", imageSource: "actual-exterior", imagePosition: "50% 50%" },
+    { slug: "forena-notae-1", name: "한화포레나노태1단지", imageSource: "official-perspective", imagePosition: "50% 60%" },
+    { slug: "forena-notae-2", name: "한화포레나노태2단지", imageSource: "official-perspective", imagePosition: "55% 65%" },
   ] as { slug: string; name: string; imageSource?: PortfolioProject["imageSource"]; imagePosition?: string }[]
 ).map((p) => ({
   ...p,
