@@ -9,8 +9,8 @@ import { formatDate, getFaqs, getPosts } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "자주 묻는 질문 · 공지",
-  description: "커뮤니티 위탁운영과 HILINK 도입에 대해 자주 묻는 질문과 다짐의 공지사항.",
+  title: "자주 묻는 질문",
+  description: "커뮤니티 위탁운영과 HILINK 도입에 대해 자주 묻는 질문.",
   path: "/insight",
 });
 
@@ -20,7 +20,7 @@ export default async function InsightPage() {
     <>
       <PageHero
         eyebrow="인사이트"
-        en="FAQ · Notice"
+        en="FAQ"
         title="자주 묻는 질문"
         description="위탁운영 전환, 입주 전 준비, HILINK 도입, 운영 보고 방식에 대해 자주 받는 질문입니다."
         breadcrumbs={[{ name: "자주 묻는 질문", path: "/insight" }]}

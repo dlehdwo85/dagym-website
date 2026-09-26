@@ -34,7 +34,7 @@ export const footerNav: { title: string; links: { label: string; href: string }[
       { label: "운영 개선 사례", href: "/cases" },
       { label: "HILINK", href: "/hilink" },
       ...(hasProjects ? [{ label: "운영실적", href: "/projects" }] : []),
-      { label: "공지 · 자주 묻는 질문", href: "/insight" },
+      { label: "자주 묻는 질문", href: "/insight" },
     ],
   },
   {
