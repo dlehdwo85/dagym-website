@@ -332,23 +332,10 @@ export const whyDagym = [
 
 /** 사업영역별 대표 사진 (시설 유형 예시 — 특정 현장 아님) */
 export const businessPhoto: Record<string, PhotoId> = {
-  "apartment-community": "facility-cafe",
+  "apartment-community": "visual-business-apartment",
   "sports-fitness": "facility-fitness",
-  "community-facility": "facility-gx",
+  "community-facility": "visual-business-hotel",
   consulting: "facility-library",
   equipment: "facility-golf",
 };
 
-/** 사업별 현장 진단 항목 */
-export const businessDiagnosis: Record<string, string[]> = {
-  "apartment-community": [
-    "시설별 이용 시간 · 이용료 부과 방식",
-    "기구 상태와 스트레칭 · 프로그램 공간",
-    "좌석 · 예약 관리 방식과 민원 이력",
-    "카페 · 키즈 · 다목적실 등 비활성 공간",
-  ],
-  "sports-fitness": ["정기 기구 점검과 고장 이력", "타석 이용 시간 제어 · 장비 경쟁력", "초보자 접근성과 프로그램 구성", "회원 · 락커 관리 방식"],
-  "community-facility": ["이용자 유형(임직원 · 투숙객 · 입주자)별 출입 권한", "공용 시설 예약 · 대관 방식", "운영 시간과 인력 배치", "보고 체계와 담당자"],
-  consulting: ["시간대별 · 시설별 이용 현황", "민원 이력과 수요 조사", "유휴 공간 · 설비 상태", "운영 인력과 비용 구조"],
-  equipment: ["세대 구성과 이용자 연령대", "공간 크기 · 동선 · 타석 수", "기존 기구 노후 · 고장 이력", "출입 · 예약 시스템 연동 여부"],
-};

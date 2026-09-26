@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTASection } from "@/components/sections/CTASection";
 import { OperationSystem } from "@/components/home/OperationSystem";
@@ -11,7 +11,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { businessAreas, getBusiness } from "@/data/business";
-import { businessDiagnosis, businessPhoto, transformations } from "@/data/corporate";
+import { businessPhoto, transformations } from "@/data/corporate";
 import { photos } from "@/data/photos";
 import { hasPhoto } from "@/lib/photos";
 import { pageMetadata, serviceJsonLd } from "@/lib/seo";
@@ -60,20 +60,7 @@ function Rows({ items }: { items: { k: string; v: string }[] }) {
   );
 }
 
-function Bullets({ items }: { items: string[] }) {
-  return (
-    <ul className="space-y-2.5">
-      {items.map((t) => (
-        <li key={t} className="t-small flex gap-3 text-ink">
-          <span className="mt-[0.7em] size-1.5 shrink-0 rounded-[1px] bg-accent" aria-hidden />
-          {t}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/** 사업 상세 — 고객 문제 → 현장 진단 → 운영안 → 운영 프로세스 → 사례 → 위탁 범위 → 문의 */
+/** 사업 상세 — 맡기는 경우 → 운영 시설 · 프로그램 → 운영 방식 → 운영 프로세스 → 사례 → 위탁 범위 → 문의 */
 export default async function BusinessDetailPage({ params }: PageProps<"/business/[slug]">) {
   const { slug } = await params;
   const b = getBusiness(slug);
@@ -81,14 +68,13 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
   const d = b.detail;
   const pid = businessPhoto[b.slug];
   const img = pid && hasPhoto(pid) ? photos[pid] : undefined;
-  const diagnosis = businessDiagnosis[b.slug] ?? [];
   const related = transformations.filter((t) => t.business === b.slug || (b.slug === "equipment" && ["fitness-renewal", "golf-upgrade"].includes(t.slug)));
   const others = businessAreas.filter((x) => x.slug !== b.slug);
 
   const toc = [
-    { id: "problem", label: "고객 문제" },
-    { id: "diagnosis", label: "현장 진단" },
-    { id: "plan", label: "다짐 운영안" },
+    { id: "problem", label: "맡기는 경우" },
+    { id: "facilities", label: "운영 시설" },
+    { id: "plan", label: "운영 방식" },
     { id: "process", label: "운영 프로세스" },
     ...(related.length ? [{ id: "cases", label: "개선 사례" }] : []),
     { id: "scope", label: "위탁 범위" },
@@ -121,7 +107,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
               <ClipReveal className="aspect-[4/3] rounded-[4px] bg-fog" from="right">
                 <Image src={img.file} alt={img.alt} fill priority sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
               </ClipReveal>
-              <figcaption className="mt-2 text-sm text-muted">{b.title} — 시설 예시</figcaption>
+              <figcaption className="mt-2 text-sm text-muted">{"provenance" in img && img.provenance === "generated" ? "연출 이미지" : `${b.title} — 시설 예시`}</figcaption>
             </figure>
           ) : undefined
         }
@@ -140,7 +126,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
         </ul>
       </nav>
 
-      <Part id="problem" no="01" title="이런 문제가 있을 때" lead="다짐에 운영 상담을 요청하는 고객의 대표적인 상황입니다.">
+      <Part id="problem" no="01" title="이런 경우 맡겨 주세요">
         <ul className="grid gap-4 sm:grid-cols-2">
           {d.targets.map((t) => (
             <Reveal as="li" key={t.title} className="rounded-[4px] border border-line p-6">
@@ -151,94 +137,56 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
         </ul>
       </Part>
 
-      <Part id="diagnosis" no="02" title="현장 진단" lead="제안 전에 현장을 직접 보고 확인하는 항목입니다." tone="mist">
-        <ul className="grid gap-px overflow-hidden rounded-[4px] border border-line bg-line sm:grid-cols-2">
-          {diagnosis.map((x) => (
-            <li key={x} className="flex items-start gap-3 bg-white p-5">
-              <Search className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
-              <span className="t-small text-ink">{x}</span>
+      <Part id="facilities" no="02" title="운영 시설 · 프로그램" tone="mist">
+        <ul className="flex flex-wrap gap-2" aria-label="운영 시설">
+          {d.facilities.map((f) => (
+            <li key={f} className="rounded-[2px] border border-line bg-white px-3.5 py-2 text-[0.9375rem] font-medium text-ink">
+              {f}
             </li>
           ))}
         </ul>
-        <p className="t-small mt-5 text-body">운영 시설: {d.facilities.join(" · ")}</p>
+        <dl className="mt-8 grid gap-4 sm:grid-cols-2">
+          {d.programs.map((p) => (
+            <div key={p.title} className="rounded-[4px] bg-white p-5">
+              <dt className="font-semibold">{p.title}</dt>
+              <dd className="t-small mt-1.5 text-body">{p.body}</dd>
+            </div>
+          ))}
+        </dl>
       </Part>
 
-      <Part id="plan" no="03" title="다짐 운영안" lead="인력 · 프로그램 · 응대 · 시스템 · 관리 · 보고를 한 번에 설계합니다.">
-        <div className="space-y-12">
-          <div>
-            <h3 className="t-h4">인력 구성</h3>
-            <div className="mt-4">
-              <Rows items={d.staffing.map((s) => ({ k: s.role, v: s.work }))} />
-            </div>
+      <Part id="plan" no="03" title="운영 방식">
+        <Rows items={d.staffing.map((s) => ({ k: s.role, v: s.work }))} />
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          <div className="border-t-2 border-navy pt-4">
+            <p className="font-semibold">
+              출입 · 예약 <span className="text-accent">HILINK</span>
+            </p>
+            <p className="t-small mt-2 text-body">{d.system}</p>
+            <Link href="/hilink" className="group mt-3 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
+              HILINK 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+            </Link>
           </div>
-          <div>
-            <h3 className="t-h4">{b.slug === "consulting" || b.slug === "equipment" ? "개선 · 구성 방식" : "프로그램 운영"}</h3>
-            <dl className="mt-4 grid gap-4 sm:grid-cols-2">
-              {d.programs.map((p) => (
-                <div key={p.title} className="rounded-[4px] bg-mist p-5">
-                  <dt className="font-semibold">{p.title}</dt>
-                  <dd className="t-small mt-1.5 text-body">{p.body}</dd>
+          <div className="border-t-2 border-navy pt-4">
+            <p className="font-semibold">운영 보고</p>
+            <p className="t-small mt-2 text-body">{d.report}</p>
+          </div>
+        </div>
+        {d.extra && (
+          <div className="mt-10">
+            <p className="font-semibold">
+              {d.extra.title} <span className="t-small font-normal text-body">— {d.extra.lead}</span>
+            </p>
+            <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+              {d.extra.rows.map((r) => (
+                <div key={r.title} className="rounded-[4px] border border-line p-5">
+                  <dt className="font-semibold">{r.title}</dt>
+                  <dd className="t-small mt-1.5 text-body">{r.body}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <div className="grid gap-8 md:grid-cols-2">
-            <div>
-              <h3 className="t-h4">회원 응대</h3>
-              <div className="mt-4">
-                <Bullets items={d.memberService} />
-              </div>
-            </div>
-            <div>
-              <h3 className="t-h4">
-                출입 · 예약 관리 <span className="font-medium text-accent">HILINK</span>
-              </h3>
-              <div className="mt-4">
-                <Bullets items={d.accessBooking} />
-              </div>
-              <Link href="/hilink" className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
-                HILINK 기능 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
-              </Link>
-            </div>
-          </div>
-          {d.facilityCare && (
-            <div>
-              <h3 className="t-h4">시설 관리 주기</h3>
-              <div className="mt-4 grid gap-4 sm:grid-cols-3">
-                {d.facilityCare.map((c) => (
-                  <div key={c.cycle} className="border-t-2 border-navy pt-4">
-                    <p className="font-bold text-navy">{c.cycle}</p>
-                    <ul className="t-small mt-2 space-y-1 text-body">
-                      {c.items.map((it) => (
-                        <li key={it}>{it}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {d.extra && (
-            <div>
-              <h3 className="t-h4">{d.extra.title}</h3>
-              <p className="t-small mt-2 text-body">{d.extra.lead}</p>
-              <dl className="mt-4 grid gap-4 sm:grid-cols-3">
-                {d.extra.rows.map((r) => (
-                  <div key={r.title} className="rounded-[4px] border border-line p-5">
-                    <dt className="font-semibold">{r.title}</dt>
-                    <dd className="t-small mt-1.5 text-body">{r.body}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
-          <div>
-            <h3 className="t-h4">운영 보고</h3>
-            <div className="mt-4">
-              <Bullets items={d.reporting} />
-            </div>
-          </div>
-        </div>
+        )}
       </Part>
 
       <div id="process" className="scroll-mt-32">
@@ -246,7 +194,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
       </div>
 
       {related.length > 0 && (
-        <Part id="cases" no="05" title="관련 개선 사례">
+        <Part id="cases" no="04" title="관련 개선 사례">
           <ul className="space-y-3">
             {related.map((t) => (
               <li key={t.slug}>
@@ -264,7 +212,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
         </Part>
       )}
 
-      <Part id="scope" no={related.length ? "06" : "05"} title="위탁 범위" lead="필요한 범위만 선택할 수 있습니다." tone="mist">
+      <Part id="scope" no={related.length ? "05" : "04"} title="위탁 범위" lead="필요한 범위만 선택할 수 있습니다." tone="mist">
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {d.scopeOptions.map((o, i) => (
             <li key={o.title} className="rounded-[4px] border border-line bg-white p-6">

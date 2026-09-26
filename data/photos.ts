@@ -85,6 +85,25 @@ export const photos = {
     focus: "50% 40%",
     provenance: "generated",
   },
+  /* 사업 상세 Hero — 생성 브랜드 비주얼 (실제 현장 아님, 인물 없음) */
+  "visual-business-apartment": {
+    file: "/images/business/apartment-community-center.webp",
+    subject: "아파트 커뮤니티센터 — 라운지 · 인포메이션 · 유리 너머 헬스장 · 스크린골프 타석",
+    size: "1168 × 880",
+    ratio: "4:3",
+    usedIn: "사업 상세 — 공동주택 커뮤니티 위탁운영 Hero",
+    alt: "라운지와 인포메이션, 헬스장, 스크린골프 타석이 함께 있는 아파트 커뮤니티센터 (연출 이미지)",
+    provenance: "generated",
+  },
+  "visual-business-hotel": {
+    file: "/images/business/hotel-wellness.webp",
+    subject: "호텔 웰니스 층 — 피트니스 · 유리 너머 실내 수영장 · 라운지",
+    size: "1168 × 880",
+    ratio: "4:3",
+    usedIn: "사업 상세 — 기업 · 호텔 · 복합시설 커뮤니티 운영 Hero",
+    alt: "도시 전망의 호텔 피트니스와 유리 너머 실내 수영장, 라운지 (연출 이미지)",
+    provenance: "generated",
+  },
   "visual-site-inspection": {
     file: "/images/operation/field-inspection.webp",
     subject: "GX룸에서 운영 담당자가 태블릿을 들고 시설을 점검하고, 직원이 거울 · 설비 상태를 확인하는 장면",

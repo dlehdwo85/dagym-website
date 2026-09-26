@@ -17,6 +17,8 @@
 - 현재 적용 (생성 이미지, WebP):
   - `public/images/hero/hero-community-lobby-21x9.webp` — 홈 Hero (wide, 인물 없는 21:9 공간)
   - `public/images/hero/hero-community-space.webp` — split Hero 대안 (인물 없는 공간 부분만 크롭, 현재 미사용)
+  - `public/images/business/apartment-community-center.webp` — 사업 상세 · 공동주택 커뮤니티 Hero (라운지 · 인포메이션 · 헬스 · 스크린골프, 인물 없음)
+  - `public/images/business/hotel-wellness.webp` — 사업 상세 · 기업 · 호텔 · 복합시설 Hero (호텔 피트니스 · 수영장 · 라운지, 인물 없음)
   - `public/images/operation/field-inspection.webp` — 운영 방식 · 본사 운영체계 (현장 점검)
   - `public/images/operation/staff-training.webp` — 운영 방식 · 본사 운영체계 (직원 · 안전 교육)
   - 해당 영역에는 "운영 방식을 설명하기 위한 연출 이미지" 문구를 함께 표시합니다.
