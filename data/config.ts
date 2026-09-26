@@ -20,7 +20,7 @@ export const siteConfig = {
   shortTitle: "DAGYM",
   description:
     "주식회사 다짐은 아파트 · 기업 · 호텔의 커뮤니티 시설과 스포츠시설을 전문 인력과 본사 운영체계로 직접 운영하고, 자체 커뮤니티 운영 플랫폼 HILINK를 구축 · 공급하는 커뮤니티 운영 전문기업입니다.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dagym1.com").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dagym-in.co.kr").replace(/\/$/, ""),
   locale: "ko_KR",
   tagline: "운영과 기술을 하나로.",
   statement: "공간의 가치를 운영으로 완성하다.",
