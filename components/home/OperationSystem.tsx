@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 
 /** HOW WE OPERATE — 운영 시스템 01 – 08 (+ 사람 없는 운영 공간 이미지 1장) */
 export function OperationSystem({ tone = "mist", title, withVisuals = false }: { tone?: "mist" | "white"; title?: string; withVisuals?: boolean }) {
-  const visual = withVisuals ? photoRef("visual-operations-desk") : undefined;
+  const visual = withVisuals ? photoRef("visual-operations-walkthrough") : undefined;
   return (
     <section className={cn("section-y", tone === "mist" ? "bg-mist" : "bg-white")} aria-labelledby="system-title">
       <div className="container-x">

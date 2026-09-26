@@ -87,13 +87,13 @@ export const photos = {
   },
   /* 사업 상세 Hero — 생성 브랜드 비주얼 (실제 현장 아님, 인물 없음) */
   /* 운영 방식 · 회사소개 — 사람 없는 실사형 공간 (생성) */
-  "visual-operations-desk": {
-    file: "/images/operation/operations-desk.webp",
-    subject: "커뮤니티센터 입구 운영 데스크 — 게시판 · 출입 게이트 · 안쪽 헬스장 (사람 없음, 다큐멘터리 톤)",
-    size: "2400 × 1357",
-    ratio: "16:9",
+  "visual-operations-walkthrough": {
+    file: "/images/operation/operations-walkthrough.webp",
+    subject: "커뮤니티 운영 점검 동선 — GX 스튜디오와 헬스장 사이 복도를 태블릿을 든 운영 담당자 1명이 걸으며 점검 (뒷모습 · 작게, 다큐멘터리 톤). 출입 게이트 · 데스크 없음",
+    size: "2400 × 1029",
+    ratio: "21:9",
     usedIn: "홈 운영 방식",
-    alt: "게시판과 안내 데스크, 안면인식 출입 게이트가 있는 커뮤니티센터 입구와 안쪽 헬스장",
+    alt: "GX 스튜디오와 헬스장 사이 복도를 운영 담당자가 태블릿을 들고 점검하며 걷는 커뮤니티센터",
     provenance: "generated",
   },
   "visual-company-atrium": {
