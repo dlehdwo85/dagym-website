@@ -1,4 +1,18 @@
 import Link from "next/link";
+import { TrackedLink } from "@/components/ui/TrackedLink";
+
+/** 문의 링크만 contact_click(footer) 을 남긴다 */
+function TrackedLinkOrLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
+  return href.startsWith("/contact") ? (
+    <TrackedLink href={href} location="footer" className={className}>
+      {children}
+    </TrackedLink>
+  ) : (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 import { company, isVerified } from "@/data/config";
 import { footerNav } from "@/data/navigation";
 import { Logo } from "@/components/ui/Logo";
@@ -36,9 +50,9 @@ export function Footer() {
                 <ul className="mt-5 space-y-3">
                   {g.links.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} className="text-[0.9375rem] text-white/75 transition-colors hover:text-white">
+                      <TrackedLinkOrLink href={l.href} className="text-[0.9375rem] text-white/75 transition-colors hover:text-white">
                         {l.label}
-                      </Link>
+                      </TrackedLinkOrLink>
                     </li>
                   ))}
                 </ul>

@@ -85,7 +85,7 @@ export const businessAreas: BusinessArea[] = [
       system: "출입 · 예약 · 이용료 정산을 입주민 앱과 관리자 화면으로 관리합니다.",
       engagement: ["전체 위탁", "시설별 위탁", "HILINK만 도입"],
       ctaTitle: "커뮤니티 운영사를 찾고 계신가요?",
-      contactType: "apartment",
+      contactType: "operation",
     },
   },
   {
@@ -158,7 +158,7 @@ export const businessAreas: BusinessArea[] = [
       system: "출입, 예약, 이용현황을 하나의 플랫폼으로 관리합니다.",
       engagement: ["전체 위탁", "HILINK만 도입"],
       ctaTitle: "시설 운영이 필요하신가요?",
-      contactType: "etc",
+      contactType: "corporate",
     },
   },
   {
@@ -232,7 +232,7 @@ export const businessAreas: BusinessArea[] = [
       system: "기구 설치와 함께 안면인식 출입 · 예약 시스템을 구축할 수 있습니다.",
       engagement: ["기구 납품 · 설치", "스크린골프 구축", "구축 + 시스템"],
       ctaTitle: "기구 교체나 타석 구축을 검토 중이신가요?",
-      contactType: "equipment",
+      contactType: "facility",
     },
   },
 ];

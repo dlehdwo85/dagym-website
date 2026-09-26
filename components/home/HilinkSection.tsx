@@ -27,7 +27,7 @@ export function HilinkSection() {
             <ButtonLink href="/hilink" variant="white">
               HILINK 자세히 보기
             </ButtonLink>
-            <ButtonLink href="/contact?type=hilink" variant="outline-white">
+            <ButtonLink href="/contact?type=hilink" variant="outline-white" track="home_hilink">
               도입 문의
             </ButtonLink>
           </div>
