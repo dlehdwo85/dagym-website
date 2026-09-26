@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
+import { ScrollRail } from "@/components/ui/ScrollRail";
 import { portfolio, type PortfolioProject } from "@/data/projects";
 import { showPhotoSlots } from "@/lib/photos";
 import { cn } from "@/lib/cn";
@@ -66,10 +67,19 @@ function PortfolioCard({ p, i, priority }: { p: PortfolioProject; i: number; pri
 
 /**
  * 운영실적 — 단지 이미지 + 단지명만.
- * 데스크톱: 정적인 4열 그리드 (기업형) / 모바일: 1.2장 보이는 가로 스냅 스크롤
+ * 데스크톱: 정적인 4열 그리드 (기업형)
+ * 홈 모바일 · 태블릿(768px 미만): 가로 스냅 스크롤 + 좌우 버튼 · 진행 막대 · 현재/전체 표시 (마우스 드래그 지원)
+ * 운영실적 페이지 모바일: 전체 목록이므로 세로 그리드
  */
 export function OurOperations({ showLink = true, asPage = false }: { showLink?: boolean; asPage?: boolean }) {
   if (portfolio.length === 0) return null;
+  const items = portfolio.map((p, i) => (
+    <li key={p.slug} className={cn(asPage ? "" : "w-[78vw] max-w-[22rem] shrink-0 snap-start md:w-auto md:max-w-none")}>
+      <Reveal delay={(i % 4) * 0.05}>
+        <PortfolioCard p={p} i={i} priority={asPage && i < 4} />
+      </Reveal>
+    </li>
+  ));
   return (
     <section className={cn("bg-white", asPage ? "pb-24 pt-14 lg:pb-32" : "section-y border-t border-line")} aria-labelledby={asPage ? undefined : "ops-title"} aria-label={asPage ? "운영 단지" : undefined}>
       {!asPage && (
@@ -91,21 +101,25 @@ export function OurOperations({ showLink = true, asPage = false }: { showLink?: 
           )}
         </div>
       )}
-      <ul
-        className={cn(
-          "no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 md:mx-auto md:grid md:max-w-[80rem] md:grid-cols-3 md:gap-x-6 md:gap-y-12 md:overflow-visible md:px-8 lg:grid-cols-4 lg:gap-x-8 xl:px-10",
-          !asPage && "mt-12 lg:mt-16",
-        )}
-        aria-label="운영 단지 목록"
-      >
-        {portfolio.map((p, i) => (
-          <li key={p.slug} className="w-[78vw] max-w-[22rem] shrink-0 snap-start md:w-auto md:max-w-none">
-            <Reveal delay={(i % 4) * 0.05}>
-              <PortfolioCard p={p} i={i} priority={asPage && i < 4} />
-            </Reveal>
-          </li>
-        ))}
-      </ul>
+      {asPage ? (
+        <ul
+          className="mx-auto grid max-w-[80rem] grid-cols-1 gap-x-4 gap-y-10 px-5 xs:grid-cols-2 md:grid-cols-3 md:gap-x-6 md:gap-y-12 md:px-8 lg:grid-cols-4 lg:gap-x-8 xl:px-10"
+          aria-label="운영 단지 목록"
+        >
+          {items}
+        </ul>
+      ) : (
+        <div className="mt-12 lg:mt-16">
+          <ScrollRail
+            count={portfolio.length}
+            label="운영 단지 목록 — 옆으로 넘겨 보기"
+            className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 md:mx-auto md:grid md:max-w-[80rem] md:grid-cols-3 md:gap-x-6 md:gap-y-12 md:overflow-visible md:px-8 lg:grid-cols-4 lg:gap-x-8 xl:px-10"
+            controlsClassName="md:hidden"
+          >
+            {items}
+          </ScrollRail>
+        </div>
+      )}
     </section>
   );
 }
