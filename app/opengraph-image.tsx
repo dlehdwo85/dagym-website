@@ -16,8 +16,8 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 80,
-          background: "#f6f5f2",
-          color: "#1a1c1e",
+          background: "#f3f4f6",
+          color: "#1c1e21",
           fontFamily: "sans-serif",
         }}
       >
@@ -25,9 +25,9 @@ export default async function Image() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.15 }}>Apartment Community &amp;</div>
           <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.15 }}>Sports Facility Operation</div>
-          <div style={{ fontSize: 28, marginTop: 28, color: "#464b52" }}>On-site operation with HILINK access · booking · membership system</div>
+          <div style={{ fontSize: 28, marginTop: 28, color: "#4a4f56" }}>On-site operation with HILINK access · booking · membership system</div>
         </div>
-        <div style={{ height: 8, width: 160, background: "#1f3a5c" }} />
+        <div style={{ height: 8, width: 160, background: "#2a2e33" }} />
       </div>
     ),
     size,

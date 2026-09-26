@@ -4,6 +4,11 @@ import "@fontsource-variable/inter/wght.css";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { businessAreas } from "@/data/business";
+import type { MegaBusiness } from "@/components/layout/Header";
+import { photos } from "@/data/photos";
+import { businessPhoto } from "@/data/corporate";
+import { hasPhoto } from "@/lib/photos";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { siteConfig } from "@/data/config";
 import { organizationJsonLd } from "@/lib/seo";
@@ -35,21 +40,28 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#081223",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const toMega = (b: (typeof businessAreas)[number], group: MegaBusiness["group"]): MegaBusiness => {
+    const photoId = businessPhoto[b.slug];
+    const photo = photoId && hasPhoto(photoId) ? photos[photoId] : undefined;
+    return { href: b.href, no: b.no, title: b.title, en: "", line: b.summary, group, image: photo ? { src: photo.file, alt: photo.alt } : undefined };
+  };
+  const megaBusiness: MegaBusiness[] = [
+    ...businessAreas.filter((b) => b.slug !== "equipment").map((b) => toMega(b, "core1")),
+    { href: "/hilink", no: "", title: "HILINK 플랫폼 구축 · 납품", en: "", line: "회원 · 출입 · 예약 · 정산 · 보고를 연결하는 자체 커뮤니티 운영 플랫폼", group: "core2" },
+    ...businessAreas.filter((b) => b.slug === "equipment").map((b) => toMega(b, "support")),
+  ];
+
   return (
     <html lang="ko" suppressHydrationWarning>
-      <head>
-        {/* 스크롤 reveal 은 JS 가 동작할 때만 적용 — 비활성 환경에서도 콘텐츠가 보이도록 */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
       <body className="min-h-dvh bg-white">
         <JsonLd data={organizationJsonLd()} />
-        <Header />
+        <Header business={megaBusiness} />
         <main id="main">{children}</main>
         <Footer />
       </body>

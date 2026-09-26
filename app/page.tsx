@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { HomeHero } from "@/components/home/HomeHero";
-import { HomeBusiness } from "@/components/home/HomeBusiness";
-import { HomeFieldWork } from "@/components/home/HomeFieldWork";
-import { HomeSites } from "@/components/home/HomeSites";
-import { FacilityMedia } from "@/components/sections/FacilityMedia";
-import { HomeHilink } from "@/components/home/HomeHilink";
+import { Hero } from "@/components/home/Hero";
+import { CoreBusiness } from "@/components/home/CoreBusiness";
+import { OperationSystem } from "@/components/home/OperationSystem";
+import { FacilityExpertise } from "@/components/home/FacilityExpertise";
+import { OurOperations } from "@/components/home/OurOperations";
+import { HilinkSection } from "@/components/home/HilinkSection";
+import { Transformations } from "@/components/home/Transformations";
+import { WhyDagym } from "@/components/home/WhyDagym";
 import { CTASection } from "@/components/sections/CTASection";
 import { siteConfig } from "@/data/config";
 import { absoluteUrl } from "@/lib/seo";
@@ -15,23 +17,23 @@ export const metadata: Metadata = {
   alternates: { canonical: absoluteUrl("/") },
 };
 
+/**
+ * HOME — 운영회사 정체성 → 핵심사업 2개 → 실제 운영 단지 → 운영 범위 · 방식 → 플랫폼 → 개선 → 신뢰 → 문의
+ * Hero → 핵심사업(커뮤니티 운영 · HILINK) → 운영실적 → 운영 범위 → 운영 방식 → HILINK → 운영 개선 → Why → 문의
+ * 시설 지원(기구 · 스크린골프)은 핵심사업 하단 보조 서비스로만 노출합니다.
+ */
 export default function HomePage() {
   return (
     <>
-      <HomeHero />
-      <HomeBusiness />
-      <HomeFieldWork />
-      <FacilityMedia
-        id="home-facility-media"
-        title={"수영장부터 게스트하우스까지,\n커뮤니티 시설 전체를 운영합니다."}
-        description="운동시설만이 아니라 카페, 도서관, 게스트하우스처럼 입주민이 함께 쓰는 공간을 같은 운영 기준으로 관리합니다."
-      />
-      <HomeSites />
-      <HomeHilink />
-      <CTASection
-        title={"우리 단지 커뮤니티,\n운영 상담을 받아보세요."}
-        description="단지명, 세대수, 운영 중인 시설과 현재 운영 방식을 알려주시면 현장 확인 후 운영 인력 · 프로그램 · 이용료 부과 방식까지 포함한 운영안을 제안해 드립니다."
-      />
+      <Hero />
+      <CoreBusiness tone="mist" />
+      <OurOperations />
+      <FacilityExpertise />
+      <OperationSystem withVisuals />
+      <HilinkSection />
+      <Transformations />
+      <WhyDagym />
+      <CTASection />
     </>
   );
 }

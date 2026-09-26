@@ -1,22 +1,32 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { mainNav } from "@/data/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 
-export function Header() {
+export type MegaBusiness = { href: string; no: string; title: string; en: string; line: string; group: "core1" | "core2" | "support"; image?: { src: string; alt: string } };
+
+const groupLabel: Record<MegaBusiness["group"], string> = { core1: "CORE 01 · 커뮤니티 운영", core2: "CORE 02 · HILINK 플랫폼", support: "SUPPORTING SERVICE" };
+
+type Props = { business: MegaBusiness[] };
+
+/** 헤더 — 흰 배경 고정, 사업영역 · HILINK 메가 메뉴, CTA "운영 제안 문의" */
+export function Header({ business }: Props) {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [preview, setPreview] = useState(0);
   const [prevPath, setPrevPath] = useState(pathname);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 라우트 변경 시 메뉴 닫기
   if (prevPath !== pathname) {
     setPrevPath(pathname);
     setOpenMenu(null);
@@ -32,8 +42,13 @@ export function Header() {
 
   useEffect(() => {
     document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
+    // 창을 넓혀 데스크톱 메뉴가 보이면 모바일 메뉴를 닫습니다 (md = 768px)
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => mq.matches && setMobileOpen(false);
+    mq.addEventListener("change", onChange);
     return () => {
       document.documentElement.style.overflow = "";
+      mq.removeEventListener("change", onChange);
     };
   }, [mobileOpen]);
 
@@ -54,7 +69,7 @@ export function Header() {
   };
   const scheduleClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 140);
   };
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -62,69 +77,41 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-200",
-          scrolled ? "shadow-[0_1px_0_var(--color-line)]" : "shadow-[0_1px_0_transparent]",
+          "fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300",
+          scrolled || openMenu ? "shadow-[0_1px_0_var(--color-line)]" : "shadow-[0_1px_0_transparent]",
         )}
+        onMouseLeave={scheduleClose}
       >
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-white focus:px-4 focus:py-2"
-        >
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-white focus:px-4 focus:py-2">
           본문 바로가기
         </a>
-        <div className="container-x flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
+        <div className="container-x flex h-16 items-center justify-between gap-6 lg:h-[4.75rem]">
           <Link href="/" aria-label="DAGYM 다짐 홈" className="shrink-0">
             <Logo />
           </Link>
 
-          <nav aria-label="주 메뉴" className="hidden h-full lg:block">
-            <ul className="flex h-full items-center gap-1">
+          <nav aria-label="주 메뉴" className="hidden h-full md:block">
+            <ul className="flex h-full items-center">
               {mainNav.map((item) => (
-                <li
-                  key={item.href}
-                  className="relative h-full"
-                  onMouseEnter={() => open(item.children ? item.label : null)}
-                  onMouseLeave={scheduleClose}
-                  onFocus={() => open(item.children ? item.label : null)}
-                  onBlur={(e) => {
-                    if (!e.currentTarget.contains(e.relatedTarget as Node)) scheduleClose();
-                  }}
-                >
+                <li key={item.href} className="h-full" onMouseEnter={() => open(item.mega ?? null)} onFocus={() => open(item.mega ?? null)}>
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
+                    aria-expanded={item.mega ? openMenu === item.mega : undefined}
                     className={cn(
-                      "flex h-full items-center gap-1 px-4 text-[0.9875rem] font-semibold transition-colors hover:text-brand",
-                      isActive(item.href) ? "text-brand" : "text-ink",
+                      "relative flex h-full items-center gap-1 whitespace-nowrap px-2.5 text-[0.9375rem] font-semibold transition-colors hover:text-accent lg:px-4 lg:text-[0.9875rem] xl:px-5",
+                      isActive(item.href) ? "text-navy" : "text-ink",
                     )}
                   >
                     {item.label}
-                    {item.children && <ChevronDown className="size-4 text-muted" aria-hidden />}
-                  </Link>
-                  {item.children && (
-                    <div
+                    {item.mega && <ChevronDown className="size-4 text-muted" aria-hidden />}
+                    <span
                       className={cn(
-                        "absolute left-0 top-full min-w-64 border border-line bg-white py-2 shadow-[0_12px_32px_-12px_rgb(0_0_0/0.18)] transition-[opacity,visibility] duration-150",
-                        openMenu === item.label ? "visible opacity-100" : "invisible opacity-0",
+                        "absolute inset-x-2.5 bottom-0 h-[2px] bg-navy transition-opacity lg:inset-x-4 xl:inset-x-5",
+                        isActive(item.href) ? "opacity-100" : "opacity-0",
                       )}
-                    >
-                      <ul>
-                        {item.children.map((c) => (
-                          <li key={c.href}>
-                            <Link
-                              href={c.href}
-                              className={cn(
-                                "block px-5 py-2.5 text-[0.9375rem] hover:bg-paper hover:text-brand",
-                                isActive(c.href) ? "text-brand" : "text-ink",
-                              )}
-                            >
-                              {c.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                    />
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -132,14 +119,15 @@ export function Header() {
 
           <div className="flex items-center gap-1">
             <Link
-              href="/contact"
-              className="inline-flex h-10 items-center rounded-[4px] bg-brand px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-dark lg:h-11 lg:px-5 lg:text-[0.9375rem]"
+              href="/contact?type=proposal"
+              className="btn-wipe group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[4px] bg-navy px-4 text-sm font-semibold text-white [--wipe:var(--color-navy-deep)] md:max-[899px]:hidden lg:h-11 lg:px-5 lg:text-[0.9375rem]"
             >
-              운영 문의하기
+              운영 제안 문의
+              <ArrowRight className="btn-arrow hidden size-4 sm:block" aria-hidden />
             </Link>
             <button
               type="button"
-              className="-mr-2 inline-flex size-11 items-center justify-center lg:hidden"
+              className="-mr-2 inline-flex size-11 items-center justify-center md:hidden"
               aria-label="전체 메뉴 열기"
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
@@ -149,30 +137,113 @@ export function Header() {
             </button>
           </div>
         </div>
+
+        <AnimatePresence>
+          {openMenu && (
+            <motion.div
+              key={openMenu}
+              initial={reduce ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-[0_24px_48px_-24px_rgba(15,27,45,0.25)] lg:block"
+              onMouseEnter={() => open(openMenu)}
+            >
+              {openMenu === "business" && (
+                <div className="container-x grid grid-cols-12 gap-10 py-10">
+                  <div className="col-span-3">
+                    <p className="eyebrow">사업영역</p>
+                    <p className="mt-3 text-[1.375rem] font-bold leading-snug tracking-[-0.02em]">커뮤니티를 운영하고,<br />운영 플랫폼을 공급합니다.</p>
+                    <Link href="/business" className="group mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
+                      사업영역 전체 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+                    </Link>
+                  </div>
+                  <ul className="col-span-5">
+                    {business.map((b, i) => (
+                      <li key={b.href} className={cn("border-b border-line last:border-0", b.group !== business[i - 1]?.group && i > 0 && "mt-5")}>
+                        {b.group !== business[i - 1]?.group && <p className="pb-1 text-xs font-bold tracking-[0.08em] text-accent">{groupLabel[b.group]}</p>}
+                        <Link
+                          href={b.href}
+                          onMouseEnter={() => setPreview(i)}
+                          onFocus={() => setPreview(i)}
+                          className={cn("group flex items-center gap-4", b.group === "support" ? "py-2.5" : "py-3.5")}
+                        >
+                          <span
+                            className={cn(
+                              "flex-1 tracking-[-0.015em] group-hover:text-accent",
+                              b.group === "support" ? "text-[0.9375rem] font-medium text-body" : "text-[1.0625rem] font-semibold",
+                            )}
+                          >
+                            {b.title}
+                          </span>
+                          <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="col-span-4">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-mist">
+                      {business.map((b, i) =>
+                        b.image ? (
+                          <Image
+                            key={b.href}
+                            src={b.image.src}
+                            alt=""
+                            fill
+                            sizes="400px"
+                            className={cn("object-cover transition-opacity duration-300", preview === i ? "opacity-100" : "opacity-0")}
+                          />
+                        ) : null,
+                      )}
+                    </div>
+                    <p className="mt-3 text-sm text-body">{business[preview]?.line}</p>
+                  </div>
+                </div>
+              )}
+              {openMenu === "hilink" && (
+                <div className="container-x grid grid-cols-12 items-start gap-10 py-10">
+                  <div className="col-span-4">
+                    <p className="eyebrow">HILINK</p>
+                    <p className="mt-3 text-[1.375rem] font-bold leading-snug tracking-[-0.02em]">다짐의 현장 운영을 기록하고 표준화하는 자체 운영 플랫폼</p>
+                  </div>
+                  <ul className="col-span-8 grid grid-cols-2 gap-x-10">
+                    {[
+                      ["플랫폼 소개", "/hilink"],
+                      ["주요 기능", "/hilink#functions"],
+                      ["기존 출입 설비와 함께 쓰기", "/hilink#integration"],
+                      ["HILINK 도입 문의", "/contact?type=hilink"],
+                    ].map(([label, href]) => (
+                      <li key={href} className="border-b border-line">
+                        <Link href={href} className="group flex items-center justify-between py-4 font-semibold hover:text-accent">
+                          {label}
+                          <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
-      {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} isActive={isActive} />}
+
+      {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} isActive={isActive} business={business} />}
     </>
   );
 }
 
-function MobileMenu({ onClose, isActive }: { onClose: () => void; isActive: (href: string) => boolean }) {
+function MobileMenu({ onClose, isActive, business }: { onClose: () => void; isActive: (href: string) => boolean; business: MegaBusiness[] }) {
   const closeRef = useRef<HTMLButtonElement>(null);
-  const baseId = useId();
   useEffect(() => closeRef.current?.focus(), []);
 
   return (
-    <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="전체 메뉴" className="fixed inset-0 z-[60] flex flex-col bg-white lg:hidden">
+    <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="전체 메뉴" className="fixed inset-0 z-[70] flex flex-col bg-white md:hidden">
       <div className="container-x flex h-16 shrink-0 items-center justify-between border-b border-line">
         <Link href="/" onClick={onClose} aria-label="DAGYM 다짐 홈">
           <Logo />
         </Link>
-        <button
-          ref={closeRef}
-          type="button"
-          className="-mr-2 inline-flex size-11 items-center justify-center"
-          aria-label="메뉴 닫기"
-          onClick={onClose}
-        >
+        <button ref={closeRef} type="button" className="-mr-2 inline-flex size-11 items-center justify-center" aria-label="메뉴 닫기" onClick={onClose}>
           <X className="size-6" strokeWidth={1.75} aria-hidden />
         </button>
       </div>
@@ -184,16 +255,17 @@ function MobileMenu({ onClose, isActive }: { onClose: () => void; isActive: (hre
                 href={item.href}
                 onClick={onClose}
                 aria-current={isActive(item.href) ? "page" : undefined}
-                className={cn("flex min-h-14 items-center text-lg font-semibold", isActive(item.href) && "text-brand")}
+                className={cn("flex min-h-14 items-center text-lg font-bold", isActive(item.href) && "text-navy")}
               >
                 {item.label}
               </Link>
-              {item.children && (
-                <ul aria-labelledby={`${baseId}-${item.label}`} className="pb-3">
-                  {item.children.map((c) => (
+              {item.mega === "business" && (
+                <ul className="pb-3">
+                  {business.map((c, i) => (
                     <li key={c.href}>
-                      <Link href={c.href} onClick={onClose} className="flex min-h-11 items-center pl-3 text-[0.9375rem] text-body">
-                        {c.label}
+                      {c.group !== business[i - 1]?.group && <p className="pb-1 pl-1 pt-2 text-[11px] font-bold tracking-[0.08em] text-accent">{groupLabel[c.group]}</p>}
+                      <Link href={c.href} onClick={onClose} className="flex min-h-11 items-center gap-3 pl-1 text-[0.9375rem] text-body">
+                        {c.title}
                       </Link>
                     </li>
                   ))}
@@ -203,13 +275,12 @@ function MobileMenu({ onClose, isActive }: { onClose: () => void; isActive: (hre
           ))}
         </ul>
       </nav>
-      <div className="container-x shrink-0 border-t border-line py-4">
-        <Link
-          href="/contact"
-          onClick={onClose}
-          className="flex h-14 w-full items-center justify-center rounded-[4px] bg-brand text-base font-semibold text-white"
-        >
-          운영 문의하기
+      <div className="container-x grid shrink-0 grid-cols-2 gap-2 border-t border-line py-4">
+        <Link href="/contact?type=proposal" onClick={onClose} className="flex h-13 items-center justify-center rounded-[4px] bg-navy text-[0.9375rem] font-semibold text-white">
+          운영 제안 문의
+        </Link>
+        <Link href="/contact?type=diagnosis" onClick={onClose} className="flex h-13 items-center justify-center rounded-[4px] border border-line-strong text-[0.9375rem] font-semibold">
+          현장 진단 문의
         </Link>
       </div>
     </div>

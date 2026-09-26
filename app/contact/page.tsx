@@ -34,26 +34,27 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        label="운영 문의하기"
-        title={"단지와 시설 정보를 알려주시면\n운영안을 제안해 드립니다."}
-        description="입주 전 단지, 운영사 교체를 검토 중인 단지, 일부 시설만 맡기려는 경우 모두 상담할 수 있습니다."
-        breadcrumbs={[{ name: "운영 문의하기", path: "/contact" }]}
+        eyebrow="운영 문의"
+        en="Contact"
+        title={"운영 제안 · 현장 진단을\n요청해 주세요."}
+        description="입주 전 단지, 운영사 교체를 검토 중인 단지, 일부 시설만 맡기려는 경우, 입찰을 준비하는 경우 모두 상담할 수 있습니다. 단지 · 시설 정보를 알려주시면 현장을 확인한 뒤 운영안을 제안드립니다."
+        breadcrumbs={[{ name: "운영 문의", path: "/contact" }]}
       />
       <section className="bg-white py-14 lg:py-20" aria-label="운영 상담 신청">
         <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="min-w-0 lg:col-span-8">
-            <h2 className="t-h2">상담 신청서</h2>
+            <h2 className="t-h2">운영 문의서</h2>
             <div className="mt-6">
               <ContactForm deliveryReady={ready} />
             </div>
           </div>
           <aside className="lg:col-span-4" aria-label="상담 절차와 연락처">
-            <div className="bg-paper p-7 lg:sticky lg:top-28">
+            <div className="rounded-[4px] bg-mist p-7 lg:sticky lg:top-28">
               <h2 className="t-h4">상담은 이렇게 진행됩니다</h2>
               <ol className="mt-5 space-y-5">
                 {steps.map((s, i) => (
                   <li key={s.title} className="grid grid-cols-[2rem_1fr]">
-                    <span className="text-sm font-semibold text-brand">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="text-sm font-semibold text-accent">{String(i + 1).padStart(2, "0")}</span>
                     <div>
                       <p className="font-semibold">{s.title}</p>
                       <p className="mt-0.5 text-[0.9375rem] text-body">{s.body}</p>

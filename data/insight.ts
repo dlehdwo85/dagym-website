@@ -32,22 +32,8 @@ export type Post = {
   verified: boolean;
 };
 
-export const posts: Post[] = [
-  {
-    slug: "website-renewal",
-    category: "notice",
-    title: "다짐 홈페이지를 새로 열었습니다",
-    excerpt: "사업영역, 현장 운영 방식, HILINK 시스템을 확인하고 온라인으로 운영 상담을 신청할 수 있습니다.",
-    body: [
-      "주식회사 다짐의 공식 홈페이지가 새롭게 개편되었습니다.",
-      "새 홈페이지에서는 아파트 커뮤니티 위탁운영, 스포츠 · 피트니스 시설 운영, 기업 · 호텔 커뮤니티 운영, 운영 컨설팅 · 시설 개선, 운동기구 · 스크린골프 납품의 운영 내용을 확인하실 수 있습니다.",
-      "다짐의 자체 커뮤니티 운영 시스템 HILINK의 주요 기능도 별도 페이지로 소개합니다.",
-      "운영 상담은 문의하기 페이지에서 상담 유형과 시설 정보를 남겨 주시면 담당자가 확인 후 연락드립니다.",
-    ],
-    date: "2026-09-24",
-    verified: true,
-  },
-];
+/** 공지사항은 당분간 게시하지 않음 — 다시 열 때 여기에 항목을 추가 */
+export const posts: Post[] = [];
 
 export type Faq = { q: string; a: string; group: "운영" | "HILINK" | "계약" };
 

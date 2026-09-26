@@ -23,6 +23,7 @@ export type Lead = {
   region: string;
   facilities: string[];
   scale: string;
+  currentOperation: string;
   message: string;
 };
 
@@ -47,6 +48,7 @@ function leadText(lead: Lead) {
     `지역: ${lead.region}`,
     `시설: ${lead.facilities.join(", ") || "-"}`,
     `규모: ${lead.scale || "-"}`,
+    `현재 운영 방식: ${lead.currentOperation || "-"}`,
     ``,
     lead.message,
     ``,

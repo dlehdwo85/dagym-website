@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Check, CircleCheck, LoaderCircle } from "lucide-react";
 import {
   facilityOptions,
+  operationModes,
   formatPhone,
   inquiryTypes,
   organizationRoles,
@@ -79,6 +80,7 @@ export function ContactForm({ deliveryReady }: { deliveryReady: boolean }) {
     region: "",
     facilities: [],
     scale: "",
+    currentOperation: "",
     message: "",
     privacy: false,
     website: "",
@@ -353,6 +355,23 @@ export function ContactForm({ deliveryReady }: { deliveryReady: boolean }) {
               aria-describedby={`${id("scale")}-hint`}
               className={cn(inputBase, "h-13 border-line-strong")}
             />
+          </Field>
+        </div>
+        <div className="mt-6">
+          <Field label="현재 운영 방식" htmlFor={id("currentOperation")}>
+            <select
+              id={id("currentOperation")}
+              value={values.currentOperation}
+              onChange={(e) => set("currentOperation", e.target.value)}
+              className={cn(inputBase, "h-13 border-line-strong", !values.currentOperation && "text-muted")}
+            >
+              <option value="">선택해 주세요</option>
+              {operationModes.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
           </Field>
         </div>
       </fieldset>

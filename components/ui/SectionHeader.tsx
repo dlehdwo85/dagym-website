@@ -1,26 +1,38 @@
+import { Reveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/cn";
 
 type Props = {
+  /** 한글 소제목 */
+  eyebrow?: string;
+  /** 이전 버전 호환 */
   label?: string;
-  title: React.ReactNode;
+  /** 보조 영문 라벨 (선택) */
+  en?: string;
+  title: string;
   description?: React.ReactNode;
   id?: string;
-  as?: "h1" | "h2";
-  className?: string;
-  align?: "left" | "center";
   tone?: "light" | "dark";
+  size?: "section" | "h2";
+  align?: "left" | "center";
+  className?: string;
 };
 
-/** 섹션 제목 — 짧은 한글 라벨 + 한글 제목 + 설명 */
-export function SectionHeader({ label, title, description, id, as: Tag = "h2", className, align = "left", tone = "light" }: Props) {
+/** 섹션 머리 — 소제목 → 제목 → 리드 문장 3단 구조 */
+export function SectionHeader({ eyebrow, label, en, title, description, id, tone = "light", size = "section", align = "left", className }: Props) {
   const dark = tone === "dark";
+  const kicker = eyebrow ?? label;
   return (
-    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
-      {label && <p className={cn("t-label", dark ? "text-white/70" : "text-brand")}>{label}</p>}
-      <Tag id={id} className={cn("t-h2 sm:whitespace-pre-line", label && "mt-3", dark ? "text-white" : "text-ink")}>
+    <Reveal className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
+      {(kicker || en) && (
+        <p className={cn("flex items-center gap-3", align === "center" && "justify-center")}>
+          {kicker && <span className={cn("eyebrow", dark && "!text-[#9dbcf0]")}>{kicker}</span>}
+          {en && <span className={cn("label-en", dark ? "text-white/40" : "text-steel")}>{en}</span>}
+        </p>
+      )}
+      <h2 id={id} className={cn(size === "section" ? "t-section" : "t-h2", "mt-4 sm:whitespace-pre-line", dark ? "text-white" : "text-ink")}>
         {title}
-      </Tag>
-      {description && <div className={cn("t-lead mt-5", dark ? "text-white/75" : "text-body")}>{description}</div>}
-    </div>
+      </h2>
+      {description && <p className={cn("t-lead mt-5", dark ? "text-white/70" : "text-body")}>{description}</p>}
+    </Reveal>
   );
 }

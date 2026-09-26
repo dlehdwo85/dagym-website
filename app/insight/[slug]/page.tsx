@@ -40,10 +40,11 @@ export default async function PostPage({ params }: PageProps<"/insight/[slug]">)
         }}
       />
       <PageHero
-        label={`${postCategoryLabel[post.category]} · ${formatDate(post.date)}`}
+        eyebrow={`${postCategoryLabel[post.category]} · ${formatDate(post.date)}`}
+        compact
         title={post.title}
         breadcrumbs={[
-          { name: "자주 묻는 질문 · 공지", path: "/insight" },
+          { name: "자주 묻는 질문", path: "/insight" },
           { name: post.title, path: `/insight/${post.slug}` },
         ]}
       />

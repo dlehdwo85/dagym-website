@@ -4,22 +4,14 @@
  * Supabase / Headless CMS 로 전환할 때 이 파일의 구현만 교체하면 됩니다.
  *   예) export async function getProjects() {
  *         const { data } = await supabase.from("projects").select("*").order("created_at", { ascending: false });
- *         return data as Project[];
+ *         return data as PortfolioProject[];
  *       }
  */
-import { publishedProjects, type Project, type ProjectCategory } from "@/data/projects";
+import { portfolio, type PortfolioProject } from "@/data/projects";
 import { posts, faqs, type Post, type PostCategory } from "@/data/insight";
 
-export async function getProjects(category?: ProjectCategory): Promise<Project[]> {
-  return category ? publishedProjects.filter((p) => p.category === category) : publishedProjects;
-}
-
-export async function getFeaturedProjects(limit = 8): Promise<Project[]> {
-  return publishedProjects.filter((p) => p.featured).slice(0, limit);
-}
-
-export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
-  return publishedProjects.find((p) => p.slug === slug);
+export async function getProjects(): Promise<PortfolioProject[]> {
+  return portfolio;
 }
 
 export async function getPosts(category?: PostCategory): Promise<Post[]> {
