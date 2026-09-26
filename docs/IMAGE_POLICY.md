@@ -22,7 +22,7 @@
 - 생성 설정: gpt_image_2_5 · quality high · resolution 2k (저품질 기본값 사용 금지).
 
 현재 적용 (모두 생성 이미지, 사람 없음, WebP):
-- `public/images/hero/hero-access-lobby-v5-21x9.webp` — 홈 Hero (왼쪽 흰 벽 · 오른쪽 데스크–게이트–유리벽으로 막힌 출입선, 오른쪽 게이트 캐비닛 상단(앞 끝에서 약간 안쪽) 폴 거치 단말 1대, 얼굴 높이 — 실제 설치 사진 기준)
+- `public/images/hero/hero-access-lobby-v6-21x9.webp` — 홈 Hero (왼쪽 흰 벽 · 오른쪽 데스크–게이트–유리벽으로 막힌 출입선, 오른쪽 게이트 캐비닛 상단(앞 끝에서 약간 안쪽) 폴 거치 단말 1대, 얼굴 높이 — 실제 설치 사진 기준)
 - `public/images/hero/hero-community-space.webp` — split Hero 대안 (현재 미사용)
 - `public/images/operation/operations-walkthrough.webp` — 홈 운영 방식 (GX 스튜디오–헬스장 복도 운영 점검, 담당자 1명 뒷모습 · 작게. Hero의 데스크·게이트 장면과 겹치지 않게)
 - `public/images/company/community-atrium.webp` — 회사소개 인트로 (복층 아트리움)

@@ -65,14 +65,14 @@ export const photos = {
   /* 홈 Hero — 생성 이미지 (브랜드 비주얼)에서 인물이 없는 공간 부분만 잘라 사용. 실제 현장이 아님 */
   /* 홈 Hero (wide) — 인물 없는 21:9 생성 이미지. 왼쪽 40%는 흰 벽(텍스트 영역), 오른쪽에 데스크 · 게이트 · 피트니스 */
   "hero-community-lobby": {
-    file: "/images/hero/hero-access-lobby-v5-21x9.webp",
+    file: "/images/hero/hero-access-lobby-v6-21x9.webp",
     subject: "커뮤니티센터 출입구 — 데스크에 바로 붙은 스피드 게이트, 오른쪽 게이트 캐비닛 상단(앞 끝에서 약간 안쪽)에 폴 거치형 얼굴인식 단말 1대(서서 얼굴 높이, 실제 설치 사진 기준), 게이트 뒤 열린 유리문으로 이어지는 피트니스. 우회 동선 없음 · 인물 없음",
     size: "2400 × 1029",
     ratio: "21:9 (가로)",
     usedIn: "홈 첫 화면 (와이드 Hero 배경)",
     alt: "안내 데스크에 붙은 스피드 게이트와 게이트 진입부의 얼굴 높이 얼굴인식 단말, 그 너머 피트니스가 보이는 커뮤니티센터 출입구",
     focus: "78% center",
-    focusLg: "20% center",
+    focusLg: "40% center",
     provenance: "generated",
   },
   "hero-community-space": {
