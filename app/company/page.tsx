@@ -36,8 +36,7 @@ export default function CompanyPage() {
   ];
   const visibleInfo = infoRows.filter(([, v]) => isVerified(v));
   const facts = publicFacts();
-  const generated = photoRef("visual-ops-meeting");
-  const photo = generated ?? photoRef("facility-fitness");
+  const photo = photoRef("visual-company-atrium") ?? photoRef("facility-fitness");
 
   return (
     <>
@@ -80,7 +79,6 @@ export default function CompanyPage() {
               <ClipReveal className="aspect-[4/3] rounded-[4px] bg-mist" from="right">
                 <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
               </ClipReveal>
-              <figcaption className="mt-2 text-sm text-muted">{generated ? "운영 방식을 설명하기 위한 연출 이미지" : "커뮤니티 헬스장 — 시설 예시"}</figcaption>
             </figure>
           )}
         </div>

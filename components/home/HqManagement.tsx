@@ -1,13 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import Image from "next/image";
-import { photoRef } from "@/lib/photos";
 import { communication, hqDepartments, hqFlow, hqSupportLine, staffTraining, weeklyCycle } from "@/data/corporate";
 
 /** 본사 운영체계 — 조직도를 운영 모델로 재해석 */
 export function HqManagement({ showTitle = true }: { showTitle?: boolean }) {
-  const visuals = (["visual-site-inspection", "visual-ops-meeting", "visual-staff-training"] as const).map((id) => photoRef(id)).filter(Boolean) as NonNullable<ReturnType<typeof photoRef>>[];
   return (
     <section id="hq" className="section-y scroll-mt-20 bg-white" aria-labelledby="hq-title">
       <div className="container-x">
@@ -19,19 +16,6 @@ export function HqManagement({ showTitle = true }: { showTitle?: boolean }) {
             title={"현장은 한 사람이 아니라,\n본사가 함께 운영합니다."}
             description="현장을 맡기면 직원 한 명이 관리하는 것이 아니라, 다짐 본사 조직과 운영 시스템 전체가 현장을 관리합니다."
           />
-        )}
-
-        {visuals.length >= 2 && (
-          <>
-            <ul className={visuals.length === 3 ? "mt-12 grid gap-4 sm:grid-cols-3" : "mt-12 grid gap-4 sm:grid-cols-2 lg:gap-6"}>
-              {visuals.map((v) => (
-                <li key={v.src} className="relative aspect-[16/10] overflow-hidden rounded-[4px] bg-mist">
-                  <Image src={v.src} alt={v.alt} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" />
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2.5 text-xs text-muted">사진은 운영 방식을 설명하기 위한 연출 이미지입니다.</p>
-          </>
         )}
 
         {/* 운영 흐름 */}

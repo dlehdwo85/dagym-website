@@ -9,25 +9,29 @@
 - 코드에서 강제: `data/projects.ts` 의 `imageSource`(`official-rendering` · `official-perspective` · `actual-exterior`)가 지정된 단지만 이미지가 표시됩니다. 확보하지 못한 단지는 Placeholder 카드를 유지합니다.
 - 추가 방법: 원본을 `<slug>.jpg` 로 모아 `node scripts/import-portfolio-images.mjs <폴더>` → `imageSource` 지정.
 
-## 2. 브랜드 비주얼 — 실제 사진 우선, 없으면 생성 이미지 허용
+## 2. 브랜드 비주얼 — 실제 사진 → 사람 없는 실사형 공간 → 프로세스/다이어그램 순
 
-허용 영역: 홈 Hero · 회사소개 · 커뮤니티 운영 장면 · 현장 관리 · 운영회의 · 시설점검 · 운영 데이터 확인 · 직원 교육 · B2B 비주얼.
+사용 영역: 홈 Hero · 회사소개 · 사업 상세 Hero · 커뮤니티 운영 설명 · 기업 · 호텔 소개 · 운영 컨설팅 · HILINK 주변 분위기.
 
-- 슬롯: `data/photos.ts` 의 `hero-community-lobby`, `hero-community-space`, `visual-*` (provenance `"generated"`). 파일을 넣으면 자동 반영됩니다.
-- 현재 적용 (생성 이미지, WebP):
-  - `public/images/hero/hero-community-lobby-21x9.webp` — 홈 Hero (wide, 인물 없는 21:9 공간)
-  - `public/images/hero/hero-community-space.webp` — split Hero 대안 (인물 없는 공간 부분만 크롭, 현재 미사용)
-  - `public/images/business/*.webp` — 사업 상세 5개 페이지 전용 (페이지마다 Hero 4:3 1장 + 와이드 21:9 1장, 서로 중복 없음)
-    - apartment / apartment-wide — 아파트 커뮤니티 (라운지 · 인포메이션 · 헬스 · 스크린골프 / 골프 · GX · 스터디)
-    - sports / sports-wide — 스포츠 · 피트니스 (기구 점검하는 트레이너 / 피트니스 클럽 전경)
-    - hotel / corporate-wide — 기업 · 호텔 (호텔 라운지 · 피트니스 · 수영장 / 사옥 복지층)
-    - consulting / consulting-wide — 운영 컨설팅 (노후 헬스장 진단 / 도면 · 이용 차트)
-    - equipment / equipment-wide — 시설 지원 (기구 설치 · 스크린골프 / 신규 타석)
-  - `public/images/operation/field-inspection.webp` — 운영 방식 · 본사 운영체계 (현장 점검)
-  - `public/images/operation/staff-training.webp` — 운영 방식 · 본사 운영체계 (직원 · 안전 교육)
-  - 해당 영역에는 "운영 방식을 설명하기 위한 연출 이미지" 문구를 함께 표시합니다.
-- 추가 생성은 Hero · Company 이미지 부족, 운영 프로세스 설명에 사진이 반드시 필요한 경우, 페이지 시각 균형이 무너진 경우에만 진행합니다.
-- 금지: 정장 악수 · 일반 회의실 · 노트북만 보는 전형적 스톡 기업 이미지. 장면에서 DAGYM의 업(커뮤니티 운영)이 보여야 합니다.
+- 기본은 **사람 없는 실사형 공간 이미지** (건축 · 인테리어 사진처럼). 공간이 주인공.
+- 사람이 꼭 필요하면 1~2명, 작게, 얼굴 · 손 클로즈업 없이. CPR · 교육 · 팀 회의 · 다수 인원 장면은 생성하지 않음.
+- AI 티가 강하면 재생성보다 사람 없는 이미지 또는 프로세스 · 다이어그램으로 대체.
+- 캡션 · "연출 이미지" · "시설 예시" 문구를 붙이지 않음. 이미지가 설명을 대신함 (alt 만 유지).
+- 생성 전 질문: "이 이미지는 실제 회사 홈페이지 신뢰도를 높이는가?" — 사람이 많거나, 얼굴 · 손이 크거나, 연출감이 강하면 만들지 않음.
+- 생성 설정: gpt_image_2_5 · quality high · resolution 2k (저품질 기본값 사용 금지).
+
+현재 적용 (모두 생성 이미지, 사람 없음, WebP):
+- `public/images/hero/hero-community-lobby-21x9.webp` — 홈 Hero (왼쪽 흰 벽 · 오른쪽 데스크 · 게이트)
+- `public/images/hero/hero-community-space.webp` — split Hero 대안 (현재 미사용)
+- `public/images/operation/operations-desk.webp` — 홈 운영 방식 (운영 데스크 · 태블릿 · 유리 너머 시설)
+- `public/images/company/community-atrium.webp` — 회사소개 인트로 (복층 아트리움)
+- `public/images/business/*.webp` — 사업 상세 5개 페이지 전용, 페이지마다 Hero 4:3 + 와이드 21:9, 서로 중복 없음
+  - apartment / apartment-wide — 복합 커뮤니티 전경 / 골프 · GX · 스터디
+  - sports / sports-wide — 피트니스 · GX · 골프 전경 / 피트니스 클럽
+  - hotel / corporate-wide — 호텔 라운지 · 피트니스 · 수영장 / 사옥 복지층
+  - consulting / consulting-wide — 점검용 태블릿이 놓인 공간 / 개선 전 다목적실 · 체크리스트
+  - equipment / equipment-wide — 설치 중인 새 기구 / 신규 스크린골프 타석
+- 제거: 현장 점검 인물 사진, CPR · 직원 교육 사진 (본사 운영체계는 프로세스만으로 설명)
 
 ## 3. 생성 이미지 표기
 
