@@ -30,18 +30,18 @@ const img = (slug: string) => `/images/projects/${slug}.jpg`;
 
 const allProjects: PortfolioProject[] = (
   [
-    { slug: "hillstate-prugio-juan", name: "힐스테이트푸르지오 주안" },
-    { slug: "osan-the-sharp-elifore", name: "오산더샵엘리포레" },
-    { slug: "osan-raon-private-suite", name: "오산라온프라이빗스위트" },
-    { slug: "sinbang-sambu-renaissance", name: "신방삼부르네상스" },
-    { slug: "dujeong-acrotel", name: "두정아크로텔" },
-    { slug: "shin-asan-moaelga-vista-2", name: "신아산모아엘가비스타 2차" },
-    { slug: "eumseong-prugio-the-first", name: "음성푸르지오 더퍼스트" },
-    { slug: "eumseong-woomi-lynn-fullhouse", name: "음성우미린풀하우스" },
-    { slug: "jincheon-dongil-highvill-park-terrace", name: "진천 동일하이빌파크테라스" },
-    { slug: "samryong-hoban-forescent", name: "삼룡호반포레센트" },
-    { slug: "forena-notae-1", name: "한화포레나노태1단지" },
-    { slug: "forena-notae-2", name: "한화포레나노태2단지" },
+    { slug: "hillstate-prugio-juan", name: "힐스테이트푸르지오 주안", imageSource: "official-perspective", imagePosition: "45% 55%" },
+    { slug: "osan-the-sharp-elifore", name: "오산더샵엘리포레", imageSource: "official-rendering", imagePosition: "50% 50%" },
+    { slug: "osan-raon-private-suite", name: "오산라온프라이빗스위트", imageSource: "official-perspective", imagePosition: "58% 50%" },
+    { slug: "sinbang-sambu-renaissance", name: "신방삼부르네상스", imageSource: "official-perspective", imagePosition: "50% 50%" },
+    { slug: "dujeong-acrotel", name: "두정아크로텔", imageSource: "official-rendering", imagePosition: "47% 60%" },
+    { slug: "shin-asan-moaelga-vista-2", name: "신아산모아엘가비스타 2차", imageSource: "official-perspective", imagePosition: "50% 50%" },
+    { slug: "eumseong-prugio-the-first", name: "음성푸르지오 더퍼스트", imageSource: "official-perspective", imagePosition: "55% 50%" },
+    { slug: "eumseong-woomi-lynn-fullhouse", name: "음성우미린풀하우스", imageSource: "official-perspective", imagePosition: "55% 55%" },
+    { slug: "jincheon-dongil-highvill-park-terrace", name: "진천 동일하이빌파크테라스", imageSource: "actual-exterior", imagePosition: "42% 50%" },
+    { slug: "samryong-hoban-forescent", name: "삼룡호반포레센트", imageSource: "official-rendering", imagePosition: "50% 50%" },
+    { slug: "forena-notae-1", name: "한화포레나노태1단지", imageSource: "actual-exterior", imagePosition: "50% 50%" },
+    { slug: "forena-notae-2", name: "한화포레나노태2단지", imageSource: "actual-exterior", imagePosition: "50% 50%" },
   ] as { slug: string; name: string; imageSource?: PortfolioProject["imageSource"]; imagePosition?: string }[]
 ).map((p) => ({
   ...p,

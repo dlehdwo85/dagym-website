@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { PhoneScreen } from "@/components/hilink/Screens";
+import { DemoPhone } from "@/components/hilink/DemoPhone";
 import { coreBusinesses, supportingService } from "@/data/corporate";
 import { photoRef } from "@/lib/photos";
 
@@ -15,7 +15,6 @@ import { photoRef } from "@/lib/photos";
 export function CoreBusiness({ tone = "white" }: { tone?: "white" | "mist" }) {
   const [ops, platform] = coreBusinesses;
   const opsPhoto = photoRef(ops.photo);
-  const platformPhoto = photoRef(platform.photo);
   return (
     <section className={tone === "mist" ? "section-y bg-mist" : "section-y bg-white"} aria-labelledby="core-title">
       <div className="container-x">
@@ -30,18 +29,20 @@ export function CoreBusiness({ tone = "white" }: { tone?: "white" | "mist" }) {
         <div className="mt-14 grid gap-6 lg:mt-16 lg:grid-cols-2 lg:gap-8">
           {[ops, platform].map((b) => {
             const isOps = b.no === "01";
-            const photo = isOps ? opsPhoto : platformPhoto;
+            const photo = opsPhoto;
             return (
               <Reveal as="article" key={b.no} className="flex flex-col overflow-hidden rounded-[4px] border border-line bg-white" aria-labelledby={`core-${b.no}`}>
-                {photo ? (
-                  <ClipReveal className="aspect-[16/10] bg-mist">
-                    <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
-                  </ClipReveal>
-                ) : isOps ? null : (
-                  <div className="relative flex aspect-[16/10] items-end justify-center gap-4 overflow-hidden bg-navy px-6 pt-8 sm:gap-6">
-                    <span className="absolute left-4 top-4 rounded-[2px] bg-white/10 px-2 py-1 text-xs font-semibold text-white/80">데모 화면</span>
-                    <PhoneScreen screen="reservation" className="w-[34%] max-w-[11rem] translate-y-6" />
-                    <PhoneScreen screen="data" className="hidden w-[34%] max-w-[11rem] translate-y-12 xs:block" />
+                {isOps ? (
+                  photo && (
+                    <ClipReveal className="aspect-[16/10] bg-mist">
+                      <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
+                    </ClipReveal>
+                  )
+                ) : (
+                  <div className="relative flex aspect-[16/10] items-start justify-center gap-5 overflow-hidden bg-navy px-6 pt-8 sm:gap-7">
+                    <DemoPhone id="board" className="w-[36%] max-w-[12rem]" sizes="(min-width: 1024px) 190px, 36vw" />
+                    <DemoPhone id="life" className="w-[36%] max-w-[12rem] translate-y-8" sizes="(min-width: 1024px) 190px, 36vw" />
+                    <span className="absolute bottom-3 left-4 text-[11px] text-white/50">HILINK 공개 데모</span>
                   </div>
                 )}
                 <div className="flex flex-1 flex-col p-7 lg:p-9">

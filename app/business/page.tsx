@@ -9,7 +9,7 @@ import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { businessAreas } from "@/data/business";
 import { businessPhoto, coreBusinesses, supportingService } from "@/data/corporate";
-import { PhoneScreen } from "@/components/hilink/Screens";
+import { DemoPhone } from "@/components/hilink/DemoPhone";
 import { ButtonLink } from "@/components/ui/Button";
 import { photos } from "@/data/photos";
 import { hasPhoto } from "@/lib/photos";
@@ -112,10 +112,12 @@ export default function BusinessPage() {
               </ButtonLink>
             </div>
           </Reveal>
-          <div className="relative hidden justify-center gap-5 sm:flex lg:col-span-5">
-            <PhoneScreen screen="reservation" className="w-44" />
-            <PhoneScreen screen="data" className="mt-10 w-44" />
-            <span className="absolute -top-3 left-2 rounded-[2px] bg-white/10 px-2 py-1 text-xs font-semibold text-white/80">데모 화면</span>
+          <div className="lg:col-span-5">
+            <div className="flex justify-center gap-5">
+              <DemoPhone id="home" className="w-[44%] max-w-[13rem]" sizes="(min-width: 1024px) 208px, 44vw" />
+              <DemoPhone id="allServices" className="mt-10 w-[44%] max-w-[13rem]" sizes="(min-width: 1024px) 208px, 44vw" />
+            </div>
+            <p className="mt-4 text-xs text-white/45">HILINK 공개 데모</p>
           </div>
         </div>
       </section>

@@ -1,30 +1,24 @@
-import Image from "next/image";
-import { Check } from "lucide-react";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { DemoPhone } from "@/components/hilink/DemoPhone";
 import { hilinkHome } from "@/data/corporate";
-import { AdminScreen, PhoneScreen } from "@/components/hilink/Screens";
-import { photoRef } from "@/lib/photos";
+import { hilinkHeroDemos } from "@/data/hilinkDemo";
+import { cn } from "@/lib/cn";
 
-/** HILINK — 운영을 뒷받침하는 기술 (홈에서 유일한 다크 섹션 중 하나) */
+/** HILINK — 실제 공개 데모 입주민 앱 3화면 (홈 · 시설 이용 · 전체 서비스) */
 export function HilinkSection() {
-  const screens = [photoRef("hilink-app"), photoRef("hilink-passes"), photoRef("hilink-store")].filter(Boolean) as NonNullable<ReturnType<typeof photoRef>>[];
-  const device = photoRef("hilink-device");
   return (
     <section className="overflow-hidden bg-navy text-white" aria-labelledby="hilink-title">
-      <div className="container-x grid gap-14 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
+      <div className="container-x grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:gap-14 lg:py-28">
         <Reveal className="lg:col-span-5">
-          <p className="flex items-center gap-3">
-            <span className="eyebrow !text-[#9dbcf0]">{hilinkHome.eyebrow}</span>
-          </p>
-          <h2 id="hilink-title" className="t-section mt-6 whitespace-pre-line">
+          <p className="eyebrow !text-[#9dbcf0]">{hilinkHome.eyebrow}</p>
+          <h2 id="hilink-title" className="t-section mt-5 whitespace-pre-line">
             {hilinkHome.title}
           </h2>
-          <p className="t-body mt-6 text-white/75">{hilinkHome.lead}</p>
-          <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-2.5">
+          <p className="t-lead mt-5 text-white/75">{hilinkHome.lead}</p>
+          <ul className="mt-8 flex flex-wrap gap-2">
             {hilinkHome.features.map((f) => (
-              <li key={f} className="t-small flex items-center gap-2 text-white/85">
-                <Check className="size-4 shrink-0 text-[#9dbcf0]" aria-hidden />
+              <li key={f} className="rounded-[2px] border border-white/20 px-3 py-1.5 text-sm font-medium text-white/90">
                 {f}
               </li>
             ))}
@@ -40,36 +34,16 @@ export function HilinkSection() {
         </Reveal>
 
         <div className="lg:col-span-7">
-          {screens.length > 0 ? (
-            <div className="grid grid-cols-3 items-end gap-3 sm:gap-5">
-              {screens.map((s, i) => (
-                <Reveal key={s.src} delay={0.1 + i * 0.1} className={i === 1 ? "sm:-translate-y-8" : undefined}>
-                  <div className="relative aspect-[923/2000] overflow-hidden rounded-[8px] border border-white/15 bg-white shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
-                    <Image src={s.src} alt={s.alt} fill sizes="(min-width: 1024px) 220px, 30vw" className="object-cover" />
-                  </div>
+          <ul className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 sm:mx-0 sm:grid sm:grid-cols-3 sm:items-end sm:gap-5 sm:overflow-visible sm:px-0" aria-label="HILINK 입주민 앱 화면">
+            {hilinkHeroDemos.map((id, i) => (
+              <li key={id} className={cn("w-[62vw] max-w-[16rem] shrink-0 snap-center sm:w-auto sm:max-w-none", i === 1 && "sm:-translate-y-10")}>
+                <Reveal delay={0.1 + i * 0.1}>
+                  <DemoPhone id={id} sizes="(min-width: 1024px) 230px, (min-width: 640px) 30vw, 62vw" />
                 </Reveal>
-              ))}
-            </div>
-          ) : (
-            <Reveal delay={0.1} className="relative">
-              <span className="absolute -top-3 left-4 z-10 rounded-[2px] bg-accent px-2 py-1 text-xs font-semibold text-white">데모 화면</span>
-              <AdminScreen />
-              <div className="absolute -bottom-8 right-2 hidden w-40 sm:block lg:-right-4 lg:w-44">
-                <PhoneScreen screen="reservation" />
-              </div>
-            </Reveal>
-          )}
-          {device && (
-            <Reveal delay={0.4} className="mt-6 flex items-center gap-4 rounded-[4px] border border-white/15 p-3">
-              <div className="relative h-24 w-16 shrink-0 overflow-hidden rounded-[2px]">
-                <Image src={device.src} alt={device.alt} fill sizes="64px" className="object-cover" />
-              </div>
-              <p className="t-small text-white/75">
-                앱에서 등록한 얼굴로 출입하는 안면인식 단말기. 이용권이 없거나 만료되면 출입이 제한됩니다.
-              </p>
-            </Reveal>
-          )}
-          <p className="mt-12 text-xs text-white/50">{screens.length > 0 ? hilinkHome.notice : "기능 설명을 위한 화면 구성 예시입니다. 실제 화면과 다를 수 있습니다."}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-xs text-white/45">HILINK 공개 데모</p>
         </div>
       </div>
     </section>

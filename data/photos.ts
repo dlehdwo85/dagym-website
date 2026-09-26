@@ -233,24 +233,8 @@ export const photos = {
     alt: "HILINK 입주민 앱 홈 화면 — 공지, 이용권 구매, 예약, 관리비 메뉴",
     provenance: "hilink-demo",
   },
-  "hilink-passes": {
-    file: "/images/hilink/resident-passes.webp",
-    subject: "HILINK 입주민 앱 내 이용권 화면 (공개 승인된 데모 화면)",
-    size: "923 × 2000",
-    ratio: "휴대폰 세로 화면",
-    usedIn: "HILINK",
-    alt: "HILINK 입주민 앱 내 이용권 화면",
-    provenance: "hilink-demo",
-  },
-  "hilink-store": {
-    file: "/images/hilink/resident-store.webp",
-    subject: "HILINK 입주민 앱 이용권 구매 화면 (공개 승인된 데모 화면)",
-    size: "923 × 2000",
-    ratio: "휴대폰 세로 화면",
-    usedIn: "HILINK",
-    alt: "HILINK 입주민 앱 이용권 구매 화면",
-    provenance: "hilink-demo",
-  },
+
+
   "hilink-admin": {
     file: "/images/hilink/admin-screen.png",
     subject: "관리자(CRM) 실제 화면은 사용하지 않음 — 개념 UI(데모 배지)로 대체",
@@ -259,15 +243,7 @@ export const photos = {
     usedIn: "사용 안 함",
     alt: "HILINK 관리자 화면",
   },
-  "hilink-device": {
-    file: "/images/hilink/face-terminal.webp",
-    subject: "커뮤니티 입구에 설치된 안면인식 출입 단말기 사진 (공개 승인분)",
-    size: "885 × 1300",
-    ratio: "세로형",
-    usedIn: "홈 · HILINK",
-    alt: "커뮤니티 입구 벽에 설치된 안면인식 출입 단말기",
-    provenance: "hilink-demo",
-  },
+
   "company-team": {
     file: "/images/company/team.jpg",
     subject: "다짐 직원 단체 사진 또는 본사 회의 장면",

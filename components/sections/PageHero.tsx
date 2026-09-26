@@ -49,7 +49,7 @@ export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions
             </ol>
           </nav>
         )}
-        <div className={cn(!!aside && "grid gap-12 lg:grid-cols-12 lg:items-center")}>
+        <div className={cn(!!aside && "grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center [&>*]:min-w-0")}>
           <Reveal className={cn(aside ? "lg:col-span-6" : "max-w-4xl")}>
             {(eyebrow || en) && (
               <p className="flex items-center gap-3">

@@ -8,7 +8,8 @@ import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { JsonLd } from "@/components/ui/JsonLd";
-import { AdminScreen, PhoneScreen } from "@/components/hilink/Screens";
+import { AdminConcept } from "@/components/hilink/AdminConcept";
+import { DemoPhone } from "@/components/hilink/DemoPhone";
 import { businessAreas, getBusiness } from "@/data/business";
 import { photoRef } from "@/lib/photos";
 import { breadcrumbJsonLd, pageMetadata, serviceJsonLd } from "@/lib/seo";
@@ -168,11 +169,11 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
               HILINK 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
             </Link>
           </Reveal>
-          <div className="relative lg:col-span-7" aria-hidden>
-            <AdminScreen className="w-full sm:w-[88%]" />
-            <PhoneScreen screen="reservation" className="absolute -bottom-6 right-0 hidden w-[30%] max-w-[12rem] sm:block" />
+          <div className="relative pb-10 lg:col-span-7">
+            <AdminConcept className="w-full sm:w-[86%]" />
+            <DemoPhone id="community" className="absolute -bottom-2 right-0 hidden w-[27%] max-w-[12rem] sm:block" sizes="190px" />
           </div>
-          <p className="text-xs text-white/45 lg:col-span-12">화면은 기능 설명을 위한 데모 화면입니다.</p>
+          <p className="text-xs text-white/45 lg:col-span-12">HILINK 공개 데모 · 관리자 개념 UI</p>
         </div>
       </section>
 

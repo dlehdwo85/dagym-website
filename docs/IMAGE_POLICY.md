@@ -8,6 +8,7 @@
 - AI(Higgsfield 등)로 만든 조감도, 스톡 이미지, 다른 단지 이미지는 사용하지 않습니다.
 - 코드에서 강제: `data/projects.ts` 의 `imageSource`(`official-rendering` · `official-perspective` · `actual-exterior`)가 지정된 단지만 이미지가 표시됩니다. 확보하지 못한 단지는 Placeholder 카드를 유지합니다.
 - 추가 방법: 원본을 `<slug>.jpg` 로 모아 `node scripts/import-portfolio-images.mjs <폴더>` → `imageSource` 지정.
+- 현재: 12개 모두 적용 (시공사 · 공식 분양 사이트 · 공식 갤러리 · 시공사 제공 언론 조감도, 확대 · AI 보정 없음). 출처 기록은 비공개 문서에만.
 
 ## 2. 브랜드 비주얼 — 실제 사진 → 사람 없는 실사형 공간 → 프로세스/다이어그램 순
 
@@ -47,3 +48,10 @@ Neutral White · Deep Navy · Graphite · Cool Gray · Natural daylight · High-
 부동산 분양광고 분위기 · 과도한 블루 SaaS 이미지 · 미래형 홀로그램 · 허공에 떠 있는 UI
 
 프롬프트: `docs/HIGGSFIELD_PROMPTS.md`
+
+## 5. HILINK 화면
+
+- 입주민 앱은 HILINK 공개 사이트에 실제 노출되는 공개 데모 캡처만 사용 (`public/images/hilink/demo/`, 공개 URL 접근 · 해시 일치 확인 후 복사).
+- 관리자는 HILINK 공개 사이트의 AdminConcept 와 같은 개념 UI (`components/hilink/AdminConcept.tsx`, SAMPLE DATA). 보호된 실제 관리자 화면 · 내부 캡처는 넣지 않음.
+- 공개 사이트에서 404 인 자산(예: 단말기 장면 이미지)은 복사하지 않음.
+- `components/hilink/Screens.tsx` 의 추상 화면은 fallback 으로만 남김.
