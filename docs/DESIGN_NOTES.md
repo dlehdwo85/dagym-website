@@ -10,7 +10,7 @@ Hero → 핵심사업 2개 → 운영실적(12개 단지) → 커뮤니티 운�
 
 ## V5 Hero
 - 카피: COMMUNITY OPERATION & PLATFORM / 공간을 운영하고, 운영을 시스템으로 연결합니다. / CTA 커뮤니티 운영 · HILINK.
-- 이미지: `public/images/hero/hero-access-lobby-v2-21x9.webp` (2400×1029) — 인물 없는 21:9 생성 이미지.
+- 이미지: `public/images/hero/hero-access-lobby-v3-21x9.webp` (2400×1029) — 인물 없는 21:9 생성 이미지.
   왼쪽 약 40%는 흰 벽(텍스트 영역), 오른쪽에 인포메이션 데스크 · 출입 게이트 · 유리 너머 피트니스.
 - 배치: `layout: "wide"` — 데스크톱은 이미지 전체 배경 + 왼쪽 흰색 그라데이션, 모바일 · 태블릿은 사진 위 · 텍스트 아래.
   크롭 중심은 모바일 `focus: "72% center"`(데스크 · 게이트), 데스크톱 `focusLg: "20% center"`(흰 벽을 텍스트 쪽에 유지).
