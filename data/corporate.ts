@@ -333,9 +333,9 @@ export const whyDagym = [
 /** 사업영역별 대표 사진 (시설 유형 예시 — 특정 현장 아님) */
 export const businessPhoto: Record<string, PhotoId> = {
   "apartment-community": "visual-business-apartment",
-  "sports-fitness": "facility-fitness",
+  "sports-fitness": "visual-business-sports",
   "community-facility": "visual-business-hotel",
-  consulting: "facility-library",
-  equipment: "facility-golf",
+  consulting: "visual-business-consulting",
+  equipment: "visual-business-equipment",
 };
 

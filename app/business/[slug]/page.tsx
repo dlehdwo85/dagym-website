@@ -2,20 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
-import { PageHero } from "@/components/sections/PageHero";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { CTASection } from "@/components/sections/CTASection";
-import { OperationSystem } from "@/components/home/OperationSystem";
 import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { AdminScreen, PhoneScreen } from "@/components/hilink/Screens";
 import { businessAreas, getBusiness } from "@/data/business";
-import { businessPhoto, transformations } from "@/data/corporate";
-import { photos } from "@/data/photos";
-import { hasPhoto } from "@/lib/photos";
-import { pageMetadata, serviceJsonLd } from "@/lib/seo";
-import { cn } from "@/lib/cn";
+import { photoRef } from "@/lib/photos";
+import { breadcrumbJsonLd, pageMetadata, serviceJsonLd } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -30,223 +26,215 @@ export async function generateMetadata({ params }: PageProps<"/business/[slug]">
   return pageMetadata({ title: b.detail.metaTitle, description: b.detail.metaDescription, path: b.href, keywords: b.detail.keywords });
 }
 
-function Part({ no, title, lead, children, tone = "white", id }: { no: string; title: string; lead?: string; children: React.ReactNode; tone?: "white" | "mist"; id: string }) {
-  return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cn("scroll-mt-32", tone === "mist" ? "bg-mist" : "bg-white")}>
-      <div className="container-x grid gap-10 border-t border-line py-16 lg:grid-cols-12 lg:gap-12 lg:py-24">
-        <Reveal className="lg:col-span-4">
-          <p className="text-sm font-bold text-accent">{no}</p>
-          <h2 id={`${id}-title`} className="t-h2 mt-2">
-            {title}
-          </h2>
-          {lead && <p className="t-small mt-3 text-body">{lead}</p>}
-        </Reveal>
-        <div className="lg:col-span-8">{children}</div>
-      </div>
-    </section>
-  );
-}
+/** 운영형 사업 공통 4단계 */
+const processSteps = [
+  { title: "현장 진단", body: "시설과 기존 운영 방식을 직접 확인합니다." },
+  { title: "운영 제안", body: "인력 · 프로그램 · 시스템 운영안을 제안합니다." },
+  { title: "오픈 준비", body: "인력 배치, HILINK 설정, 교육을 마칩니다." },
+  { title: "운영 · 개선", body: "정기 점검과 보고로 운영을 개선합니다." },
+];
 
-function Rows({ items }: { items: { k: string; v: string }[] }) {
-  return (
-    <dl className="border-t border-navy">
-      {items.map((r) => (
-        <div key={r.k} className="grid gap-1.5 border-b border-line py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
-          <dt className="font-semibold">{r.k}</dt>
-          <dd className="t-small text-body">{r.v}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-/** 사업 상세 — 맡기는 경우 → 운영 시설 · 프로그램 → 운영 방식 → 운영 프로세스 → 사례 → 위탁 범위 → 문의 */
+/**
+ * 사업 상세 — 사진이 먼저 사업을 설명하고 텍스트는 보완만.
+ * Hero → 큰 문장 → 와이드 이미지 + 운영 범위 → 운영 방식 4 → HILINK → (프로세스 4단계) → 문의
+ */
 export default async function BusinessDetailPage({ params }: PageProps<"/business/[slug]">) {
   const { slug } = await params;
   const b = getBusiness(slug);
   if (!b) notFound();
   const d = b.detail;
-  const pid = businessPhoto[b.slug];
-  const img = pid && hasPhoto(pid) ? photos[pid] : undefined;
-  const related = transformations.filter((t) => t.business === b.slug || (b.slug === "equipment" && ["fitness-renewal", "golf-upgrade"].includes(t.slug)));
+  const hero = photoRef(d.heroImage);
+  const wide = d.wideImage ? photoRef(d.wideImage) : undefined;
   const others = businessAreas.filter((x) => x.slug !== b.slug);
-
-  const toc = [
-    { id: "problem", label: "맡기는 경우" },
-    { id: "facilities", label: "운영 시설" },
-    { id: "plan", label: "운영 방식" },
-    { id: "process", label: "운영 프로세스" },
-    ...(related.length ? [{ id: "cases", label: "개선 사례" }] : []),
-    { id: "scope", label: "위탁 범위" },
-  ];
+  const contactHref = `/contact?type=${d.contactType}`;
 
   return (
     <>
       <JsonLd data={serviceJsonLd({ name: b.title, description: d.metaDescription, path: b.href, serviceType: d.metaTitle })} />
-      <PageHero
-        eyebrow={b.slug === "equipment" ? "보조 서비스 · 시설 지원" : `핵심사업 01 · 커뮤니티 운영 ${b.no}`}
-        title={d.heroTitle}
-        description={d.heroSub}
-        breadcrumbs={[
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "홈", path: "/" },
           { name: "사업영역", path: "/business" },
           { name: b.title, path: b.href },
-        ]}
-        actions={
-          <>
-            <ButtonLink href={`/contact?type=${d.contactType}`} size="lg">
-              운영 제안 문의
-            </ButtonLink>
-            <ButtonLink href="/contact?type=diagnosis" variant="secondary" size="lg">
-              현장 진단 문의
-            </ButtonLink>
-          </>
-        }
-        aside={
-          img ? (
-            <figure>
-              <ClipReveal className="aspect-[4/3] rounded-[4px] bg-fog" from="right">
-                <Image src={img.file} alt={img.alt} fill priority sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
-              </ClipReveal>
-              <figcaption className="mt-2 text-sm text-muted">{"provenance" in img && img.provenance === "generated" ? "연출 이미지" : `${b.title} — 시설 예시`}</figcaption>
-            </figure>
-          ) : undefined
-        }
+        ])}
       />
 
-      <nav aria-label="페이지 목차" className="sticky top-16 z-30 border-b border-line bg-white/95 backdrop-blur lg:top-[4.75rem]">
-        <ul className="no-scrollbar container-x flex gap-1 overflow-x-auto">
-          {toc.map((t, i) => (
-            <li key={t.id} className="shrink-0">
-              <a href={`#${t.id}`} className="inline-flex h-12 items-center gap-1.5 px-3 text-[0.9375rem] text-body hover:text-navy">
-                <span className="text-xs font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
-                {t.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <Part id="problem" no="01" title="이런 경우 맡겨 주세요">
-        <ul className="grid gap-4 sm:grid-cols-2">
-          {d.targets.map((t) => (
-            <Reveal as="li" key={t.title} className="rounded-[4px] border border-line p-6">
-              <p className="t-h4">{t.title}</p>
-              <p className="t-small mt-2 text-body">{t.need}</p>
-            </Reveal>
-          ))}
-        </ul>
-      </Part>
-
-      <Part id="facilities" no="02" title="운영 시설 · 프로그램" tone="mist">
-        <ul className="flex flex-wrap gap-2" aria-label="운영 시설">
-          {d.facilities.map((f) => (
-            <li key={f} className="rounded-[2px] border border-line bg-white px-3.5 py-2 text-[0.9375rem] font-medium text-ink">
-              {f}
-            </li>
-          ))}
-        </ul>
-        <dl className="mt-8 grid gap-4 sm:grid-cols-2">
-          {d.programs.map((p) => (
-            <div key={p.title} className="rounded-[4px] bg-white p-5">
-              <dt className="font-semibold">{p.title}</dt>
-              <dd className="t-small mt-1.5 text-body">{p.body}</dd>
+      {/* HERO — 짧게 */}
+      <section className="bg-mist" aria-labelledby="biz-title">
+        <div className="container-x grid gap-10 pb-14 pt-24 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-20 lg:pt-32">
+          <Reveal className="lg:col-span-5">
+            <nav aria-label="현재 위치">
+              <ol className="flex items-center gap-1 text-[0.8125rem] text-muted">
+                <li>
+                  <Link href="/business" className="hover:text-navy">
+                    사업영역
+                  </Link>
+                </li>
+                <li className="flex items-center gap-1">
+                  <ChevronRight className="size-3" aria-hidden />
+                  <span aria-current="page">{d.short}</span>
+                </li>
+              </ol>
+            </nav>
+            <p className="label-en mt-8 font-semibold tracking-[0.14em] text-accent lg:mt-10">{d.eyebrow}</p>
+            <h1 id="biz-title" className="t-h1 mt-4">
+              {d.heroTitle}
+            </h1>
+            <p className="t-lead mt-5 whitespace-pre-line text-body">{d.heroLead}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+              <ButtonLink href={contactHref} size="lg">
+                운영 상담
+              </ButtonLink>
+              <Link href="/contact" className="group inline-flex items-center gap-2 font-semibold text-navy">
+                문의하기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+              </Link>
             </div>
-          ))}
-        </dl>
-      </Part>
-
-      <Part id="plan" no="03" title="운영 방식">
-        <Rows items={d.staffing.map((s) => ({ k: s.role, v: s.work }))} />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          <div className="border-t-2 border-navy pt-4">
-            <p className="font-semibold">
-              출입 · 예약 <span className="text-accent">HILINK</span>
-            </p>
-            <p className="t-small mt-2 text-body">{d.system}</p>
-            <Link href="/hilink" className="group mt-3 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
-              HILINK 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
-            </Link>
-          </div>
-          <div className="border-t-2 border-navy pt-4">
-            <p className="font-semibold">운영 보고</p>
-            <p className="t-small mt-2 text-body">{d.report}</p>
-          </div>
+          </Reveal>
+          {hero && (
+            <div className="lg:col-span-7">
+              <ClipReveal className="aspect-[4/3] rounded-[4px] bg-fog" from="right">
+                <Image src={hero.src} alt={hero.alt} fill priority sizes="(min-width: 1024px) 700px, 100vw" className="object-cover" />
+              </ClipReveal>
+            </div>
+          )}
         </div>
-        {d.extra && (
-          <div className="mt-10">
-            <p className="font-semibold">
-              {d.extra.title} <span className="t-small font-normal text-body">— {d.extra.lead}</span>
-            </p>
-            <dl className="mt-4 grid gap-4 sm:grid-cols-3">
-              {d.extra.rows.map((r) => (
-                <div key={r.title} className="rounded-[4px] border border-line p-5">
-                  <dt className="font-semibold">{r.title}</dt>
-                  <dd className="t-small mt-1.5 text-body">{r.body}</dd>
-                </div>
-              ))}
-            </dl>
+      </section>
+
+      {/* 큰 문장 */}
+      <section className="bg-white" aria-labelledby="statement-title">
+        <Reveal className="container-x grid gap-6 py-20 lg:grid-cols-12 lg:gap-12 lg:py-32">
+          <h2 id="statement-title" className="t-section whitespace-pre-line lg:col-span-7">
+            {d.statement.title}
+          </h2>
+          <p className="t-lead text-body lg:col-span-5 lg:self-end">{d.statement.body}</p>
+        </Reveal>
+      </section>
+
+      {/* 와이드 이미지 + 운영 범위 */}
+      <section className="bg-white pb-20 lg:pb-32" aria-labelledby="scope-title">
+        {wide && (
+          <div className="container-x">
+            <ClipReveal className="aspect-[16/9] rounded-[4px] bg-fog sm:aspect-[21/9]">
+              <Image src={wide.src} alt={wide.alt} fill sizes="(min-width: 1280px) 1200px, 100vw" className="object-cover" />
+            </ClipReveal>
           </div>
         )}
-      </Part>
-
-      <div id="process" className="scroll-mt-32">
-        <OperationSystem title={"진단부터 개선까지\n같은 순서로 운영합니다."} />
-      </div>
-
-      {related.length > 0 && (
-        <Part id="cases" no="04" title="관련 개선 사례">
-          <ul className="space-y-3">
-            {related.map((t) => (
-              <li key={t.slug}>
-                <Link href={`/cases/${t.slug}`} className="group flex items-center justify-between gap-6 rounded-[4px] border border-line p-5 hover:border-navy">
-                  <span>
-                    <span className="text-sm font-semibold text-accent">{t.facility}</span>
-                    <span className="t-h4 mt-1 block group-hover:text-navy">{t.title}</span>
-                    <span className="t-small mt-1 block text-body">{t.summary}</span>
-                  </span>
-                  <ArrowRight className="btn-arrow size-5 shrink-0 text-navy" aria-hidden />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Part>
-      )}
-
-      <Part id="scope" no={related.length ? "05" : "04"} title="위탁 범위" lead="필요한 범위만 선택할 수 있습니다." tone="mist">
-        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {d.scopeOptions.map((o, i) => (
-            <li key={o.title} className="rounded-[4px] border border-line bg-white p-6">
-              <p className="text-sm font-bold text-accent">{String(i + 1).padStart(2, "0")}</p>
-              <p className="t-h4 mt-2">{o.title}</p>
-              <p className="t-small mt-2 text-body">{o.body}</p>
-            </li>
-          ))}
-        </ol>
-        <ButtonLink href={`/contact?type=${d.contactType}`} className="mt-8">
-          이 범위로 운영 제안 받기
-        </ButtonLink>
-      </Part>
-
-      <nav aria-label="다른 사업영역" className="border-t border-line bg-white">
-        <div className="container-x py-14">
-          <p className="font-semibold">다른 사업영역</p>
-          <ul className="mt-4 grid gap-x-8 sm:grid-cols-2">
-            {others.map((o) => (
-              <li key={o.slug} className="border-b border-line">
-                <Link href={o.href} className="group flex items-center justify-between py-4 hover:text-navy">
-                  <span>
-                    <span className="mr-3 text-sm font-bold text-accent">{o.no}</span>
-                    {o.title}
-                  </span>
-                  <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
-                </Link>
+        <div className="container-x mt-12 grid gap-6 lg:mt-16 lg:grid-cols-12 lg:gap-12">
+          <h2 id="scope-title" className="t-h2 lg:col-span-4">
+            {d.scopeTitle ?? "운영 범위"}
+          </h2>
+          <ul className="grid grid-cols-2 gap-x-8 border-t border-navy sm:grid-cols-3 lg:col-span-8">
+            {d.facilities.map((f) => (
+              <li key={f} className="border-b border-line py-4 text-[1.0625rem] font-medium text-ink">
+                {f}
               </li>
             ))}
           </ul>
         </div>
-      </nav>
+      </section>
 
-      <CTASection primary={{ label: "운영 제안 문의", href: `/contact?type=${d.contactType}` }} />
+      {/* 운영 방식 — 4개 포인트 */}
+      <section className="bg-mist" aria-labelledby="approach-title">
+        <div className="container-x py-20 lg:py-28">
+          <Reveal>
+            <h2 id="approach-title" className="t-section">
+              운영을 하나의 흐름으로 관리합니다.
+            </h2>
+          </Reveal>
+          <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-8">
+            {d.approach.map((a, i) => (
+              <Reveal as="li" key={a.title} delay={i * 0.05} className="border-t-2 border-navy pt-5">
+                <p className="text-sm font-bold text-accent">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="t-h4 mt-2">{a.title}</h3>
+                <p className="t-small mt-2 text-body">{a.body}</p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* HILINK — Product visual */}
+      <section className="bg-navy-deep text-white" aria-labelledby="hilink-title">
+        <div className="container-x grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
+          <Reveal className="lg:col-span-5">
+            <p className="label-en font-semibold tracking-[0.14em] text-[#9fb6d8]">HILINK PLATFORM</p>
+            <h2 id="hilink-title" className="t-section mt-4">
+              HILINK로
+              <br />
+              운영을 연결합니다.
+            </h2>
+            <p className="t-lead mt-5 text-white/75">{d.system}</p>
+            <Link href="/hilink" className="group mt-8 inline-flex items-center gap-2 font-semibold text-white">
+              HILINK 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+            </Link>
+          </Reveal>
+          <div className="relative lg:col-span-7" aria-hidden>
+            <AdminScreen className="w-full sm:w-[88%]" />
+            <PhoneScreen screen="reservation" className="absolute -bottom-6 right-0 hidden w-[30%] max-w-[12rem] sm:block" />
+          </div>
+          <p className="text-xs text-white/45 lg:col-span-12">화면은 기능 설명을 위한 데모 화면입니다.</p>
+        </div>
+      </section>
+
+      {/* 운영 프로세스 4단계 (운영형 사업) */}
+      {d.showProcess && (
+        <section className="bg-white" aria-labelledby="process-title">
+          <div className="container-x py-20 lg:py-28">
+            <Reveal>
+              <h2 id="process-title" className="t-section">
+                운영 프로세스
+              </h2>
+            </Reveal>
+            <ol className="mt-12 grid gap-8 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+              {processSteps.map((s, i) => (
+                <Reveal as="li" key={s.title} delay={i * 0.05}>
+                  <p className="flex items-center gap-3">
+                    <span className="grid size-8 place-items-center rounded-[4px] bg-navy text-sm font-bold text-white">{String(i + 1).padStart(2, "0")}</span>
+                    {i < processSteps.length - 1 && <span className="hidden h-px flex-1 bg-line-strong lg:block" aria-hidden />}
+                  </p>
+                  <h3 className="t-h4 mt-4">{s.title}</h3>
+                  <p className="t-small mt-1.5 text-body">{s.body}</p>
+                </Reveal>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      {/* 맡기는 방식 한 줄 + 다른 사업 */}
+      <section className="border-t border-line bg-white">
+        <div className="container-x grid gap-10 py-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="font-semibold">맡기는 방식</p>
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-body">
+              {d.engagement.map((e) => (
+                <li key={e}>{e}</li>
+              ))}
+            </ul>
+          </div>
+          <nav aria-label="다른 사업영역" className="lg:col-span-7">
+            <p className="font-semibold">다른 사업영역</p>
+            <ul className="mt-3 grid gap-x-8 sm:grid-cols-2">
+              {others.map((o) => (
+                <li key={o.slug} className="border-b border-line">
+                  <Link href={o.href} className="group flex items-center justify-between py-3 text-[0.9375rem] hover:text-navy">
+                    {o.detail.short}
+                    <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
+
+      <CTASection
+        eyebrow="운영 상담"
+        title={d.ctaTitle}
+        description="시설과 현재 운영 방식을 알려주시면 현장을 확인하고 운영안을 제안드립니다."
+        primary={{ label: "운영 상담", href: contactHref }}
+        secondary={{ label: "문의하기", href: "/contact" }}
+      />
     </>
   );
 }

@@ -17,8 +17,12 @@
 - 현재 적용 (생성 이미지, WebP):
   - `public/images/hero/hero-community-lobby-21x9.webp` — 홈 Hero (wide, 인물 없는 21:9 공간)
   - `public/images/hero/hero-community-space.webp` — split Hero 대안 (인물 없는 공간 부분만 크롭, 현재 미사용)
-  - `public/images/business/apartment-community-center.webp` — 사업 상세 · 공동주택 커뮤니티 Hero (라운지 · 인포메이션 · 헬스 · 스크린골프, 인물 없음)
-  - `public/images/business/hotel-wellness.webp` — 사업 상세 · 기업 · 호텔 · 복합시설 Hero (호텔 피트니스 · 수영장 · 라운지, 인물 없음)
+  - `public/images/business/*.webp` — 사업 상세 5개 페이지 전용 (페이지마다 Hero 4:3 1장 + 와이드 21:9 1장, 서로 중복 없음)
+    - apartment / apartment-wide — 아파트 커뮤니티 (라운지 · 인포메이션 · 헬스 · 스크린골프 / 골프 · GX · 스터디)
+    - sports / sports-wide — 스포츠 · 피트니스 (기구 점검하는 트레이너 / 피트니스 클럽 전경)
+    - hotel / corporate-wide — 기업 · 호텔 (호텔 라운지 · 피트니스 · 수영장 / 사옥 복지층)
+    - consulting / consulting-wide — 운영 컨설팅 (노후 헬스장 진단 / 도면 · 이용 차트)
+    - equipment / equipment-wide — 시설 지원 (기구 설치 · 스크린골프 / 신규 타석)
   - `public/images/operation/field-inspection.webp` — 운영 방식 · 본사 운영체계 (현장 점검)
   - `public/images/operation/staff-training.webp` — 운영 방식 · 본사 운영체계 (직원 · 안전 교육)
   - 해당 영역에는 "운영 방식을 설명하기 위한 연출 이미지" 문구를 함께 표시합니다.
