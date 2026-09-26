@@ -65,12 +65,12 @@ export const photos = {
   /* 홈 Hero — 생성 이미지 (브랜드 비주얼)에서 인물이 없는 공간 부분만 잘라 사용. 실제 현장이 아님 */
   /* 홈 Hero (wide) — 인물 없는 21:9 생성 이미지. 왼쪽 40%는 흰 벽(텍스트 영역), 오른쪽에 데스크 · 게이트 · 피트니스 */
   "hero-community-lobby": {
-    file: "/images/hero/hero-access-lobby-21x9.webp",
-    subject: "커뮤니티센터 출입구 — 데스크에 바로 붙은 스피드 게이트, 게이트마다 얼굴인식 단말, 유리벽 너머 피트니스. 우회 동선 없음 · 인물 없음",
+    file: "/images/hero/hero-access-lobby-v2-21x9.webp",
+    subject: "커뮤니티센터 출입구 — 데스크에 바로 붙은 스피드 게이트, 오른쪽 게이트 앞면에 슬림 얼굴인식 단말 1대, 유리벽 너머 피트니스. 우회 동선 없음 · 인물 없음",
     size: "2400 × 1029",
     ratio: "21:9 (가로)",
     usedIn: "홈 첫 화면 (와이드 Hero 배경)",
-    alt: "안내 데스크 옆 얼굴인식 단말이 달린 출입 게이트와 그 너머 피트니스가 보이는 커뮤니티센터 출입구",
+    alt: "안내 데스크에 붙은 스피드 게이트와 게이트의 얼굴인식 단말, 그 너머 피트니스가 보이는 커뮤니티센터 출입구",
     focus: "70% center",
     focusLg: "20% center",
     provenance: "generated",
@@ -300,7 +300,7 @@ export const photos = {
     provenance: "unknown",
   },
   "facility-fitness": {
-    file: "/images/facilities/fitness.webp",
+    file: "/images/facilities/fitness-v2.webp",
     subject: "아파트 커뮤니티 피트니스 전경 — 런닝머신 · 웨이트 머신 · 프리웨이트 존 (사람 없음)",
     size: "1600 × 1195",
     ratio: "4:3",
@@ -309,21 +309,21 @@ export const photos = {
     provenance: "generated"
   },
   "facility-golf": {
-    file: "/images/facilities/golf.webp",
-    subject: "아파트 커뮤니티 스크린골프 연습장 — 타석 4개 · 스크린 · 매트 (사람 없음)",
+    file: "/images/facilities/golf-v2.webp",
+    subject: "아파트 커뮤니티 스크린골프 연습장 — 타석 여러 개 · 스크린 · 프로젝터 · 센서 키오스크 · 클럽 거치대 · 매트 (사람 없음)",
     size: "1600 × 1195",
     ratio: "4:3",
     usedIn: "홈 · 커뮤니티 운영 범위",
-    alt: "스크린과 타석이 나란히 있는 아파트 커뮤니티 스크린골프 연습장",
+    alt: "스크린과 매트, 클럽 거치대를 갖춘 타석이 나란히 있는 아파트 커뮤니티 스크린골프 연습장",
     provenance: "generated"
   },
   "facility-gx": {
-    file: "/images/facilities/gx.webp",
-    subject: "GX 스튜디오 — 거울벽 · 바레 · 리포머 · 소도구 (사람 없음)",
+    file: "/images/facilities/gx-v2.webp",
+    subject: "GX · 필라테스 스튜디오 — 우드 바닥 · 거울벽 · 바레 · 리포머 · 매트 · 간접조명 (사람 없음)",
     size: "1600 × 1195",
     ratio: "4:3",
     usedIn: "홈 · 커뮤니티 운영 범위",
-    alt: "거울벽과 바레, 필라테스 리포머가 있는 GX 스튜디오",
+    alt: "필라테스 리포머와 GX 매트, 거울벽과 바레가 있는 밝은 GX · 필라테스 스튜디오",
     provenance: "generated"
   },
   "facility-cafe": {
