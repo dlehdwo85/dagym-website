@@ -37,8 +37,11 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title: siteConfig.title, description: siteConfig.description },
   robots: { index: true, follow: true },
-  /** 네이버 서치어드바이저 소유확인 (www.dagym-in.co.kr) */
-  verification: { other: { "naver-site-verification": "b7a8412875c30e6a9a3011bc4614cad33ba77c8f" } },
+  /** 검색엔진 소유확인 (www.dagym-in.co.kr) — Google Search Console · 네이버 서치어드바이저 */
+  verification: {
+    google: "rl7JGqI-x2PVnqGtiAokCrV4LInCcJ-gNOLxqvVYr7s",
+    other: { "naver-site-verification": "b7a8412875c30e6a9a3011bc4614cad33ba77c8f" },
+  },
 };
 
 export const viewport: Viewport = {
