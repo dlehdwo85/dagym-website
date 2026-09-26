@@ -90,7 +90,6 @@ export const coreBusinesses = [
       { label: "HILINK 도입 문의", href: "/contact?type=hilink" },
     ],
     cta: { label: "HILINK 보기", href: "/hilink" },
-    photo: "hilink-app" as PhotoId,
   },
 ];
 

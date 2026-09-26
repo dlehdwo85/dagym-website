@@ -14,7 +14,7 @@ import { photoRef } from "@/lib/photos";
  */
 export function CoreBusiness({ tone = "white" }: { tone?: "white" | "mist" }) {
   const [ops, platform] = coreBusinesses;
-  const opsPhoto = photoRef(ops.photo);
+  const opsPhoto = ops.photo ? photoRef(ops.photo) : undefined;
   return (
     <section className={tone === "mist" ? "section-y bg-mist" : "section-y bg-white"} aria-labelledby="core-title">
       <div className="container-x">
@@ -40,8 +40,8 @@ export function CoreBusiness({ tone = "white" }: { tone?: "white" | "mist" }) {
                   )
                 ) : (
                   <div className="relative flex aspect-[16/10] items-start justify-center gap-5 overflow-hidden bg-navy px-6 pt-8 sm:gap-7">
-                    <DemoPhone id="board" className="w-[36%] max-w-[12rem]" sizes="(min-width: 1024px) 190px, 36vw" />
-                    <DemoPhone id="life" className="w-[36%] max-w-[12rem] translate-y-8" sizes="(min-width: 1024px) 190px, 36vw" />
+                    <DemoPhone id="home" className="w-[36%] max-w-[12rem]" sizes="(min-width: 1024px) 190px, 36vw" />
+                    <DemoPhone id="community" className="w-[36%] max-w-[12rem] translate-y-8" sizes="(min-width: 1024px) 190px, 36vw" />
                     <span className="absolute bottom-3 left-4 text-[11px] text-white/50">HILINK 공개 데모</span>
                   </div>
                 )}

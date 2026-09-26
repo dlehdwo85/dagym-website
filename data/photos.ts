@@ -89,11 +89,11 @@ export const photos = {
   /* 운영 방식 · 회사소개 — 사람 없는 실사형 공간 (생성) */
   "visual-operations-desk": {
     file: "/images/operation/operations-desk.webp",
-    subject: "커뮤니티센터 운영 데스크 — 모니터 · 태블릿 · 체크리스트, 유리 너머 시설",
+    subject: "커뮤니티센터 입구 운영 데스크 — 게시판 · 출입 게이트 · 안쪽 헬스장 (사람 없음, 다큐멘터리 톤)",
     size: "2400 × 1357",
     ratio: "16:9",
     usedIn: "홈 운영 방식",
-    alt: "태블릿과 모니터, 체크리스트가 놓인 커뮤니티센터 운영 데스크와 유리 너머 시설",
+    alt: "게시판과 안내 데스크, 안면인식 출입 게이트가 있는 커뮤니티센터 입구와 안쪽 헬스장",
     provenance: "generated",
   },
   "visual-company-atrium": {
@@ -224,15 +224,7 @@ export const photos = {
     usedIn: "홈 · 현장 업무",
     alt: "다짐 트레이너가 입주민에게 기구 사용법을 안내하는 모습",
   },
-  "hilink-app": {
-    file: "/images/hilink/resident-home.webp",
-    subject: "HILINK 입주민 앱 홈 화면 (공개 승인된 데모 화면)",
-    size: "923 × 2000",
-    ratio: "휴대폰 세로 화면",
-    usedIn: "홈 · HILINK",
-    alt: "HILINK 입주민 앱 홈 화면 — 공지, 이용권 구매, 예약, 관리비 메뉴",
-    provenance: "hilink-demo",
-  },
+
 
 
   "hilink-admin": {
@@ -308,34 +300,31 @@ export const photos = {
     provenance: "unknown",
   },
   "facility-fitness": {
-    file: "/images/facilities/crop/fitness.jpg",
-    subject: "커뮤니티 헬스장 전경",
-    size: "1600 × 1200 이상",
+    file: "/images/facilities/fitness.webp",
+    subject: "아파트 커뮤니티 피트니스 전경 — 런닝머신 · 웨이트 머신 · 프리웨이트 존 (사람 없음)",
+    size: "1600 × 1195",
     ratio: "4:3",
-    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
-    alt: "커뮤니티 헬스장",
-    legacyPage: "https://www.dagym1.com/ · /service-1",
-    provenance: "unknown",
+    usedIn: "홈 · 커뮤니티 운영 범위",
+    alt: "런닝머신과 웨이트 머신, 프리웨이트 존이 있는 커뮤니티 피트니스",
+    provenance: "generated"
   },
   "facility-golf": {
-    file: "/images/facilities/crop/golf.jpg",
-    subject: "골프연습장 · 스크린골프 타석",
-    size: "1600 × 1200 이상",
+    file: "/images/facilities/golf.webp",
+    subject: "아파트 커뮤니티 스크린골프 연습장 — 타석 4개 · 스크린 · 매트 (사람 없음)",
+    size: "1600 × 1195",
     ratio: "4:3",
-    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
-    alt: "커뮤니티 골프연습장",
-    legacyPage: "https://www.dagym1.com/ · /service-1",
-    provenance: "unknown",
+    usedIn: "홈 · 커뮤니티 운영 범위",
+    alt: "스크린과 타석이 나란히 있는 아파트 커뮤니티 스크린골프 연습장",
+    provenance: "generated"
   },
   "facility-gx": {
-    file: "/images/facilities/crop/gx.jpg",
-    subject: "GX룸 (요가 · 필라테스 · 댄스 수업 공간)",
-    size: "1600 × 1200 이상",
+    file: "/images/facilities/gx.webp",
+    subject: "GX 스튜디오 — 거울벽 · 바레 · 리포머 · 소도구 (사람 없음)",
+    size: "1600 × 1195",
     ratio: "4:3",
-    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
-    alt: "커뮤니티 필라테스 · GX 공간",
-    legacyPage: "https://www.dagym1.com/피트니스-운영업 (GX 영상 포스터)",
-    provenance: "unknown",
+    usedIn: "홈 · 커뮤니티 운영 범위",
+    alt: "거울벽과 바레, 필라테스 리포머가 있는 GX 스튜디오",
+    provenance: "generated"
   },
   "facility-cafe": {
     file: "/images/facilities/crop/cafe.jpg",
@@ -348,14 +337,13 @@ export const photos = {
     provenance: "unknown",
   },
   "facility-library": {
-    file: "/images/facilities/crop/library.jpg",
-    subject: "작은도서관 · 독서실",
-    size: "1600 × 1200 이상",
+    file: "/images/facilities/study.webp",
+    subject: "아파트 독서실 — 개별 학습석 · 스탠드 조명 (사람 없음)",
+    size: "1600 × 1195",
     ratio: "4:3",
-    usedIn: "홈 · 아파트 커뮤니티 위탁운영 — 운영 시설",
-    alt: "커뮤니티 독서실",
-    legacyPage: "https://www.dagym1.com/",
-    provenance: "unknown",
+    usedIn: "홈 · 커뮤니티 운영 범위",
+    alt: "개별 학습석과 스탠드 조명이 있는 아파트 독서실",
+    provenance: "generated"
   },
   "facility-guesthouse": {
     file: "/images/facilities/guesthouse.jpg",

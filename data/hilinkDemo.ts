@@ -75,8 +75,11 @@ export const hilinkDemo: Record<HilinkDemoId, HilinkDemo> = {
   },
 };
 
-/** 대표 3화면 (홈 · /hilink Hero) */
+/** 대표 3화면 (/hilink Hero) */
 export const hilinkHeroDemos: HilinkDemoId[] = ["home", "community", "allServices"];
+
+/** 홈 HILINK 섹션 — 같은 페이지의 CORE 02 카드(홈 · 시설 이용)와 겹치지 않게 */
+export const hilinkHomeSectionDemos: HilinkDemoId[] = ["storeCategories", "allServices", "passes"];
 
 /** 기능 ↔ 실제 화면 매칭 (/hilink) */
 export const hilinkDemoFeatures: { id: HilinkDemoId; title: string; body: string }[] = [
