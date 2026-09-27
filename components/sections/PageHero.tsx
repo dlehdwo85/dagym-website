@@ -18,12 +18,14 @@ type Props = {
   actions?: React.ReactNode;
   /** 오른쪽 비주얼 */
   aside?: React.ReactNode;
+  /** 비주얼을 더 넓게 (텍스트 5 : 비주얼 7) */
+  wideAside?: boolean;
   compact?: boolean;
   children?: React.ReactNode;
 };
 
 /** 서브페이지 상단 — 옅은 쿨 그레이 배경, 한글 제목 중심 */
-export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions, aside, compact, children }: Props) {
+export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions, aside, wideAside, compact, children }: Props) {
   const crumbs = breadcrumbs ? [{ name: "홈", path: "/" }, ...breadcrumbs] : undefined;
   return (
     <section className="border-b border-line bg-mist">
@@ -50,7 +52,7 @@ export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions
           </nav>
         )}
         <div className={cn(!!aside && "grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center [&>*]:min-w-0")}>
-          <Reveal className={cn(aside ? "lg:col-span-6" : "max-w-4xl")}>
+          <Reveal className={cn(aside ? (wideAside ? "lg:col-span-5" : "lg:col-span-6") : "max-w-4xl")}>
             {(eyebrow || en) && (
               <p className="flex items-center gap-3">
                 {eyebrow && <span className="eyebrow">{eyebrow}</span>}
@@ -61,7 +63,7 @@ export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions
             {description && <p className="t-lead mt-6 max-w-2xl text-body">{description}</p>}
             {actions && <div className="mt-9 flex flex-col gap-3 xs:flex-row xs:flex-wrap">{actions}</div>}
           </Reveal>
-          {aside && <div className="lg:col-span-6">{aside}</div>}
+          {aside && <div className={wideAside ? "lg:col-span-7" : "lg:col-span-6"}>{aside}</div>}
         </div>
       </div>
       {children}
