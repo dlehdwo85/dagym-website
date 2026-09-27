@@ -1,7 +1,7 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
-import { photos, type PhotoId } from "@/data/photos";
+import { photos, type PhotoId, type PhotoSlot } from "@/data/photos";
 
 /** public/ 에 사진 파일이 실제로 있는지 확인 (빌드 시점 · 서버 전용) */
 export function hasPhoto(id: PhotoId): boolean {
@@ -29,4 +29,10 @@ export function photoRef(id: PhotoId): PhotoRef | undefined {
     focus: "focus" in slot ? slot.focus : undefined,
     focusLg: "focusLg" in slot ? slot.focusLg : undefined,
   };
+}
+
+/** 실제 운영 현장 사진인지 — 전후 비교(BEFORE / AFTER)는 이 조건을 통과한 사진만 사용합니다 */
+export function isActualPhoto(id: PhotoId): boolean {
+  const slot: PhotoSlot = photos[id];
+  return slot.provenance === "dagym-site" && hasPhoto(id);
 }

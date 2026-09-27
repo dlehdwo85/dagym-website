@@ -1,4 +1,5 @@
 import type { PhotoId } from "./photos";
+import type { HilinkDemoId } from "./hilinkDemo";
 import { TODO_VERIFY, type Verifiable } from "./config";
 
 /**
@@ -164,11 +165,25 @@ export type Transformation = {
   action: string[];
   operation: string[];
   hilink?: string[];
+  /** 목록용 한 줄 요약 — problem · action 에서만 추려 씁니다 (새 사실 · 수치 추가 금지) */
+  keyProblem: string;
+  keyAction: string;
   /** 결과 — 근거 자료 · 공개 승인 후에만 입력 */
   result: { text: string; status: PublicationStatus }[];
-  /** 현장 사진 슬롯 (공개 동의된 실제 전후 사진) */
+  /** 대표 이미지 (목록 카드 · 상세 Hero). 생성 이미지면 "개선 유형 예시"로만 사용 */
+  cover: PhotoId;
+  /** 상세 "개선 구성" 이미지 — 실제 전후 사진이 없을 때 표시 */
+  detail?: PhotoId;
+  /**
+   * 현장 사진 슬롯 (공개 동의된 실제 전후 사진).
+   * provenance 가 "dagym-site" 인 사진만 BEFORE / AFTER 로 표시됩니다 (생성 이미지는 무시).
+   */
   before?: PhotoId;
   after?: PhotoId;
+  /** 목록 상단 대표 사례 (크게 노출) */
+  featured?: boolean;
+  /** 상세 HILINK 적용 영역에 함께 보여줄 공개 데모 화면 */
+  hilinkScreen?: HilinkDemoId;
   business: string;
 };
 
@@ -184,7 +199,13 @@ export const transformations: Transformation[] = [
     action: ["부족 기구와 폼롤러 · 밴드 · 덤벨 등 소도구 보강", "스트레칭 존 · 마사지 베드 구성", "기구별 사용법 QR 부착"],
     operation: ["입주민 대상 무료 OT와 운동 일지", "트레이너 배치 · PT 프로그램", "일일 청소 · 주간 점검 · 분기 AS 점검"],
     hilink: ["이용권 · 출입 기록 관리", "OT · PT 신청 관리"],
+    keyProblem: "기구 · 소도구 부족, 스트레칭 · 회복 공간 없음",
+    keyAction: "기구 · 소도구 보강, 스트레칭 존 구성",
     result: [],
+    cover: "case-fitness-cover",
+    detail: "case-fitness-detail",
+    featured: true,
+    hilinkScreen: "passes",
     business: "sports-fitness",
   },
   {
@@ -198,7 +219,13 @@ export const transformations: Transformation[] = [
     action: ["천막 타석 → 스크린 타석 업그레이드", "타석 간 커튼으로 프라이빗 공간 구성", "초보자용 공용 연습채 구비"],
     operation: ["KPGA · KLPGA 프로 레슨 (원포인트 · 그룹 · 키즈)", "입주민 스크린골프 대회 · 시상", "스크린 · 프로젝터 · 컴퓨터 정기 청소와 장비 교육"],
     hilink: ["앱 타석 예약 → 현장 QR 입장", "예약 종료 시 이용 제한 (현장 장비 구성에 따라 적용)", "세대별 이용 기록으로 정산"],
+    keyProblem: "타석별 이용 시간 제어가 되지 않음",
+    keyAction: "스크린 타석 전환 · 앱 타석 예약",
     result: [],
+    cover: "facility-golf",
+    detail: "case-golf-detail",
+    featured: true,
+    hilinkScreen: "community",
     business: "sports-fitness",
   },
   {
@@ -212,7 +239,13 @@ export const transformations: Transformation[] = [
     action: ["기구 필라테스 · 스피닝 기구 도입", "블라인드 설치로 프라이빗한 수업 환경", "조명 · 음향으로 수업 분위기 개선"],
     operation: ["분기별 수업 계획표 게시", "바레 등 신규 프로그램 도입", "수업 만족도 조사 · 강사 피드백"],
     hilink: ["수업 예약 · 정원 관리", "수강료 관리비 부과 자료"],
+    keyProblem: "수업 종류가 적고 외부 시선에 노출된 환경",
+    keyAction: "필라테스 · 스피닝 도입, 블라인드 · 조명 · 음향",
     result: [],
+    cover: "facility-gx",
+    detail: "case-gx-detail",
+    featured: true,
+    hilinkScreen: "storeCategories",
     business: "apartment-community",
   },
   {
@@ -226,7 +259,12 @@ export const transformations: Transformation[] = [
     action: ["커피 머신 도입 (무인 또는 유인 운영 선택)", "인포메이션과 카페 통합 운영 검토", "유아 맞춤 놀이 도구 보충 · 환경 개선"],
     operation: ["키즈 · 가족 프로그램 (쿠킹 클래스 · 주말 반 등)", "비품 · 재고 정기 조사", "구역별 · 시간대별 청소 체크리스트"],
     hilink: ["카페 결제 · 매출 관리", "프로그램 신청"],
+    keyProblem: "운영되지 않는 카페, 부족한 놀이 도구",
+    keyAction: "커피 머신 도입 · 놀이 도구 보충",
     result: [],
+    cover: "case-kids-cafe",
+    detail: "case-kids-detail",
+    hilinkScreen: "life",
     business: "apartment-community",
   },
   {
@@ -240,7 +278,12 @@ export const transformations: Transformation[] = [
     action: ["결제 · 예약 인증 기반 개인 독서실 잠금장치", "모바일 앱 · 키오스크 좌석 예약", "월별 추첨 · 선착순 배정 규칙"],
     operation: ["이용자 교체 시 좌석 정리 · 공기 관리", "일 · 주 · 월 시설 점검 체크리스트"],
     hilink: ["좌석 예약 · 이용 횟수 제한", "출입 인증 기록 기반 세대별 부과 자료"],
+    keyProblem: "수기 좌석 관리와 좌석 점유 민원",
+    keyAction: "예약 · 결제 인증 잠금장치, 앱 좌석 예약",
     result: [],
+    cover: "facility-library",
+    detail: "case-study-detail",
+    hilinkScreen: "community",
     business: "apartment-community",
   },
   {
@@ -254,7 +297,12 @@ export const transformations: Transformation[] = [
     action: ["빔프로젝터를 활용한 영상 관람 환경", "예약 시스템으로 중복 없는 이용"],
     operation: ["탁구 동호회 · 주민 대회", "영화 이벤트 (스포츠 영상관 · 어린이 애니메이션 데이)", "문화 강좌 · 보드게임 등 주민 소모임"],
     hilink: ["시설 예약 · 중복 예약 방지"],
+    keyProblem: "탁구대 외 활용이 없어 비어 있는 시간이 김",
+    keyAction: "영상 관람 환경 · 예약 시스템",
     result: [],
+    cover: "case-multipurpose",
+    detail: "case-multipurpose-detail",
+    hilinkScreen: "allServices",
     business: "consulting",
   },
   {
@@ -267,7 +315,11 @@ export const transformations: Transformation[] = [
     diagnosis: ["입주민 수요 조사", "공간 구조 · 설비 확인"],
     action: ["키즈카페 등 수요 시설로 전환 제안", "필요 기구 · 가구 구성"],
     operation: ["전환 후 운영 인력 · 프로그램 연계", "이용 데이터로 활용도 확인"],
+    keyProblem: "용도가 정해지지 않았거나 쓰이지 않는 공간",
+    keyAction: "수요 조사 후 필요한 시설로 전환",
     result: [],
+    cover: "case-idle-space",
+    detail: "case-idle-detail",
     business: "consulting",
   },
 ];
