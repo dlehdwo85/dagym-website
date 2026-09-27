@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { company, isVerified, telHref } from "@/data/config";
 import { TrackedLink } from "@/components/ui/TrackedLink";
+import { footerNav } from "@/data/navigation";
+import { Logo } from "@/components/ui/Logo";
 
 /** 문의 링크만 contact_click(footer) 을 남긴다 */
 function TrackedLinkOrLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
@@ -13,21 +16,25 @@ function TrackedLinkOrLink({ href, className, children }: { href: string; classN
     </Link>
   );
 }
-import { company, isVerified } from "@/data/config";
-import { footerNav } from "@/data/navigation";
-import { Logo } from "@/components/ui/Logo";
 
-/** 확인된 회사 정보만 표시합니다. (TODO_VERIFY 값은 줄 자체를 숨김) */
+/** 데스크톱 구분자 — 모바일에서는 항목마다 줄바꿈 */
+function Sep() {
+  return (
+    <span aria-hidden className="mx-2 hidden text-white/25 sm:inline">
+      |
+    </span>
+  );
+}
+
+/** 회사 법정정보는 data/config.ts › company 를 그대로 표시합니다. (TODO_VERIFY 값은 항목 자체를 숨김) */
 export function Footer() {
-  const rows: [string, string][] = [
-    ["상호", `${company.nameKo} (${company.nameEn})`],
-    ["대표", company.ceo],
-    ["사업자등록번호", company.businessNumber],
-    ["주소", company.address],
-    ["대표번호", company.phone],
-    ["이메일", company.email],
-  ];
-  const visible = rows.filter(([, v]) => isVerified(v));
+  const ceo = isVerified(company.ceo) ? company.ceo : null;
+  const businessNumber = isVerified(company.businessNumber) ? company.businessNumber : null;
+  const address = isVerified(company.address) ? company.address : null;
+  const phone = isVerified(company.phone) ? company.phone : null;
+  const email = isVerified(company.email) ? company.email : null;
+  const line = "flex flex-col sm:flex-row sm:flex-wrap sm:items-center";
+  const contactLink = "whitespace-nowrap text-white/75 transition-colors hover:text-white hover:underline underline-offset-4";
 
   return (
     <footer className="bg-navy-deep text-white" aria-labelledby="footer-heading">
@@ -60,20 +67,53 @@ export function Footer() {
             ))}
           </nav>
         </div>
-        <div className="flex flex-col gap-6 py-8 text-sm text-white/45 lg:flex-row lg:justify-between">
-          <dl className="flex flex-wrap gap-x-6 gap-y-1.5">
-            {visible.map(([k, v]) => (
-              <div key={k} className="flex gap-2">
-                <dt>{k}</dt>
-                <dd className="text-white/70">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <div className="flex shrink-0 flex-col gap-1.5 lg:items-end">
-            <Link href="/privacy" className="font-semibold text-white/80 hover:text-white">
+        <div className="flex flex-col gap-7 py-9 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+          <address className="space-y-2 text-[0.8125rem] not-italic leading-[1.7] text-white/55 sm:space-y-1">
+            <p className={line}>
+              <span className="font-semibold text-white/85">{company.nameKo}</span>
+              {ceo && (
+                <>
+                  <Sep />
+                  <span>대표: {ceo}</span>
+                </>
+              )}
+              {businessNumber && (
+                <>
+                  <Sep />
+                  <span>사업자등록번호: {businessNumber}</span>
+                </>
+              )}
+            </p>
+            {address && <p className="break-keep">주소: {address}</p>}
+            {(phone || email) && (
+              <p className={line}>
+                {phone && (
+                  <span>
+                    대표전화:{" "}
+                    <TrackedLink href={telHref(phone)} event="phone_click" location="footer" className={contactLink}>
+                      {phone}
+                    </TrackedLink>
+                  </span>
+                )}
+                {phone && email && <Sep />}
+                {email && (
+                  <span>
+                    이메일:{" "}
+                    <TrackedLink href={`mailto:${email}`} event="email_click" location="footer" className={contactLink}>
+                      {email}
+                    </TrackedLink>
+                  </span>
+                )}
+              </p>
+            )}
+          </address>
+          <div className="flex shrink-0 flex-col gap-2 text-[0.8125rem] text-white/45 lg:items-end">
+            <Link href="/privacy" className="font-semibold text-white/80 transition-colors hover:text-white">
               개인정보처리방침
             </Link>
-            <p>© {new Date().getFullYear()} DAGYM Co., Ltd.</p>
+            <p>
+              © {new Date().getFullYear()} {company.nameKo}. All rights reserved.
+            </p>
           </div>
         </div>
       </div>

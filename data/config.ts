@@ -20,7 +20,7 @@ export const siteConfig = {
   shortTitle: "DAGYM",
   description:
     "주식회사 다짐은 아파트 · 기업 · 호텔의 커뮤니티 시설과 스포츠시설을 전문 인력과 본사 운영체계로 직접 운영하고, 자체 커뮤니티 운영 플랫폼 HILINK를 구축 · 공급하는 커뮤니티 운영 전문기업입니다.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dagym-in.co.kr").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.dagym-in.co.kr").replace(/\/$/, ""),
   locale: "ko_KR",
   tagline: "운영과 기술을 하나로.",
   statement: "공간의 가치를 운영으로 완성하다.",
@@ -41,16 +41,20 @@ export const siteConfig = {
   ],
 } as const;
 
+/** 회사 기본정보 — Footer · 문의 · 회사소개 · 개인정보처리방침 · JSON-LD 가 모두 이 값을 사용합니다. */
 export const company = {
   nameKo: "주식회사 다짐",
   nameEn: "DAGYM Co., Ltd.",
-  ceo: TODO_VERIFY as Verifiable<string>,
-  businessNumber: TODO_VERIFY as Verifiable<string>,
+  brand: "DAGYM",
+  ceo: "이동재" as Verifiable<string>,
+  businessNumber: "759-88-02170" as Verifiable<string>,
   mailOrderNumber: TODO_VERIFY as Verifiable<string>,
-  phone: TODO_VERIFY as Verifiable<string>,
+  phone: "1555-2564" as Verifiable<string>,
   fax: TODO_VERIFY as Verifiable<string>,
-  email: TODO_VERIFY as Verifiable<string>,
-  address: TODO_VERIFY as Verifiable<string>,
+  email: "dagym-in@naver.com" as Verifiable<string>,
+  address: "경기도 용인시 기흥구 강남서로9, 8층" as Verifiable<string>,
+  /** 공식 홈페이지 (canonical 도메인) */
+  website: "https://www.dagym-in.co.kr",
   founded: TODO_VERIFY as Verifiable<string>,
   businessHours: TODO_VERIFY as Verifiable<string>, // 예: "평일 09:00 – 18:00 (주말·공휴일 휴무)"
   /** 사업 영역 */
@@ -62,6 +66,10 @@ export const company = {
   },
 } as const;
 
+/** tel: 링크용 숫자만 남긴 전화번호 (예: 1555-2564 → 15552564) */
+export function telHref(phone: string) {
+  return `tel:${phone.replace(/[^0-9+]/g, "")}`;
+}
 
 /**
  * 파트너 / 고객사 로고. 확인된 파트너만 입력합니다.

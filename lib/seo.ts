@@ -46,14 +46,16 @@ export function organizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: company.nameKo,
-    alternateName: [company.nameEn, "DAGYM", "다짐"],
-    url: siteConfig.url,
+    legalName: company.nameKo,
+    alternateName: [company.brand, "다짐", company.nameEn],
+    url: company.website,
     logo: absoluteUrl("/icon.svg"),
     description: siteConfig.description,
     knowsAbout: siteConfig.keywords,
   };
   if (isVerified(company.phone)) data.telephone = company.phone;
   if (isVerified(company.email)) data.email = company.email;
+  if (isVerified(company.businessNumber)) data.taxID = company.businessNumber;
   if (isVerified(company.address))
     data.address = { "@type": "PostalAddress", streetAddress: company.address, addressCountry: "KR" };
   return data;

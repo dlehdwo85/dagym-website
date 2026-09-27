@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { TrackedLink } from "@/components/ui/TrackedLink";
-import { company, isVerified } from "@/data/config";
+import { company, isVerified, telHref } from "@/data/config";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -22,6 +22,7 @@ const steps = [
 export default function ContactPage() {
   const phone = isVerified(company.phone) ? company.phone : null;
   const email = isVerified(company.email) ? company.email : null;
+  const address = isVerified(company.address) ? company.address : null;
   const hours = isVerified(company.businessHours) ? company.businessHours : null;
 
   return (
@@ -44,7 +45,7 @@ export default function ContactPage() {
           <aside className="lg:col-span-4" aria-label="상담 안내">
             <div className="rounded-[4px] bg-mist p-7 lg:sticky lg:top-28">
               <h2 className="t-h4">상담 안내</h2>
-              {(hours || phone || email) && (
+              {(hours || phone || email || address) && (
                 <dl className="mt-5 space-y-3 border-b border-line-strong pb-6">
                   {hours && (
                     <div>
@@ -54,9 +55,9 @@ export default function ContactPage() {
                   )}
                   {phone && (
                     <div>
-                      <dt className="text-sm text-muted">대표번호</dt>
+                      <dt className="text-sm text-muted">대표전화</dt>
                       <dd className="font-semibold">
-                        <TrackedLink href={`tel:${phone}`} event="phone_click" location="contact_page">
+                        <TrackedLink href={telHref(phone)} event="phone_click" location="contact_page">
                           {phone}
                         </TrackedLink>
                       </dd>
@@ -70,6 +71,12 @@ export default function ContactPage() {
                           {email}
                         </TrackedLink>
                       </dd>
+                    </div>
+                  )}
+                  {address && (
+                    <div>
+                      <dt className="text-sm text-muted">주소</dt>
+                      <dd className="font-semibold break-keep">{address}</dd>
                     </div>
                   )}
                 </dl>
