@@ -4,14 +4,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTASection } from "@/components/sections/CTASection";
-import { OurOperations } from "@/components/home/OurOperations";
 import { HqManagement } from "@/components/home/HqManagement";
-import { OperationSystem } from "@/components/home/OperationSystem";
-import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { companyIntro, principles } from "@/data/company";
-import { coreBusinesses, publicFacts, supportingService } from "@/data/corporate";
+import { brandMotto, companyCta, companyHero, mainBusinessLine, principles, whatWeDo, whyDagym } from "@/data/company";
 import { certifications, company, history, isVerified, partners } from "@/data/config";
 import { photoRef } from "@/lib/photos";
 import { pageMetadata } from "@/lib/seo";
@@ -19,123 +15,138 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "회사소개",
   description:
-    "주식회사 다짐은 아파트 · 기업 · 호텔 커뮤니티 시설을 본사 운영체계로 직접 관리하고, 자체 플랫폼 HILINK와 시설 개선으로 운영의 품질을 높이는 커뮤니티 운영 전문기업입니다.",
+    "다짐(DAGYM)은 '좋은 마음가짐으로 미래를 결정하자'는 뜻을 담은 이름입니다. 주식회사 다짐은 아파트 · 기업 · 호텔 커뮤니티 시설을 운영하고, 그 운영을 자체 플랫폼 HILINK로 연결하는 커뮤니티 운영 전문기업입니다.",
   path: "/company",
 });
 
 export default function CompanyPage() {
+  // 회사 개요 — data/config.ts company (확인된 값만 표시)
   const infoRows: [string, string][] = [
     ["회사명", `${company.nameKo} (${company.nameEn})`],
     ["대표", company.ceo],
-    ["설립", company.founded],
     ["사업자등록번호", company.businessNumber],
-    ["주요 사업", "커뮤니티 시설 전문 위탁운영 · 커뮤니티 운영 플랫폼(HILINK) 구축 · 납품"],
+    ["주요 사업", mainBusinessLine],
     ["주소", company.address],
     ["대표전화", company.phone],
     ["이메일", company.email],
   ];
   const visibleInfo = infoRows.filter(([, v]) => isVerified(v));
-  const facts = publicFacts();
-  const photo = photoRef("visual-company-atrium") ?? photoRef("facility-fitness");
+  const photo = photoRef("visual-company-atrium");
 
   return (
     <>
       <PageHero
-        eyebrow="회사소개"
-        en="About DAGYM"
-        title={"경험에만 의존하지 않고,\n기준과 데이터로 운영합니다."}
-        description="다짐은 피트니스 회사도, 앱 회사도 아닙니다. 커뮤니티 공간의 운영 전체를 맡고, 그 운영을 자체 기술로 관리하는 커뮤니티 운영 전문기업입니다."
+        eyebrow={companyHero.eyebrow}
+        title={companyHero.title}
+        description={companyHero.lead}
         breadcrumbs={[{ name: "회사소개", path: "/company" }]}
+        aside={
+          photo && (
+            <Reveal delay={0.1}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-fog">
+                <Image src={photo.src} alt={photo.alt} fill priority sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              </div>
+            </Reveal>
+          )
+        }
       />
 
-      {/* 회사 소개 */}
-      <section className="section-y bg-white" aria-labelledby="intro-title">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
-          <Reveal className="lg:col-span-6">
-            <p className="eyebrow">회사 소개</p>
-            <h2 id="intro-title" className="t-section mt-4 sm:whitespace-pre-line">
-              {companyIntro.title}
-            </h2>
-            <div className="mt-7 space-y-4">
-              {companyIntro.body.map((p, i) => (
-                <p key={i} className="t-body text-body">
-                  {p}
-                </p>
-              ))}
-            </div>
-            {facts.length > 0 && (
-              <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-sm">
-                {facts.map((f) => (
-                  <div key={f.key} className="flex gap-2">
-                    <dt className="text-muted">{f.label}</dt>
-                    <dd className="font-semibold">{String(f.value)}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-          </Reveal>
-          {photo && (
-            <figure className="lg:col-span-6">
-              <ClipReveal className="aspect-[4/3] rounded-[4px] bg-mist" from="right">
-                <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
-              </ClipReveal>
-            </figure>
-          )}
-        </div>
-      </section>
-
-      {/* 운영 철학 */}
-      <section className="section-y bg-mist" aria-labelledby="philosophy-title">
+      {/* WHY DAGYM — 이름의 의미 */}
+      <section className="bg-white py-24 lg:py-36" aria-labelledby="why-title">
         <div className="container-x">
-          <SectionHeader id="philosophy-title" eyebrow="운영 철학" en="Philosophy" title={"현장을 맡긴 뒤에도\n본사가 함께 관리합니다."} />
-          <ol className="mt-14 grid gap-px overflow-hidden rounded-[4px] border border-line bg-line md:grid-cols-2">
-            {principles.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={(i % 2) * 0.05} className="bg-white p-7 lg:p-9">
-                <p className="text-sm font-bold text-accent">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="t-h3 mt-2">{p.title}</h3>
-                <p className="t-small mt-3 text-body">{p.body}</p>
+          <Reveal>
+            <p className="flex items-center gap-3">
+              <span className="eyebrow">WHY DAGYM</span>
+              <span className="label-en text-steel">이름의 의미</span>
+            </p>
+            <h2 id="why-title" className="t-h2 mt-4 break-keep sm:whitespace-pre-line">
+              {whyDagym.title}
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.08} className="mt-16 border-y border-line py-14 lg:mt-20 lg:py-20">
+            <p className="text-sm font-semibold text-steel">다짐 (DAGYM)</p>
+            <blockquote className="mt-4 break-keep text-[2rem] font-bold leading-[1.25] tracking-[-0.03em] text-navy sm:text-[2.75rem] lg:text-[3.75rem]">
+              “{brandMotto}”
+            </blockquote>
+          </Reveal>
+
+          <ol className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-3 lg:gap-0">
+            {whyDagym.steps.map((s, i) => (
+              <Reveal as="li" key={s.en} delay={i * 0.08} className="relative lg:pr-12">
+                <div className="flex items-center gap-4">
+                  <span className="label-en text-accent">{s.en}</span>
+                  {i < whyDagym.steps.length - 1 && (
+                    <span aria-hidden className="hidden h-px flex-1 bg-line-strong lg:block" />
+                  )}
+                  {i < whyDagym.steps.length - 1 && <ArrowRight aria-hidden className="hidden size-4 shrink-0 text-steel lg:block" />}
+                </div>
+                <h3 className="t-h3 mt-3">{s.ko}</h3>
+                <p className="t-body mt-3 max-w-sm break-keep text-body">{s.body}</p>
               </Reveal>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* 핵심사업 */}
-      <section className="section-y bg-white" aria-labelledby="areas-title">
+      {/* WHAT WE DO — 두 핵심사업 (상세는 /business · /hilink) */}
+      <section className="bg-mist py-24 lg:py-32" aria-labelledby="what-title">
         <div className="container-x">
-          <SectionHeader id="areas-title" eyebrow="핵심사업" en="Core business" title="두 가지 핵심사업" />
-          <ul className="mt-12 grid gap-6 md:grid-cols-2">
-            {coreBusinesses.map((p) => (
-              <Reveal as="li" key={p.no} className="flex flex-col border-t-2 border-navy pt-6">
+          <SectionHeader id="what-title" eyebrow="WHAT WE DO" en="우리가 하는 일" title={whatWeDo.title} size="h2" />
+          <ul className="mt-14 grid gap-12 md:grid-cols-2 md:gap-10 lg:mt-16">
+            {whatWeDo.items.map((w, i) => (
+              <Reveal as="li" key={w.no} delay={i * 0.06} className="border-t-2 border-navy pt-7">
                 <p className="flex items-center gap-3">
-                  <span className="text-sm font-bold text-accent">CORE {p.no}</span>
-                  <span className="label-en text-steel">{p.en}</span>
+                  <span className="text-sm font-bold text-accent">{w.no}</span>
+                  <span className="label-en text-steel">{w.en}</span>
                 </p>
-                <h3 className="t-h3 mt-2">{p.title}</h3>
-                <p className="t-small mt-3 text-body">{p.lead}</p>
-                <Link href={p.cta.href} className="group mt-5 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-navy">
-                  {p.cta.label} <ArrowRight className="btn-arrow size-4" aria-hidden />
+                <h3 className="t-h3 mt-3">{w.title}</h3>
+                <p className="t-body mt-3 max-w-md break-keep text-body">{w.body}</p>
+                <Link href={w.cta.href} className="group mt-6 inline-flex items-center gap-2 font-semibold text-navy">
+                  {w.cta.label} <ArrowRight className="btn-arrow size-4" aria-hidden />
                 </Link>
               </Reveal>
             ))}
           </ul>
-          <p className="t-small mt-10 border-t border-line pt-5 text-body">
-            <span className="mr-3 text-xs font-bold tracking-[0.08em] text-steel">SUPPORTING SERVICE</span>
-            <span className="font-semibold text-ink">{supportingService.title}</span> — {supportingService.lead}
+          <p className="mt-14">
+            <Link href="/projects" className="group inline-flex items-center gap-2 text-sm font-semibold text-steel hover:text-navy">
+              다짐의 운영 현장 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
+            </Link>
           </p>
         </div>
       </section>
 
-      {/* 본사 운영체계 · 조직 */}
+      {/* OUR PRINCIPLES — 다짐이 지키는 기준 */}
+      <section className="bg-white py-24 lg:py-32" aria-labelledby="principles-title">
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-5">
+            <p className="flex items-center gap-3">
+              <span className="eyebrow">OUR PRINCIPLES</span>
+              <span className="label-en text-steel">기준과 철학</span>
+            </p>
+            <h2 id="principles-title" className="t-h2 mt-4">
+              {principles.title}
+            </h2>
+            <p className="t-lead mt-5 max-w-md break-keep text-body">{principles.lead}</p>
+          </Reveal>
+          <ol className="border-t border-navy lg:col-span-7">
+            {principles.items.map((p, i) => (
+              <Reveal as="li" key={p.title} delay={i * 0.05} className="grid grid-cols-[3rem_1fr] gap-x-4 border-b border-line py-7 sm:grid-cols-[4rem_1fr]">
+                <span className="text-sm font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 className="t-h4">{p.title}</h3>
+                  <p className="t-body mt-2 break-keep text-body">{p.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* OUR TEAM — 본사 조직 */}
       <div className="border-t border-line">
-        <HqManagement />
+        <HqManagement variant="organization" />
       </div>
-
-      {/* 운영 프로세스 */}
-      <OperationSystem />
-
-      {/* 주요 이력 */}
-      <OurOperations />
 
       {history.length > 0 && (
         <section className="section-y border-t border-line bg-white" aria-labelledby="history-title">
@@ -174,26 +185,32 @@ export default function CompanyPage() {
       )}
 
       {/* 회사 개요 */}
-      <section id="info" className="scroll-mt-24 border-t border-line bg-white" aria-labelledby="info-title">
-        <div className="container-x grid gap-10 py-16 lg:grid-cols-12 lg:py-20">
+      <section id="info" className="scroll-mt-24 border-t border-line bg-mist" aria-labelledby="info-title">
+        <div className="container-x grid gap-10 py-20 lg:grid-cols-12 lg:py-28">
           <div className="lg:col-span-4">
-            <p className="eyebrow">회사 개요</p>
+            <p className="eyebrow">COMPANY</p>
             <h2 id="info-title" className="t-h2 mt-3">
-              Company
+              회사 개요
             </h2>
           </div>
           <dl className="border-t border-navy lg:col-span-8">
             {visibleInfo.map(([k, v]) => (
               <div key={k} className="grid gap-1 border-b border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-6">
                 <dt className="text-muted">{k}</dt>
-                <dd>{v}</dd>
+                <dd className="break-keep text-ink">{v}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      <CTASection />
+      <CTASection
+        eyebrow={companyCta.eyebrow}
+        title={companyCta.title}
+        description={companyCta.description}
+        primary={{ label: "운영 제안 문의", href: "/contact?type=operation" }}
+        secondary={null}
+      />
     </>
   );
 }

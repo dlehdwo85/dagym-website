@@ -3,8 +3,33 @@ import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { communication, hqDepartments, hqFlow, hqSupportLine, staffTraining, weeklyCycle } from "@/data/corporate";
 
-/** 본사 운영체계 — 조직도를 운영 모델로 재해석 */
-export function HqManagement({ showTitle = true }: { showTitle?: boolean }) {
+/**
+ * 본사 운영체계 — 조직도를 운영 모델로 재해석.
+ * variant="organization": 회사소개용 — 조직(부서)만 보여주고 운영 흐름 · 주간 점검 · 소통은 뺀다.
+ */
+export function HqManagement({ showTitle = true, variant = "full" }: { showTitle?: boolean; variant?: "full" | "organization" }) {
+  if (variant === "organization") {
+    return (
+      <section id="hq" className="section-y scroll-mt-20 bg-white" aria-labelledby="hq-title">
+        <div className="container-x">
+          <SectionHeader id="hq-title" eyebrow="OUR TEAM" en="Organization" title="현장을 움직이는 본사의 전문 조직" description={hqSupportLine} />
+          <ul className="mt-12 grid gap-px overflow-hidden rounded-[4px] border border-line bg-line sm:grid-cols-2 lg:mt-14 lg:grid-cols-5">
+            {hqDepartments.map((d, i) => (
+              <Reveal as="li" key={d.name} delay={i * 0.04} className="bg-white p-6 lg:p-7">
+                <p className="text-sm font-semibold text-accent">{d.role}</p>
+                <p className="t-h4 mt-1">{d.name}</p>
+                <ul className="t-small mt-4 space-y-1.5 text-body">
+                  {d.items.map((it) => (
+                    <li key={it}>{it}</li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="hq" className="section-y scroll-mt-20 bg-white" aria-labelledby="hq-title">
       <div className="container-x">

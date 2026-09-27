@@ -7,7 +7,8 @@ type Props = {
   title?: string;
   description?: string;
   primary?: { label: string; href: string };
-  secondary?: { label: string; href: string };
+  /** null 이면 보조 버튼 없음 */
+  secondary?: { label: string; href: string } | null;
   /** contact_click 이벤트의 cta_location */
   track?: CtaLocation;
 };
