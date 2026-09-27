@@ -94,9 +94,17 @@ export function Footer() {
             )}
           </address>
           <div className="flex shrink-0 flex-col gap-2 text-[0.8125rem] text-white/45 lg:items-end">
-            <Link href="/privacy" className="font-semibold text-white/80 transition-colors hover:text-white">
-              개인정보처리방침
-            </Link>
+            <p className="flex items-center">
+              <Link href="/privacy" className="font-semibold text-white/80 transition-colors hover:text-white">
+                개인정보처리방침
+              </Link>
+              <span aria-hidden className="mx-2 text-white/25">
+                |
+              </span>
+              <Link href="/terms" className="text-white/70 transition-colors hover:text-white">
+                이용약관
+              </Link>
+            </p>
             <p>
               © {new Date().getFullYear()} {company.nameKo}. All rights reserved.
             </p>
