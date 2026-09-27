@@ -8,7 +8,7 @@ import { getPosts, getProjects } from "@/lib/content";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
-  const staticRoutes = ["", "/company", "/business", "/hilink", "/cases", "/insight", "/contact", "/privacy", ...(projects.length ? ["/projects"] : [])];
+  const staticRoutes = ["", "/company", "/business", "/hilink", "/cases", "/insight", "/contact", "/privacy", "/terms", ...(projects.length ? ["/projects"] : [])];
 
   return [
     ...staticRoutes.map((path) => ({
