@@ -61,7 +61,7 @@ Vercel Logs 에서 `[leads]` 로 검색한다. 로그에는 Lead ID 와 회사/�
 | `SMTP_HOST` `SMTP_PORT` `SMTP_SECURE` `SMTP_USER` `SMTP_PASS` `SMTP_FROM` | SMTP 채널 | `SMTP_PASS` 예 |
 | `RESEND_API_KEY` + `LEAD_FROM_EMAIL` | Resend 채널 | `RESEND_API_KEY` 예 |
 | `LEAD_NOTIFY_WEBHOOK_URL` | Webhook 채널 | 예 |
-| `CRM_ADMIN_BASE_URL` | 메일의 「관리자에서 문의 확인」 링크 = **HILINK 관리자 도메인** (DAGYM 에는 /admin 없음) | 아니오 (서버 전용) |
+| `CRM_ADMIN_BASE_URL` | 메일의 「관리자에서 문의 확인」 링크 = **HILINK 운영 관리자 도메인 `https://www.hi-link.co.kr`** (Preview · Production 모두 이 값. DAGYM 에는 /admin 없음) | 아니오 (서버 전용) |
 | `NEXT_PUBLIC_GTM_ID` / `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_META_PIXEL_ID` | 전환 측정 (선택) | 아니오 |
 
 알림 채널은 하나 이상 필요하다. HILINK 프로젝트와 같은 값을 쓰면 두 사이트 문의가 같은 메일함 · 같은 CRM 으로 모인다.
@@ -78,7 +78,7 @@ Vercel Logs 에서 `[leads]` 로 검색한다. 로그에는 Lead ID 와 회사/�
 ## 6. 관리자 CRM
 
 HILINK 관리자(`/admin/login` → `/admin/leads`)를 그대로 쓴다. DAGYM 에 별도 관리자는 없다.
-목록 · 상세에 `DAGYM` / `HI-LINK` 배지(hilink-website `feat/lead-source-badge`), CSV 에 유입(source) 열.
+목록 · 상세에 `DAGYM`(source=dagym-web) / `HI-LINK`(website · 빈 값) 배지, 그 외 레거시 값은 원문 중립 배지 (hilink-website `feat/lead-source-badge`), CSV 에 유입(source) 열.
 상태 · 담당자 · 내부메모 · 타임라인 · 보관은 HILINK 문의와 같은 방식으로 관리한다.
 
 ## 7. 완료 페이지 · 전환
