@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -118,13 +119,14 @@ export function Header({ business }: Props) {
           </nav>
 
           <div className="flex items-center gap-1">
-            <Link
-              href="/contact?type=proposal"
+            <TrackedLink
+              href="/contact?type=operation"
+              location="header"
               className="btn-wipe group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-[4px] bg-navy px-4 text-sm font-semibold text-white [--wipe:var(--color-navy-deep)] md:max-[899px]:hidden lg:h-11 lg:px-5 lg:text-[0.9375rem]"
             >
               운영 제안 문의
               <ArrowRight className="btn-arrow hidden size-4 sm:block" aria-hidden />
-            </Link>
+            </TrackedLink>
             <button
               type="button"
               className="-mr-2 inline-flex size-11 items-center justify-center md:hidden"
@@ -276,12 +278,12 @@ function MobileMenu({ onClose, isActive, business }: { onClose: () => void; isAc
         </ul>
       </nav>
       <div className="container-x grid shrink-0 grid-cols-2 gap-2 border-t border-line py-4">
-        <Link href="/contact?type=proposal" onClick={onClose} className="flex h-13 items-center justify-center rounded-[4px] bg-navy text-[0.9375rem] font-semibold text-white">
+        <TrackedLink href="/contact?type=operation" location="header" onClick={onClose} className="flex h-13 items-center justify-center rounded-[4px] bg-navy text-[0.9375rem] font-semibold text-white">
           운영 제안 문의
-        </Link>
-        <Link href="/contact?type=diagnosis" onClick={onClose} className="flex h-13 items-center justify-center rounded-[4px] border border-line-strong text-[0.9375rem] font-semibold">
-          현장 진단 문의
-        </Link>
+        </TrackedLink>
+        <TrackedLink href="/contact?type=consulting" location="header" onClick={onClose} className="flex h-13 items-center justify-center rounded-[4px] border border-line-strong text-[0.9375rem] font-semibold">
+          운영 진단 문의
+        </TrackedLink>
       </div>
     </div>
   );

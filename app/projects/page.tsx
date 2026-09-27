@@ -21,7 +21,7 @@ export default function ProjectsPage() {
         breadcrumbs={[{ name: "운영실적", path: "/projects" }]}
       />
       <OurOperations asPage />
-      <CTASection />
+      <CTASection track="project_page" />
     </>
   );
 }

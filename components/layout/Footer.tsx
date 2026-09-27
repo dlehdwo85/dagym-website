@@ -1,7 +1,21 @@
 import Link from "next/link";
 import { company, isVerified, telHref } from "@/data/config";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 import { footerNav } from "@/data/navigation";
 import { Logo } from "@/components/ui/Logo";
+
+/** 문의 링크만 contact_click(footer) 을 남긴다 */
+function TrackedLinkOrLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
+  return href.startsWith("/contact") ? (
+    <TrackedLink href={href} location="footer" className={className}>
+      {children}
+    </TrackedLink>
+  ) : (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
 
 /** 데스크톱 구분자 — 모바일에서는 항목마다 줄바꿈 */
 function Sep() {
@@ -43,9 +57,9 @@ export function Footer() {
                 <ul className="mt-5 space-y-3">
                   {g.links.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} className="text-[0.9375rem] text-white/75 transition-colors hover:text-white">
+                      <TrackedLinkOrLink href={l.href} className="text-[0.9375rem] text-white/75 transition-colors hover:text-white">
                         {l.label}
-                      </Link>
+                      </TrackedLinkOrLink>
                     </li>
                   ))}
                 </ul>
@@ -76,18 +90,18 @@ export function Footer() {
                 {phone && (
                   <span>
                     대표전화:{" "}
-                    <a href={telHref(phone)} className={contactLink}>
+                    <TrackedLink href={telHref(phone)} event="phone_click" location="footer" className={contactLink}>
                       {phone}
-                    </a>
+                    </TrackedLink>
                   </span>
                 )}
                 {phone && email && <Sep />}
                 {email && (
                   <span>
                     이메일:{" "}
-                    <a href={`mailto:${email}`} className={contactLink}>
+                    <TrackedLink href={`mailto:${email}`} event="email_click" location="footer" className={contactLink}>
                       {email}
-                    </a>
+                    </TrackedLink>
                   </span>
                 )}
               </p>

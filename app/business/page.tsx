@@ -107,7 +107,7 @@ export default function BusinessPage() {
               <ButtonLink href="/hilink" variant="white">
                 HILINK 플랫폼 보기
               </ButtonLink>
-              <ButtonLink href="/contact?type=hilink" variant="outline-white">
+              <ButtonLink href="/contact?type=hilink" variant="outline-white" track="business_page">
                 도입 문의
               </ButtonLink>
             </div>
@@ -139,7 +139,7 @@ export default function BusinessPage() {
       )}
 
       <OperationSystem tone="white" />
-      <CTASection />
+      <CTASection track="business_page" />
     </>
   );
 }

@@ -7,6 +7,7 @@ import { CTASection } from "@/components/sections/CTASection";
 import { ClipReveal } from "@/components/motion/ClipReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { TrackedLink } from "@/components/ui/TrackedLink";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { AdminConcept } from "@/components/hilink/AdminConcept";
 import { DemoPhone } from "@/components/hilink/DemoPhone";
@@ -83,12 +84,12 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
             </h1>
             <p className="t-lead mt-5 whitespace-pre-line text-body">{d.heroLead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <ButtonLink href={contactHref} size="lg">
+              <ButtonLink href={contactHref} size="lg" track="business_page">
                 운영 상담
               </ButtonLink>
-              <Link href="/contact" className="group inline-flex items-center gap-2 font-semibold text-navy">
+              <TrackedLink href={contactHref} location="business_page" className="group inline-flex items-center gap-2 font-semibold text-navy">
                 문의하기 <ArrowRight className="btn-arrow size-4" aria-hidden />
-              </Link>
+              </TrackedLink>
             </div>
           </Reveal>
           {hero && (
@@ -234,7 +235,8 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
         title={d.ctaTitle}
         description="시설과 현재 운영 방식을 알려주시면 현장을 확인하고 운영안을 제안드립니다."
         primary={{ label: "운영 상담", href: contactHref }}
-        secondary={{ label: "문의하기", href: "/contact" }}
+        secondary={{ label: "HILINK 도입 문의", href: "/contact?type=hilink" }}
+        track="business_page"
       />
     </>
   );

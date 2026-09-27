@@ -12,6 +12,7 @@ import { hasPhoto } from "@/lib/photos";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { siteConfig } from "@/data/config";
 import { organizationJsonLd } from "@/lib/seo";
+import { Analytics } from "@/components/analytics/Analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header business={megaBusiness} />
         <main id="main">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

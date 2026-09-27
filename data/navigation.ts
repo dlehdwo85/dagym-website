@@ -40,8 +40,8 @@ export const footerNav: { title: string; links: { label: string; href: string }[
   {
     title: "문의",
     links: [
-      { label: "운영 제안 문의", href: "/contact?type=proposal" },
-      { label: "현장 진단 문의", href: "/contact?type=diagnosis" },
+      { label: "운영 상담 문의", href: "/contact?type=operation" },
+      { label: "운영 진단 · 컨설팅 문의", href: "/contact?type=consulting" },
       { label: "HILINK 도입 문의", href: "/contact?type=hilink" },
     ],
   },

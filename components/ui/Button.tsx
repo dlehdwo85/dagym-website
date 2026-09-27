@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { TrackedLink } from "@/components/ui/TrackedLink";
+import type { CtaLocation } from "@/lib/analytics/gtag";
 
 /** 버튼 — radius 4px, 호버 시 배경 채움 + 화살표 이동 */
 type Variant = "primary" | "secondary" | "white" | "outline-white" | "text" | "text-light";
@@ -32,13 +34,31 @@ export function ButtonLink({
   className,
   children,
   arrow = true,
+  track,
   ...rest
-}: Common & { href: string } & Omit<React.ComponentProps<typeof Link>, "href" | "className" | "children">) {
+}: Common & {
+  href: string;
+  /** 문의 CTA 클릭 위치 — 지정하면 contact_click 이벤트를 남긴다 */
+  track?: CtaLocation;
+} & Omit<React.ComponentProps<typeof Link>, "href" | "className" | "children">) {
   const isText = variant === "text" || variant === "text-light";
-  return (
-    <Link href={href} className={cn(base, variants[variant], sizes[size], className)} {...rest}>
+  const inner = (
+    <>
       <span className={cn(isText && "border-b border-current/30 pb-0.5")}>{children}</span>
       {arrow && <ArrowRight aria-hidden strokeWidth={2} className="btn-arrow size-4 shrink-0" />}
+    </>
+  );
+  const cls = cn(base, variants[variant], sizes[size], className);
+  if (track) {
+    return (
+      <TrackedLink href={href} location={track} className={cls} {...rest}>
+        {inner}
+      </TrackedLink>
+    );
+  }
+  return (
+    <Link href={href} className={cls} {...rest}>
+      {inner}
     </Link>
   );
 }

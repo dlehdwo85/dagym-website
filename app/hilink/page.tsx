@@ -61,7 +61,7 @@ export default function HilinkPage() {
         breadcrumbs={[{ name: "HILINK", path: "/hilink" }]}
         actions={
           <>
-            <ButtonLink href="/contact?type=hilink" size="lg">
+            <ButtonLink href="/contact?type=hilink" size="lg" track="hilink_page">
               HILINK 도입 문의
             </ButtonLink>
             <Link href="#app" className="group inline-flex items-center gap-2 self-center font-semibold text-navy">
@@ -209,7 +209,8 @@ export default function HilinkPage() {
         title={"HILINK 도입,\n현장 확인부터 시작합니다."}
         description="세대수와 시설 구성, 현재 출입 · 예약 방식을 알려주시면 적용 범위를 제안드립니다."
         primary={{ label: "HILINK 도입 문의", href: "/contact?type=hilink" }}
-        secondary={{ label: "운영 제안 문의", href: "/contact?type=proposal" }}
+        secondary={{ label: "운영 상담 문의", href: "/contact?type=operation" }}
+        track="hilink_page"
       />
     </>
   );

@@ -33,7 +33,7 @@ export default function HomePage() {
       <HilinkSection />
       <Transformations />
       <WhyDagym />
-      <CTASection />
+      <CTASection track="cta_banner" />
     </>
   );
 }
