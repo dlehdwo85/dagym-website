@@ -31,7 +31,7 @@ export default function CompanyPage() {
     ["사업자등록번호", company.businessNumber],
     ["주요 사업", "커뮤니티 시설 전문 위탁운영 · 커뮤니티 운영 플랫폼(HILINK) 구축 · 납품"],
     ["주소", company.address],
-    ["대표번호", company.phone],
+    ["대표전화", company.phone],
     ["이메일", company.email],
   ];
   const visibleInfo = infoRows.filter(([, v]) => isVerified(v));

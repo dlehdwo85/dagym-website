@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/PageHero";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { company, isVerified } from "@/data/config";
+import { company, isVerified, telHref } from "@/data/config";
 import { getDeliveryStatus } from "@/lib/contact-delivery";
 import { pageMetadata } from "@/lib/seo";
 
@@ -25,7 +25,7 @@ const steps = [
 export default function ContactPage() {
   const { ready } = getDeliveryStatus();
   const direct = [
-    { label: "대표번호", value: company.phone, href: isVerified(company.phone) ? `tel:${company.phone}` : undefined },
+    { label: "대표전화", value: company.phone, href: isVerified(company.phone) ? telHref(company.phone) : undefined },
     { label: "이메일", value: company.email, href: isVerified(company.email) ? `mailto:${company.email}` : undefined },
     { label: "상담 시간", value: company.businessHours },
     { label: "주소", value: company.address },
