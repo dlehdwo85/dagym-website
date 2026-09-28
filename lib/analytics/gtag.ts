@@ -28,6 +28,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -42,6 +43,27 @@ export function trackEvent(name: string, params: EventParams = {}): void {
 
 export function trackCtaClick(name: CtaEvent, location: CtaLocation, extra: EventParams = {}): void {
   trackEvent(name, { cta_location: location, ...extra });
+  if (name === "phone_click") trackGoogleAdsConversion("phone");
+}
+
+type GoogleAdsConversionKind = "lead" | "phone";
+
+export function trackGoogleAdsConversion(kind: GoogleAdsConversionKind): void {
+  try {
+    if (typeof window.gtag !== "function") return;
+    const id = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-18479878897";
+    const label =
+      kind === "lead"
+        ? process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL
+        : process.env.NEXT_PUBLIC_GOOGLE_ADS_PHONE_LABEL;
+    if (!id || !label) return;
+
+    window.gtag("event", "conversion", {
+      send_to: `${id}/${label}`,
+    });
+  } catch {
+    /* noop */
+  }
 }
 
 /** Meta Pixel 표준 이벤트 (fbq 미로드 시 no-op) */
