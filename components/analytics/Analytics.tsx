@@ -6,12 +6,14 @@ import { AttributionCapture } from "@/components/analytics/AttributionCapture";
  * 각 ID가 환경변수로 설정된 경우에만 해당 스크립트를 삽입한다.
  * - NEXT_PUBLIC_GTM_ID       : Google Tag Manager (권장 — GA4/Ads/네이버 전환을 GTM에서 운영)
  * - NEXT_PUBLIC_GA_ID        : GA4 직접 설치 (GTM 미사용 시)
+ * - NEXT_PUBLIC_GOOGLE_ADS_ID : Google Ads global tag (DAGYM account)
  * - NEXT_PUBLIC_META_PIXEL_ID: Meta(Instagram/Facebook) Pixel
  * 네이버 검색광고 전환 스크립트는 확정 시 GTM 또는 이 컴포넌트에 추가한다.
  */
 export function Analytics() {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-18479878897";
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 
   return (
@@ -24,14 +26,14 @@ export function Analytics() {
         </Script>
       )}
 
-      {!gtmId && gaId && (
+      {(googleAdsId || (!gtmId && gaId)) && (
         <>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId || gaId}`}
             strategy="afterInteractive"
           />
-          <Script id="ga4" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
+          <Script id="google-tag" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};gtag('js',new Date());${googleAdsId ? `gtag('config','${googleAdsId}');` : ""}${!gtmId && gaId ? `gtag('config','${gaId}');` : ""}`}
           </Script>
         </>
       )}
