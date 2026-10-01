@@ -41,7 +41,8 @@ export const metadata: Metadata = {
   /** 검색엔진 소유확인 (www.dagym-in.co.kr) — Google Search Console · 네이버 서치어드바이저 */
   verification: {
     google: "rl7JGqI-x2PVnqGtiAokCrV4LInCcJ-gNOLxqvVYr7s",
-    other: { "naver-site-verification": "b7a8412875c30e6a9a3011bc4614cad33ba77c8f" },
+    // 네이버 서치어드바이저 — 기존 값 유지 + 2026-10 www.dagym-in.co.kr 소유확인용 값 추가
+    other: { "naver-site-verification": ["b7a8412875c30e6a9a3011bc4614cad33ba77c8f", "f9806f21c475b4079572ca1bbbdba40d81dc7166"] },
   },
 };
 
