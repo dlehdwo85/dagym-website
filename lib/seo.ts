@@ -26,17 +26,29 @@ export function pageMetadata({ title, description, path, keywords, image }: Page
       type: "website",
       locale: siteConfig.locale,
       url,
-      siteName: `${siteConfig.name} · ${company.nameKo}`,
-      title: `${title} | DAGYM`,
+      siteName: `${company.nameKo} (${siteConfig.name})`,
+      title: `${title} | ${company.nameKo}`,
       description,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: `DAGYM — ${title}` }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${company.nameKo} — ${title}` }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | DAGYM`,
+      title: `${title} | ${company.nameKo}`,
       description,
       images: [ogImage],
     },
+  };
+}
+
+/** WebSite structured data — 검색 결과의 사이트 이름 (주식회사 다짐) */
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: company.nameKo,
+    alternateName: [company.brand, "다짐"],
+    url: company.website,
+    inLanguage: "ko-KR",
   };
 }
 

@@ -46,7 +46,7 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Logo tone="light" />
             <p className="mt-6 max-w-sm text-[1.0625rem] leading-relaxed text-white/75">
-              아파트 · 기업 · 호텔 커뮤니티를 전문 위탁운영하고,
+              커뮤니티 · 피트니스 시설을 위탁운영하고,
               <br className="hidden sm:block" />커뮤니티 운영 플랫폼 HILINK를 구축 · 공급합니다.
             </p>
           </div>

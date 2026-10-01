@@ -8,9 +8,18 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "운영 문의하기",
   description:
-    "커뮤니티 위탁운영, HILINK 플랫폼, 운영 진단 · 컨설팅, 기업 · 호텔 · 스포츠시설 운영, 시설지원 상담을 신청하세요.",
+    "커뮤니티 · 피트니스 시설 위탁운영, 운영 진단 · 컨설팅, HILINK 도입 상담을 신청하세요. 시설 현황과 현재 운영 방식을 알려주시면 현장을 확인한 뒤 운영안을 제안합니다.",
   path: "/contact",
 });
+
+/** 상담 시 있으면 좋은 자료 — 없어도 상담 가능 */
+const prepItems = [
+  "단지 · 시설명과 세대수 또는 시설 규모",
+  "운영 대상 시설 목록 (헬스 · 골프 · GX · 독서실 등)",
+  "현재 운영 방식 (직영 · 위탁 · 미운영)과 계약 종료 시점",
+  "운영 시간 · 이용료 기준 (정해진 경우)",
+  "도면 또는 시설 사진 (있는 경우)",
+];
 
 const steps = [
   { title: "신청서 확인", body: "문의 유형과 시설 정보를 확인합니다." },
@@ -81,7 +90,17 @@ export default function ContactPage() {
                   )}
                 </dl>
               )}
-              <h3 className="mt-6 text-[0.9375rem] font-semibold">상담 절차</h3>
+              <h3 className="mt-6 text-[0.9375rem] font-semibold">상담 전에 준비하면 좋은 자료</h3>
+              <ul className="mt-3 space-y-1.5 text-[0.9375rem] text-body">
+                {prepItems.map((p) => (
+                  <li key={p} className="flex gap-2 break-keep">
+                    <span aria-hidden className="mt-[0.6em] size-1 shrink-0 rounded-full bg-steel" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-sm text-muted">자료가 없어도 상담할 수 있습니다.</p>
+              <h3 className="mt-6 border-t border-line-strong pt-6 text-[0.9375rem] font-semibold">상담 절차</h3>
               <ol className="mt-4 space-y-4">
                 {steps.map((s, i) => (
                   <li key={s.title} className="grid grid-cols-[2rem_1fr]">

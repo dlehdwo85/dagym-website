@@ -16,15 +16,19 @@ export function isVerified<T>(value: Verifiable<T> | undefined | null): value is
 
 export const siteConfig = {
   name: "DAGYM",
-  title: "다짐 DAGYM | 아파트 커뮤니티 · 스포츠시설 위탁운영",
+  title: "주식회사 다짐 | 커뮤니티·피트니스 시설 위탁운영",
   shortTitle: "DAGYM",
   description:
-    "주식회사 다짐은 아파트 · 기업 · 호텔의 커뮤니티 시설과 스포츠시설을 전문 인력과 본사 운영체계로 직접 운영하고, 자체 커뮤니티 운영 플랫폼 HILINK를 구축 · 공급하는 커뮤니티 운영 전문기업입니다.",
+    "공동주택 · 오피스텔 · 호텔 등 커뮤니티와 피트니스 시설의 운영 컨설팅부터 위탁운영, 인력 · 프로그램 관리, HILINK 기반 회원 · 출입 · 예약 · 결제 연계까지 제안합니다.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.dagym-in.co.kr").replace(/\/$/, ""),
   locale: "ko_KR",
   tagline: "운영과 기술을 하나로.",
   statement: "공간의 가치를 운영으로 완성하다.",
   keywords: [
+    "주식회사 다짐",
+    "다짐 위탁운영",
+    "커뮤니티 위탁운영",
+    "피트니스 위탁운영",
     "아파트 커뮤니티 위탁운영",
     "커뮤니티센터 위탁운영",
     "아파트 헬스장 위탁운영",
@@ -58,7 +62,7 @@ export const company = {
   founded: TODO_VERIFY as Verifiable<string>,
   businessHours: TODO_VERIFY as Verifiable<string>, // 예: "평일 09:00 – 18:00 (주말·공휴일 휴무)"
   /** 사업 영역 */
-  domains: ["아파트 · 기업 · 호텔 커뮤니티 전문 위탁운영", "커뮤니티 운영 플랫폼 HILINK 구축 · 납품"],
+  domains: ["커뮤니티 · 피트니스 시설 위탁운영 · 운영 컨설팅", "커뮤니티 운영 플랫폼 HILINK 구축 · 납품"],
   social: {
     instagram: TODO_VERIFY as Verifiable<string>,
     blog: TODO_VERIFY as Verifiable<string>,

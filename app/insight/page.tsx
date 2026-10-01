@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "자주 묻는 질문",
-  description: "커뮤니티 위탁운영과 HILINK 도입에 대해 자주 묻는 질문.",
+  description: "커뮤니티 · 피트니스 시설 위탁운영 범위, 본사와 현장의 역할, 운영사 전환, 상담 준비 자료, HILINK 도입과 운영 보고에 대해 자주 묻는 질문.",
   path: "/insight",
 });
 
@@ -22,7 +22,7 @@ export default async function InsightPage() {
         eyebrow="인사이트"
         en="FAQ"
         title="자주 묻는 질문"
-        description="위탁운영 전환, 입주 전 준비, HILINK 도입, 운영 보고 방식에 대해 자주 받는 질문입니다."
+        description="위탁운영 범위, 본사와 현장의 역할, 운영사 전환, 입주 전 준비, 상담 준비 자료, HILINK 도입과 운영 보고 방식에 대해 자주 받는 질문입니다."
         breadcrumbs={[{ name: "자주 묻는 질문", path: "/insight" }]}
       />
       <section className="section-y bg-white" aria-label="자주 묻는 질문 목록">

@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "운영실적",
-  description: "다짐이 커뮤니티를 운영해 온 공동주택 단지.",
+  description: "주식회사 다짐이 커뮤니티 시설을 운영해 온 공동주택 단지 목록입니다. 시설 운영 방식은 사업영역과 운영 개선 사례에서 확인할 수 있습니다.",
   path: "/projects",
 });
 

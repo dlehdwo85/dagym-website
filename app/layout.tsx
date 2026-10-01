@@ -11,14 +11,14 @@ import { businessPhoto } from "@/data/corporate";
 import { hasPhoto } from "@/lib/photos";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { siteConfig } from "@/data/config";
-import { organizationJsonLd } from "@/lib/seo";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { Analytics } from "@/components/analytics/Analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.title,
-    template: "%s | DAGYM 다짐",
+    template: "%s | 주식회사 다짐",
   },
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     url: siteConfig.url,
-    siteName: "DAGYM · 주식회사 다짐",
+    siteName: "주식회사 다짐 (DAGYM)",
     title: siteConfig.title,
     description: siteConfig.description,
   },
@@ -67,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" suppressHydrationWarning>
       <body className="min-h-dvh bg-white">
         <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         <Header business={megaBusiness} />
         <main id="main">{children}</main>
         <Footer />

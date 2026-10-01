@@ -38,9 +38,9 @@ export function publicFacts() {
  * HOME
  * ---------------------------------------------------------------- */
 export const homeHero = {
-  eyebrow: "COMMUNITY OPERATION & PLATFORM",
+  eyebrow: "주식회사 다짐 · 커뮤니티 · 피트니스 시설 위탁운영",
   title: "공간을 운영하고,\n운영을 시스템으로 연결합니다.",
-  sub: "아파트 커뮤니티 전문 운영부터\n자체 플랫폼 HILINK 구축까지.",
+  sub: "커뮤니티 · 피트니스 시설 운영부터\n자체 플랫폼 HILINK 구축까지.",
   /** 와이드 Hero 이미지 (생성 브랜드 비주얼 — 실제 현장 아님) */
   image: "hero-community-lobby" as PhotoId,
   /** split: 텍스트 왼쪽 · 공간 사진 오른쪽 패널 / wide: 전체 배경 */
@@ -69,7 +69,7 @@ export const coreBusinesses = [
     no: "01",
     en: "Community Operation",
     title: "커뮤니티 시설 전문 위탁운영",
-    lead: "아파트 · 기업 · 호텔 커뮤니티와 스포츠시설을 전문 인력과 본사 관리체계로 직접 운영합니다.",
+    lead: "공동주택 · 오피스텔 · 호텔 · 산업단지 · 민간 피트니스 등 커뮤니티와 피트니스 시설을 전문 인력과 본사 관리체계로 운영합니다. 운영 컨설팅만 따로 맡길 수도 있습니다.",
     items: ["시설별 운영 인력 채용 · 교육 · 배치", "프로그램 · 이벤트 · 입주민 활성화", "시설 · 기구 유지관리와 안전 점검", "관리사무소 · 입주자대표회의 정기 보고"],
     links: [
       { label: "공동주택 커뮤니티 위탁운영", href: "/business/apartment-community" },

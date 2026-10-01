@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/Button";
 
-export const metadata: Metadata = { title: "페이지를 찾을 수 없습니다", robots: { index: false } };
+export const metadata: Metadata = { title: "페이지를 찾을 수 없습니다", robots: { index: false }, alternates: { canonical: null } };
 
 export default function NotFound() {
   return (

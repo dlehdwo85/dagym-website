@@ -18,7 +18,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "사업영역",
   description:
-    "주식회사 다짐의 핵심사업 — 커뮤니티 시설 전문 위탁운영(공동주택 · 스포츠시설 · 기업 · 호텔)과 커뮤니티 운영 플랫폼 HILINK 구축 · 납품.",
+    "주식회사 다짐의 사업영역 — 공동주택 · 오피스텔 · 호텔 · 산업단지 · 민간 피트니스 등 커뮤니티와 피트니스 시설의 위탁운영 · 운영 컨설팅, 커뮤니티 운영 플랫폼 HILINK 구축.",
   path: "/business",
 });
 

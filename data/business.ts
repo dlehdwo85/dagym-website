@@ -93,13 +93,13 @@ export const businessAreas: BusinessArea[] = [
     slug: "sports-fitness",
     href: "/business/sports-fitness",
     title: "스포츠 · 피트니스 시설 운영",
-    summary: "헬스장, 골프연습장, 필라테스 · GX 시설을 전문 인력과 회원관리 시스템으로 운영합니다.",
+    summary: "단지 내 스포츠시설과 민간 피트니스센터의 헬스장, 골프연습장, 필라테스 · GX 시설을 전문 인력과 회원관리 시스템으로 운영합니다.",
     points: ["트레이너 · 골프 프로 · 강사 운영", "회원권 · 레슨 · 락커 관리", "기구 점검과 안전 교육"],
     photo: "home-sports",
     detail: {
       metaTitle: "스포츠 · 피트니스 시설 위탁운영",
       metaDescription:
-        "헬스장 · 골프연습장 · 필라테스 · GX 시설 위탁운영. 트레이너 · 골프 프로 · 강사 운영, 회원권과 레슨 관리, 기구 점검과 안전 교육을 다짐이 맡습니다.",
+        "단지 내 스포츠시설과 민간 피트니스센터의 헬스장 · 골프연습장 · 필라테스 · GX 위탁운영. 트레이너 · 골프 프로 · 강사 운영, 회원권과 레슨 관리, 기구 점검과 안전 교육을 제안합니다.",
       keywords: ["피트니스 위탁운영", "골프연습장 위탁운영", "스포츠시설 위탁운영", "헬스장 위탁운영"],
       short: "스포츠 · 피트니스",
       eyebrow: "CORE 01 · COMMUNITY OPERATION",
@@ -130,14 +130,14 @@ export const businessAreas: BusinessArea[] = [
     slug: "community-facility",
     href: "/business/community-facility",
     title: "기업 · 호텔 · 복합시설 커뮤니티 운영",
-    summary: "기업 사옥, 호텔, 레지던스의 피트니스 · 라운지 등 공용 시설을 운영합니다.",
+    summary: "기업 사옥 · 산업단지 · 호텔 · 레지던스 · 오피스텔의 피트니스 · 라운지 등 공용 시설 운영과 운영 컨설팅을 제공합니다.",
     points: ["이용자 유형별 출입 권한", "공용 시설 예약 · 대관", "이용 현황 보고"],
     photo: "business-community-facility",
     detail: {
       metaTitle: "기업 · 호텔 커뮤니티 시설 운영",
       metaDescription:
-        "기업 사옥 · 호텔 · 레지던스의 피트니스, 라운지, 다목적실 등 공용 시설 운영. 이용자 유형별 출입 권한, 예약 · 대관, 이용 현황 보고를 다짐이 맡습니다.",
-      keywords: ["기업 피트니스 운영", "호텔 피트니스 위탁운영", "레지던스 커뮤니티 운영", "복합시설 위탁운영"],
+        "기업 사옥 · 산업단지 · 호텔 · 레지던스 · 오피스텔의 피트니스, 라운지, 다목적실 등 공용 시설 운영과 컨설팅. 이용자 유형별 출입 권한, 예약 · 대관, 이용 현황 보고까지 제안합니다.",
+      keywords: ["기업 피트니스 운영", "호텔 피트니스 위탁운영", "오피스텔 커뮤니티 운영", "산업단지 복지시설 운영", "복합시설 위탁운영"],
       short: "기업 · 호텔",
       eyebrow: "CORE 01 · COMMUNITY OPERATION",
       heroTitle: "기업 · 호텔 커뮤니티 운영",
