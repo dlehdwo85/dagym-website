@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "운영 문의하기",
   description:
-    "커뮤니티 · 피트니스 시설 위탁운영, 운영 진단 · 컨설팅, HILINK 도입 상담을 신청하세요. 시설 현황과 현재 운영 방식을 알려주시면 현장을 확인한 뒤 운영안을 제안합니다.",
+    "커뮤니티·피트니스 시설 위탁운영, 운영 진단·컨설팅, HILINK 도입 상담을 신청하세요. 현장 확인 후 운영안을 제안합니다.",
   path: "/contact",
 });
 

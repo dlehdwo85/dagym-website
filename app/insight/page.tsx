@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "자주 묻는 질문",
-  description: "커뮤니티 · 피트니스 시설 위탁운영 범위, 본사와 현장의 역할, 운영사 전환, 상담 준비 자료, HILINK 도입과 운영 보고에 대해 자주 묻는 질문.",
+  description: "위탁운영 범위, 본사·현장 역할, 운영사 전환, 상담 준비 자료, HILINK 도입과 운영 보고에 대해 자주 묻는 질문.",
   path: "/insight",
 });
 

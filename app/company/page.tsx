@@ -15,7 +15,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "회사소개",
   description:
-    "다짐(DAGYM)은 '좋은 마음가짐으로 미래를 결정하자'는 뜻을 담은 이름입니다. 주식회사 다짐은 공동주택 · 오피스텔 · 호텔 등 커뮤니티와 피트니스 시설을 운영하고, 그 운영을 자체 플랫폼 HILINK로 연결하는 시설 운영 전문기업입니다.",
+    "주식회사 다짐 회사소개 — ‘좋은 마음가짐으로 미래를 결정하자’는 이름의 뜻과 운영 기준, 본사 조직을 소개합니다.",
   path: "/company",
 });
 

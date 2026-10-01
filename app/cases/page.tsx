@@ -16,7 +16,7 @@ import { cn } from "@/lib/cn";
 export const metadata: Metadata = pageMetadata({
   title: "운영 개선 사례",
   description:
-    "헬스장 기구 보강, 골프연습장 스크린 전환, GX룸 활성화, 키즈 · 카페 운영 개선, 독서실 좌석 · 출입 관리, 다목적실 활용 — 다짐이 현장에서 수행하는 운영 개선 방식.",
+    "헬스장·골프연습장·GX룸·키즈카페·독서실·다목적실 — 다짐이 현장을 진단하고 시설·프로그램·운영을 개선하는 방식.",
   path: "/cases",
 });
 

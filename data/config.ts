@@ -19,7 +19,7 @@ export const siteConfig = {
   title: "주식회사 다짐 | 커뮤니티·피트니스 시설 위탁운영",
   shortTitle: "DAGYM",
   description:
-    "공동주택 · 오피스텔 · 호텔 등 커뮤니티와 피트니스 시설의 운영 컨설팅부터 위탁운영, 인력 · 프로그램 관리, HILINK 기반 회원 · 출입 · 예약 · 결제 연계까지 제안합니다.",
+    "주식회사 다짐은 공동주택·오피스텔·호텔·산업단지·피트니스 시설 위탁운영과 HILINK 기반 통합관리를 제공합니다.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.dagym-in.co.kr").replace(/\/$/, ""),
   locale: "ko_KR",
   tagline: "운영과 기술을 하나로.",

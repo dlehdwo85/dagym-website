@@ -62,7 +62,7 @@ export const businessAreas: BusinessArea[] = [
     detail: {
       metaTitle: "아파트 커뮤니티 위탁운영",
       metaDescription:
-        "아파트 커뮤니티센터 위탁운영. 헬스장 · 골프연습장 · GX룸 · 독서실 · 카페 운영 인력, 입주민 프로그램, 안면인식 출입과 예약, 월간 운영 보고까지 다짐이 맡습니다.",
+        "아파트 커뮤니티센터 위탁운영 — 헬스·골프·GX·독서실·카페 운영 인력, 입주민 프로그램, 출입·예약, 월간 보고.",
       keywords: ["아파트 커뮤니티 위탁운영", "커뮤니티센터 위탁운영", "주민공동시설 위탁운영", "아파트 헬스장 위탁운영"],
       short: "아파트 커뮤니티",
       eyebrow: "CORE 01 · COMMUNITY OPERATION",
@@ -99,7 +99,7 @@ export const businessAreas: BusinessArea[] = [
     detail: {
       metaTitle: "스포츠 · 피트니스 시설 위탁운영",
       metaDescription:
-        "단지 내 스포츠시설과 민간 피트니스센터의 헬스장 · 골프연습장 · 필라테스 · GX 위탁운영. 트레이너 · 골프 프로 · 강사 운영, 회원권과 레슨 관리, 기구 점검과 안전 교육을 제안합니다.",
+        "단지 내 스포츠시설과 민간 피트니스센터 위탁운영 — 트레이너·골프 프로·강사 운영, 회원권·레슨 관리, 기구 점검.",
       keywords: ["피트니스 위탁운영", "골프연습장 위탁운영", "스포츠시설 위탁운영", "헬스장 위탁운영"],
       short: "스포츠 · 피트니스",
       eyebrow: "CORE 01 · COMMUNITY OPERATION",
@@ -136,7 +136,7 @@ export const businessAreas: BusinessArea[] = [
     detail: {
       metaTitle: "기업 · 호텔 커뮤니티 시설 운영",
       metaDescription:
-        "기업 사옥 · 산업단지 · 호텔 · 레지던스 · 오피스텔의 피트니스, 라운지, 다목적실 등 공용 시설 운영과 컨설팅. 이용자 유형별 출입 권한, 예약 · 대관, 이용 현황 보고까지 제안합니다.",
+        "기업 사옥·산업단지·호텔·오피스텔의 피트니스·라운지 등 공용 시설 운영과 컨설팅, 출입·예약 관리를 제안합니다.",
       keywords: ["기업 피트니스 운영", "호텔 피트니스 위탁운영", "오피스텔 커뮤니티 운영", "산업단지 복지시설 운영", "복합시설 위탁운영"],
       short: "기업 · 호텔",
       eyebrow: "CORE 01 · COMMUNITY OPERATION",
@@ -172,7 +172,7 @@ export const businessAreas: BusinessArea[] = [
     detail: {
       metaTitle: "커뮤니티 운영 컨설팅 · 시설 개선",
       metaDescription:
-        "커뮤니티 시설 진단과 개선. 운동기구 보강, 천막 타석의 스크린골프 전환, 유휴 공간 활용, GX 프로그램 개편, 입주 전 운영 준비를 지원합니다.",
+        "커뮤니티 시설 진단과 개선 — 운동기구 보강, 스크린골프 전환, 유휴 공간 활용, 프로그램 개편, 입주 전 운영 준비.",
       keywords: ["커뮤니티 운영 컨설팅", "커뮤니티 시설 개선", "아파트 커뮤니티 활성화", "입주 전 커뮤니티 준비"],
       short: "운영 컨설팅",
       eyebrow: "CORE 01 · CONSULTING",
@@ -209,7 +209,7 @@ export const businessAreas: BusinessArea[] = [
     detail: {
       metaTitle: "운동기구 · 스크린골프 납품",
       metaDescription:
-        "아파트 커뮤니티 · 스포츠시설 헬스기구와 스크린골프 납품. 이용자 구성에 맞춘 기구 구성, 설치, 안면인식 출입 · 예약 시스템 연동과 사후 점검을 지원합니다.",
+        "커뮤니티·스포츠시설 헬스기구와 스크린골프 납품 — 기구 구성 제안, 설치, 출입·예약 연동, 사후 점검.",
       keywords: ["아파트 헬스기구 납품", "스크린골프 납품", "커뮤니티 운동기구", "피트니스 기구 납품"],
       short: "시설 지원",
       eyebrow: "SUPPORTING SERVICE · FACILITY SUPPORT",
