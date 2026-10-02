@@ -10,6 +10,59 @@ Preview는 필수 승인 절차가 아니며, 사용자 승인을 기다리며 �
 - Vercel 프로젝트: `dagym-website-3532` (구형 `dagym-website` 프로젝트는 건드리지 않음)
 - 공식 운영 도메인: `www.dagym-in.co.kr` (대표) · `dagym-in.co.kr`
 
+## SESSION START SYNC — every session, on either PC, without asking
+
+GitHub `origin/main` is the single source of truth for both PCs (office `DESKTOP-HQKVDIC`, laptop `BOOK-29S4OTOLT7`). This repo-level rule applies even when the global SessionStart hook is not installed on a PC.
+
+1. Check `git status` and the current branch. Development and Production are always `main`. A fresh clone may land on an old `claude/*` default branch; switch to `main`.
+2. Run `git fetch origin`, then compare local `main` with `origin/main` (ahead/behind).
+3. Clean tree and only behind: run `git pull --ff-only` without asking. Then report in one line: "이전 PC의 최신 작업까지 반영되었습니다."
+4. Do **not** auto-pull, merge or rebase when any of these holds:
+   - uncommitted changes
+   - local-only commits
+   - local and remote have diverged
+   - a conflict is likely
+
+   Stop and report the difference: "다른 PC에서 최신 변경이 감지되었고, 현재 PC에도 로컬 변경이 있어 자동 동기화를 중단했습니다." Then propose a safe merge path. Never force-push, never `reset --hard` over unpushed work.
+5. Read `docs/WORK_STATUS.md`, then start the requested work. Do not ask the owner to re-explain earlier work.
+
+## SESSION END — after each meaningful unit of work, without asking
+
+1. Run typecheck, build and tests, plus lint only if the repo defines it.
+2. Update `docs/WORK_STATUS.md`:
+   - Production commit
+   - done
+   - in progress
+   - next
+   - cautions
+   - PC-specific notes
+
+   Never write secret or token values.
+3. Commit.
+4. Run `git fetch origin` again right before pushing. If `origin/main` moved, re-check, re-test and only then push.
+5. `git push origin main`.
+6. Confirm the Vercel Production deployment of that exact commit.
+
+Report before pushing (do not push silently) for:
+- DB migration
+- Production env change
+- data deletion
+- bulk paid API runs
+- large structural refactor
+- failing tests
+- merge conflict
+
+Keep work local-only as briefly as possible. Push in safe, meaningful units.
+
+Shared through Git:
+- code, docs, configuration, `CLAUDE.md`
+- `.mcp.json` without secrets
+- tests, guides
+
+Never shared through Git:
+- `.env*`, secrets, API keys, OAuth tokens
+- cookies, browser sessions, local auth files
+
 ## 절차
 
 1. 최신 `main`에서 작업한다 (작업 브랜치를 쓰면 검증 직후 곧바로 main에 merge — 장기간 대기하지 않는다).
