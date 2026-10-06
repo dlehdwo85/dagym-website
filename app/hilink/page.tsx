@@ -19,7 +19,7 @@ import { cn } from "@/lib/cn";
 export const metadata: Metadata = pageMetadata({
   title: "HILINK 커뮤니티 운영 플랫폼",
   description:
-    "HILINK는 다짐이 개발한 커뮤니티 운영 플랫폼입니다. 입주민 앱, 안면인식 출입, 시설 예약, 이용권·결제, 이용 통계를 관리합니다.",
+    "HILINK는 주식회사 다짐이 보유·운영하는 커뮤니티 운영 플랫폼입니다. 입주민 앱, 안면인식 출입, 시설 예약, 이용권·결제, 이용 통계를 관리합니다.",
   path: "/hilink",
   keywords: ["커뮤니티 예약 시스템", "안면인식 출입통제", "아파트 출입관리", "커뮤니티 운영 플랫폼", "관리비 부과", "HILINK", "하이링크"],
 });
