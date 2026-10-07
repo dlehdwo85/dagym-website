@@ -23,7 +23,7 @@ export function CoreBusiness({ tone = "white" }: { tone?: "white" | "mist" }) {
           eyebrow="핵심사업"
           en="Core business"
           title={"커뮤니티를 운영하고,\n운영 플랫폼을 공급합니다."}
-          description="다짐의 핵심사업은 두 가지입니다. 커뮤니티 시설을 직접 위탁운영하고, 그 운영에서 만든 플랫폼 HILINK를 다른 현장에도 구축 · 납품합니다."
+          description="다짐의 핵심사업은 두 가지입니다. 커뮤니티 시설을 직접 위탁운영하고, 다짐이 보유·운영하는 플랫폼 HILINK를 다른 현장에도 구축 · 납품합니다."
         />
 
         <div className="mt-14 grid gap-6 lg:mt-16 lg:grid-cols-2 lg:gap-8">

@@ -40,7 +40,7 @@ export function publicFacts() {
 export const homeHero = {
   eyebrow: "주식회사 다짐 · 커뮤니티 · 피트니스 시설 위탁운영",
   title: "공간을 운영하고,\n운영을 시스템으로 연결합니다.",
-  sub: "커뮤니티 · 피트니스 시설 운영부터\n자체 플랫폼 HILINK 구축까지.",
+  sub: "커뮤니티 · 피트니스 시설 운영부터\n운영 플랫폼 HILINK 구축까지.",
   /** 와이드 Hero 이미지 (생성 브랜드 비주얼 — 실제 현장 아님) */
   image: "hero-community-lobby" as PhotoId,
   /** split: 텍스트 왼쪽 · 공간 사진 오른쪽 패널 / wide: 전체 배경 */
