@@ -48,19 +48,43 @@ export function trackCtaClick(name: CtaEvent, location: CtaLocation, extra: Even
 
 type GoogleAdsConversionKind = "lead" | "phone";
 
+/**
+ * 다짐 Google Ads 전환 라벨.
+ *
+ * 과거에는 `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` / `..._PHONE_LABEL` 런타임 환경변수를 읽었는데,
+ * Vercel에 그 변수가 없어서 빌드에 아무 값도 인라인되지 않았고 — `if (!label) return` 때문에
+ * **전환이 한 건도 전송되지 않은 채로 조용히 통과**했다 (2026-10-08 Production 번들 실측: 라벨 0건).
+ * 전환 라벨은 비밀값이 아니라 공개 클라이언트 식별자이므로 하이링크와 같이 코드에 상수로 둔다.
+ * 그래야 값이 없으면 빌드/리뷰 단계에서 눈에 띈다.
+ *
+ * 값은 Google Ads 전환 액션의 eventSnippet 에서 글자 단위로 복사한다. 숫자 1 과 소문자 l 은
+ * 화면에서 구분이 어렵다 — 하이링크에서 실제로 이 둘을 혼동해 Primary 전환이 집계되지 않았다.
+ *
+ * 현재 상태: 다짐 전용 전환 액션(DAGYM_문의폼제출 · DAGYM_전화클릭)이 **아직 Google Ads에 없다.**
+ * 하이링크 전환 액션으로 보내면 두 브랜드 리드가 한 액션에 섞여 귀속이 망가지므로 보내지 않는다.
+ * 액션이 생기면 아래 값만 채우면 된다. 그때까지는 전송하지 않고 한 번만 경고를 남긴다.
+ */
+const ADS_ID = "AW-18479878897";
+const ADS_LABELS: Record<GoogleAdsConversionKind, string | null> = {
+  lead: null, // DAGYM_문의폼제출 생성 후 eventSnippet 의 send_to 뒷부분을 넣는다
+  phone: null, // DAGYM_전화클릭 생성 후 같은 방식
+};
+
+let warned = false;
+
 export function trackGoogleAdsConversion(kind: GoogleAdsConversionKind): void {
   try {
     if (typeof window.gtag !== "function") return;
-    const id = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-18479878897";
-    const label =
-      kind === "lead"
-        ? process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL
-        : process.env.NEXT_PUBLIC_GOOGLE_ADS_PHONE_LABEL;
-    if (!id || !label) return;
-
-    window.gtag("event", "conversion", {
-      send_to: `${id}/${label}`,
-    });
+    const label = ADS_LABELS[kind];
+    if (!label) {
+      // 조용히 사라지지 않게 한 번은 남긴다. 운영 중 전환 0건의 원인을 바로 알 수 있다.
+      if (!warned) {
+        warned = true;
+        console.warn("[ads] 다짐 전환 액션이 아직 없어 Google Ads 전환을 보내지 않았습니다 (lib/analytics/gtag.ts ADS_LABELS).");
+      }
+      return;
+    }
+    window.gtag("event", "conversion", { send_to: `${ADS_ID}/${label}` });
   } catch {
     /* noop */
   }
