@@ -92,3 +92,10 @@ Never shared through Git:
 
 완료 보고 항목: 작업 브랜치 · 최종 commit SHA · 검증 결과 · main merge 여부 · main push 여부 ·
 Vercel Production 생성 여부 · Production 상태 · Production URL · 공식 도메인 최신 반영 여부 · 별도 수동 조치 필요 여부
+
+## Codex ↔ Claude round trip (since 2026-10-12)
+
+Follow `docs/agent-handoff/HANDOFF_PROTOCOL.md` (canonical copy: `dazim-hilink-integration/docs/agent-handoff/HANDOFF_PROTOCOL.md`).
+Work orders: `docs/agent-handoff/orders/<ID>.md`. Develop on a `wip/*` branch, then request the review yourself:
+`node C:\Users\User\Desktop\dazim-hilink-integration\scripts\ops\codex-handoff.mjs review <ID> --base main --repo .`
+Exit code 3 = Codex unavailable → report "검수 대기", never PASS. Merging to `main` redeploys the public site.
