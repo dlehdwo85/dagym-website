@@ -6,6 +6,17 @@
 정본은 `dazim-hilink-integration` → `docs/development/CLAUDE_GLOBAL_WORKFLOW.md`.
 세션 시작 시 SessionStart 훅이 fetch·안전한 ff-only pull·이 문서 읽기를 자동 수행한다.
 
+## 2026-10-14 — 문의 → 워크인(업무관리) 자동 등록 (워크인 16차, 대표 승인)
+
+- `app/contact/actions.ts` 가 Supabase 저장·이메일 알림 뒤 `lib/workin-forward.ts` 로
+  `https://dagym-workspace.vercel.app/api/integrations/inquiries` 에 문의를 보낸다
+  (Bearer `WORKIN_INQUIRY_TOKEN`, `after()` 로 응답 이후 전송, 3초 timeout, 실패해도 접수 결과 불변, 개인정보 로그 없음).
+- **토큰 env 가 없으면 아무 동작도 하지 않는다.** 대표가 워크인 플랫폼 운영 → "웹사이트 문의 연동"에서
+  다짐 토큰을 발급해 Vercel Production env `WORKIN_INQUIRY_TOKEN` 에 넣고 재배포하면 켜진다.
+- 보내는 값: lead_id · source=`dagym-web` · inquiry_type(한글 유형명, 코드는 inquiry_type_code) · organization · region · facility_scale · name · phone ·
+  email · organization_type · services[] · current_operation · message · conversion_page · landing_page · referrer ·
+  utm_* · device_type · submitted_at. 워크인은 lead_id 로 중복 등록을 막는다.
+
 ## 현재 상태
 
 | 항목 | 값 |

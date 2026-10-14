@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { z } from "zod";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { hasNotifyChannel, notifyLead } from "@/lib/email/notifyLead";
+import { forwardInquiryToWorkin } from "@/lib/workin-forward";
 import {
   CURRENT_OPERATIONS,
   INQUIRY_TYPE_VALUES,
@@ -252,7 +253,35 @@ export async function submitLead(_prev: LeadFormState, formData: FormData): Prom
     deviceType: base.device_type,
   });
 
-  // ③ 판정 + 운영 로그 (Lead ID · 회사/단지명 · 결과만)
+  // ③ 워크인(업무관리) 자동 등록 — 응답 이후 비차단 전송(3초 timeout), 실패해도 접수 결과에 영향 없음
+  forwardInquiryToWorkin({
+    lead_id: leadId,
+    source: LEAD_SOURCE,
+    inquiry_type: typeLabel,
+    inquiry_type_code: data.inquiry_type,
+    organization: base.apartment_name,
+    region: base.region,
+    facility_scale: facilityScale,
+    name: base.name,
+    phone: base.phone,
+    email: base.email,
+    organization_type: base.organization_type,
+    services: base.interested_services,
+    current_operation: base.current_operation,
+    message: data.message || null,
+    conversion_page: base.conversion_page,
+    landing_page: base.landing_page,
+    referrer: base.referrer,
+    utm_source: base.utm_source,
+    utm_medium: base.utm_medium,
+    utm_campaign: base.utm_campaign,
+    utm_content: base.utm_content,
+    utm_term: base.utm_term,
+    device_type: base.device_type,
+    submitted_at: new Date().toISOString(),
+  });
+
+  // ④ 판정 + 운영 로그 (Lead ID · 회사/단지명 · 결과만)
   const outcome = dbOk && emailOk ? "LEAD_FULL_SUCCESS" : dbOk ? "LEAD_DB_ONLY" : emailOk ? "LEAD_EMAIL_ONLY" : "LEAD_TOTAL_FAILURE";
   const summary = JSON.stringify({ leadId, organization: base.apartment_name });
   if (outcome === "LEAD_FULL_SUCCESS") console.log(`[leads] ${outcome}`, summary);
