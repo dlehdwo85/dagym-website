@@ -11,6 +11,7 @@ import { mainNav } from "@/data/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 import { platforms } from "@/data/group";
+import { PlatformIcon } from "@/components/ui/Logo";
 
 export type MegaBusiness = { href: string; no: string; title: string; en: string; line: string; group: "core1" | "core2" | "support"; image?: { src: string; alt: string } };
 
@@ -213,6 +214,7 @@ export function Header({ business }: Props) {
                     {platforms.map((p) => (
                       <div key={p.name}>
                         <p className="flex items-center gap-2 border-b border-navy pb-3 text-lg font-bold">
+                          <PlatformIcon src={p.logo} className="size-7" />
                           {p.name}
                           <span className="text-sm font-medium text-body">{p.tagline}</span>
                           {p.status === "coming-soon" && <span className="rounded-[2px] bg-accent-soft px-1.5 py-0.5 text-[11px] font-bold text-accent">출시 예정</span>}

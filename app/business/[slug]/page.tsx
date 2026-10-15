@@ -62,32 +62,33 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
       />
 
       {/* HERO — 짧게 */}
-      <section className="bg-mist" aria-labelledby="biz-title">
+      <section className="relative isolate overflow-hidden bg-navy-deep text-white" aria-labelledby="biz-title">
+        <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[36rem] rounded-full bg-accent/25 blur-[120px]" />
         <div className="container-x grid gap-10 pb-14 pt-24 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-20 lg:pt-32">
           <Reveal className="lg:col-span-5">
             <nav aria-label="현재 위치">
-              <ol className="flex items-center gap-1 text-[0.8125rem] text-muted">
+              <ol className="flex items-center gap-1 text-[0.8125rem] text-white/55">
                 <li>
-                  <Link href="/business" className="hover:text-navy">
+                  <Link href="/business" className="hover:text-white">
                     사업영역
                   </Link>
                 </li>
                 <li className="flex items-center gap-1">
                   <ChevronRight className="size-3" aria-hidden />
-                  <span aria-current="page">{d.short}</span>
+                  <span aria-current="page" className="text-white/90">{d.short}</span>
                 </li>
               </ol>
             </nav>
-            <p className="label-en mt-8 font-semibold tracking-[0.14em] text-accent lg:mt-10">{d.eyebrow}</p>
-            <h1 id="biz-title" className="t-h1 mt-4">
+            <p className="label-en mt-8 font-semibold tracking-[0.14em] text-[#9dbcf0] lg:mt-10">{d.eyebrow}</p>
+            <h1 id="biz-title" className="t-h1 mt-4 break-keep text-white">
               {d.heroTitle}
             </h1>
-            <p className="t-lead mt-5 whitespace-pre-line text-body">{d.heroLead}</p>
+            <p className="t-lead mt-5 whitespace-pre-line text-white/75">{d.heroLead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <ButtonLink href={contactHref} size="lg" track="business_page">
+              <ButtonLink href={contactHref} variant="white" size="lg" track="business_page">
                 운영 상담
               </ButtonLink>
-              <TrackedLink href={contactHref} location="business_page" className="group inline-flex items-center gap-2 font-semibold text-navy">
+              <TrackedLink href={contactHref} location="business_page" className="group inline-flex items-center gap-2 font-semibold text-white">
                 문의하기 <ArrowRight className="btn-arrow size-4" aria-hidden />
               </TrackedLink>
             </div>

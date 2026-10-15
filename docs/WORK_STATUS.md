@@ -1,10 +1,21 @@
 # WORK_STATUS — 어느 PC에서든 이 파일을 먼저 읽는다
 
-마지막 갱신: 2026-10-02 · 사무실 PC `DESKTOP-HQKVDIC`
+마지막 갱신: 2026-10-15 · 클라우드 세션
 
 전역 운영 규칙(자동 sync·자동 commit/push·안전 규칙)은 `~/.claude/CLAUDE.md`,
 정본은 `dazim-hilink-integration` → `docs/development/CLAUDE_GLOBAL_WORKFLOW.md`.
 세션 시작 시 SessionStart 훅이 fetch·안전한 ff-only pull·이 문서 읽기를 자동 수행한다.
+
+## 2026-10-15 — 기업형 홈 · 플랫폼(HILINK · work-in) · 하위 페이지 기업형 톤 (대표 승인)
+
+- 홈: `GroupHero → BusinessStructure → FacilityPortfolio → PlatformSuite → OurOperations → CompanyTeaser → CTA`
+  (`components/group/GroupSections.tsx`, 데이터 `data/group.ts`). 메뉴 'HILINK' → '플랫폼'.
+- 워크인 표기는 **`work-in`** (대표 지시). `data/group.ts` `platforms` 에서 `status: "coming-soon"` →
+  출시 시 `"live"` + `href` 만 넣으면 홈 · 메뉴가 '서비스 중'으로 바뀐다.
+- 로고: `public/images/brand/hilink-icon.png`(hilink-website 공식 앱 아이콘) ·
+  `workin-icon.svg`(dagym-workspace 공식 아이콘). `PlatformIcon` (components/ui/Logo.tsx).
+- 하위 페이지: `PageHero` 를 네이비 기업형 밴드로 변경(문구 변경 없음), `/business/[slug]` Hero 동일 톤.
+- 홈 이미지 6장(`public/images/group/*`)은 Higgsfield 생성 이미지 — `provenance: "generated"`, "시설 유형 예시" 표기.
 
 ## 2026-10-14 — 문의 → 워크인(업무관리) 자동 등록 (워크인 16차, 대표 승인)
 

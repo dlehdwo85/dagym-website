@@ -47,7 +47,7 @@ export function Footer() {
             <Logo tone="light" />
             <p className="mt-6 max-w-sm text-[1.0625rem] leading-relaxed text-white/75">
               다양한 시설을 운영하고,
-              <br className="hidden sm:block" />HILINK · 워크인 플랫폼으로 운영과 업무를 연결합니다.
+              <br className="hidden sm:block" />HILINK · work-in 플랫폼으로 운영과 업무를 연결합니다.
             </p>
           </div>
           <nav aria-label="푸터 메뉴" className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">

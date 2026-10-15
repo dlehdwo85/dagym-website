@@ -8,7 +8,7 @@ import type { PhotoId } from "./photos";
 export const groupHero = {
   eyebrow: "DAGYM · 주식회사 다짐",
   title: "공간을 운영하고,\n운영을 플랫폼으로 연결합니다.",
-  lead: "주식회사 다짐은 공동주택 · 오피스텔 · 호텔 · 산업단지 등 다양한 시설을 운영하고, HILINK와 워크인으로 운영과 업무의 방식을 바꿉니다.",
+  lead: "주식회사 다짐은 공동주택 · 오피스텔 · 호텔 · 산업단지 등 다양한 시설을 운영하고, HILINK와 work-in으로 운영과 업무의 방식을 바꿉니다.",
   image: "group-hero-district" as PhotoId,
   ctas: [
     { label: "사업 부문 보기", href: "#divisions" },
@@ -21,8 +21,14 @@ export type Division = {
   en: string;
   title: string;
   lead: string;
-  units: { name: string; body: string; href?: string; status?: "live" | "coming-soon" }[];
+  units: { name: string; body: string; href?: string; status?: "live" | "coming-soon"; logo?: string }[];
 };
+
+/** 플랫폼 로고 (앱 아이콘) — HILINK: hilink-website 공식 앱 아이콘 · work-in: 워크인 서비스 공식 아이콘 */
+export const platformLogos = {
+  hilink: "/images/brand/hilink-icon.png",
+  workin: "/images/brand/workin-icon.svg",
+} as const;
 
 /** 두 사업 부문 */
 export const divisions: Division[] = [
@@ -43,8 +49,8 @@ export const divisions: Division[] = [
     title: "플랫폼 부문",
     lead: "다짐이 보유 · 운영하는 플랫폼으로 시설 운영과 회사 업무를 연결합니다.",
     units: [
-      { name: "HILINK", body: "회원 · 출입 · 예약 · 결제를 연결하는 커뮤니티 운영 플랫폼", href: "/hilink", status: "live" },
-      { name: "워크인", body: "업무 · 일정 · 알림을 한 곳에서 관리하는 업무 플랫폼", status: "coming-soon" },
+      { name: "HILINK", body: "회원 · 출입 · 예약 · 결제를 연결하는 커뮤니티 운영 플랫폼", href: "/hilink", status: "live", logo: platformLogos.hilink },
+      { name: "work-in", body: "업무 · 일정 · 알림을 한 곳에서 관리하는 업무 플랫폼", status: "coming-soon", logo: platformLogos.workin },
     ],
   },
 ];
@@ -65,6 +71,7 @@ export type Platform = {
   features: string[];
   status: "live" | "coming-soon";
   href?: string;
+  logo: string;
 };
 
 /** 플랫폼 — status 가 coming-soon 이면 링크 없이 "출시 예정"으로 표시 */
@@ -77,13 +84,15 @@ export const platforms: Platform[] = [
     features: ["회원 · 이용권", "안면인식 출입 연동", "시설 예약", "결제 · 정산 자료"],
     status: "live",
     href: "/hilink",
+    logo: platformLogos.hilink,
   },
   {
-    name: "워크인",
-    en: "WORKIN",
+    name: "work-in",
+    en: "워크인 · Work Platform",
     tagline: "업무 · 일정 · 알림 플랫폼",
     body: "업무와 일정을 한 곳에서 관리하고, 필요한 시간에 정확히 알림을 받는 업무 플랫폼입니다.",
     features: ["음성으로 업무 등록", "정확한 시간 알림", "업무 = 일정 캘린더", "AI 정리 · 요약"],
     status: "coming-soon",
+    logo: platformLogos.workin,
   },
 ];

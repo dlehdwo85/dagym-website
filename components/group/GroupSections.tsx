@@ -8,6 +8,7 @@ import { divisions, facilityTypes, groupHero, platforms } from "@/data/group";
 import { brandMotto } from "@/data/company";
 import { hqDepartments } from "@/data/corporate";
 import { photoRef } from "@/lib/photos";
+import { PlatformIcon } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
 
 /** 기업형 Hero — 도시 전경 위 네이비 그라데이션, 회사명 · 두 사업 부문을 먼저 */
@@ -91,6 +92,7 @@ export function BusinessStructure() {
                         <>
                           <span className="min-w-0">
                             <span className="flex items-center gap-2 font-semibold text-ink">
+                              {u.logo && <PlatformIcon src={u.logo} className="size-6" />}
                               {u.name}
                               {u.status === "coming-soon" && (
                                 <span className="rounded-[2px] bg-accent-soft px-1.5 py-0.5 text-[11px] font-bold text-accent">출시 예정</span>
@@ -175,7 +177,7 @@ export function FacilityPortfolio() {
 
 const workinIcons = [AudioLines, BellRing, CalendarCheck, Sparkles];
 
-/** 플랫폼 부문 — HILINK · 워크인 */
+/** 플랫폼 부문 — HILINK · work-in */
 export function PlatformSuite() {
   return (
     <section className="bg-navy-deep py-24 text-white lg:py-32" aria-labelledby="platform-title">
@@ -186,7 +188,7 @@ export function PlatformSuite() {
             {"다짐이 보유 · 운영하는\n두 개의 플랫폼."}
           </h2>
           <p className="t-body mt-5 max-w-2xl break-keep text-white/70">
-            시설 운영에는 HILINK, 회사 업무에는 워크인. 운영 현장과 회사 업무를 하나의 흐름으로 연결합니다.
+            시설 운영에는 HILINK, 회사 업무에는 work-in. 운영 현장과 회사 업무를 하나의 흐름으로 연결합니다.
           </p>
         </Reveal>
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
@@ -194,10 +196,13 @@ export function PlatformSuite() {
             <Reveal key={p.name} delay={i * 0.08} className="flex flex-col overflow-hidden rounded-[4px] border border-line-dark bg-white/[0.03]">
               <div className="flex flex-1 flex-col p-7 lg:p-9">
                 <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="label-en text-white/55">{p.en}</p>
-                    <h3 className="mt-1 text-[1.75rem] font-bold tracking-[-0.02em]">{p.name}</h3>
-                    <p className="mt-1 font-semibold text-[#9dbcf0]">{p.tagline}</p>
+                  <div className="flex items-center gap-4">
+                    <PlatformIcon src={p.logo} className="size-14 sm:size-16" />
+                    <div>
+                      <p className="label-en text-white/55">{p.en}</p>
+                      <h3 className="mt-1 text-[1.75rem] font-bold leading-tight tracking-[-0.02em]">{p.name}</h3>
+                      <p className="mt-0.5 font-semibold text-[#9dbcf0]">{p.tagline}</p>
+                    </div>
                   </div>
                   <span
                     className={cn(
@@ -237,7 +242,7 @@ export function PlatformSuite() {
                 </div>
               )}
               {p.status === "coming-soon" && (
-                <ol className="grid gap-3 border-t border-line-dark bg-white/[0.03] px-7 py-8 sm:grid-cols-3 lg:py-10" aria-label="워크인 사용 흐름">
+                <ol className="grid gap-3 border-t border-line-dark bg-white/[0.03] px-7 py-8 sm:grid-cols-3 lg:py-10" aria-label="work-in 사용 흐름">
                   {[
                     ["말하기", "“내일 3시 거래처 미팅”"],
                     ["등록", "업무와 일정에 바로 저장"],

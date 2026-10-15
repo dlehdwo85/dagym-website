@@ -22,3 +22,8 @@ export function HilinkLogo({ className }: { className?: string }) {
   if (!file) return null;
   return <Image src={file.src} alt="HILINK" width={file.width} height={file.height} className={cn("h-10 w-auto", className)} />;
 }
+
+/** 플랫폼 앱 아이콘 (HILINK · work-in) — 장식용, 이름은 옆 텍스트로 표기 */
+export function PlatformIcon({ src, className }: { src: string; className?: string }) {
+  return <Image src={src} alt="" width={64} height={64} aria-hidden className={cn("shrink-0 rounded-[22%]", className)} />;
+}

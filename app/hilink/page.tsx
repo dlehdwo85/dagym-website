@@ -15,6 +15,8 @@ import { hilinkDemo, hilinkDemoFeatures, hilinkHeroDemos } from "@/data/hilinkDe
 import { company, siteConfig } from "@/data/config";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/cn";
+import { PlatformIcon } from "@/components/ui/Logo";
+import { platformLogos } from "@/data/group";
 
 export const metadata: Metadata = pageMetadata({
   title: "HILINK 커뮤니티 운영 플랫폼",
@@ -59,12 +61,18 @@ export default function HilinkPage() {
         title={"운영을 시스템으로\n연결합니다."}
         description="입주민 앱 · 출입 · 예약 · 결제 · 운영 데이터를 하나로 관리하는 다짐의 커뮤니티 운영 플랫폼입니다."
         breadcrumbs={[{ name: "HILINK", path: "/hilink" }]}
+        mark={
+          <span className="inline-flex items-center gap-3">
+            <PlatformIcon src={platformLogos.hilink} className="size-11" />
+            <span className="text-xl font-extrabold tracking-[0.04em]">HILINK</span>
+          </span>
+        }
         actions={
           <>
-            <ButtonLink href="/contact?type=hilink" size="lg" track="hilink_page">
+            <ButtonLink href="/contact?type=hilink" variant="white" size="lg" track="hilink_page">
               HILINK 도입 문의
             </ButtonLink>
-            <Link href="#app" className="group inline-flex items-center gap-2 self-center font-semibold text-navy">
+            <Link href="#app" className="group inline-flex items-center gap-2 self-center font-semibold text-white">
               실제 화면 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
             </Link>
           </>
@@ -75,11 +83,11 @@ export default function HilinkPage() {
               {hilinkHeroDemos.map((id, i) => (
                 <li key={id} className={cn("w-[62vw] max-w-[16rem] shrink-0 snap-center sm:w-auto sm:max-w-none", i === 1 && "sm:-translate-y-8")}>
                   <DemoPhone id={id} priority={i === 0} sizes="(min-width: 1024px) 200px, (min-width: 640px) 30vw, 62vw" />
-                  <p className="mt-3 text-center text-sm font-semibold text-ink">{hilinkDemo[id].label}</p>
+                  <p className="mt-3 text-center text-sm font-semibold text-white/85">{hilinkDemo[id].label}</p>
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-muted">HILINK 공개 데모</p>
+            <p className="mt-3 text-xs text-white/50">HILINK 공개 데모</p>
           </div>
         }
       />
