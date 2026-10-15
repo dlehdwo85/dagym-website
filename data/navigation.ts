@@ -17,7 +17,7 @@ export const mainNav: NavItem[] = [
     children: businessAreas.map((b) => ({ label: b.title, href: b.href })),
   },
   { label: "운영 개선", en: "Transformation", href: "/cases" },
-  { label: "HILINK", en: "Platform", href: "/hilink", mega: "hilink" },
+  { label: "플랫폼", en: "Platform", href: "/hilink", mega: "hilink" },
   ...(hasProjects ? [{ label: "운영실적", en: "Track record", href: "/projects" }] : []),
   { label: "인사이트", en: "Insight", href: "/insight" },
 ];

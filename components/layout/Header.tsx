@@ -10,6 +10,7 @@ import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { mainNav } from "@/data/navigation";
 import { Logo } from "@/components/ui/Logo";
 import { cn } from "@/lib/cn";
+import { platforms } from "@/data/group";
 
 export type MegaBusiness = { href: string; no: string; title: string; en: string; line: string; group: "core1" | "core2" | "support"; image?: { src: string; alt: string } };
 
@@ -205,24 +206,38 @@ export function Header({ business }: Props) {
               {openMenu === "hilink" && (
                 <div className="container-x grid grid-cols-12 items-start gap-10 py-10">
                   <div className="col-span-4">
-                    <p className="eyebrow">HILINK</p>
-                    <p className="mt-3 text-[1.375rem] font-bold leading-snug tracking-[-0.02em]">다짐의 현장 운영을 기록하고 표준화하는 자체 운영 플랫폼</p>
+                    <p className="eyebrow">PLATFORM</p>
+                    <p className="mt-3 text-[1.375rem] font-bold leading-snug tracking-[-0.02em]">다짐이 보유 · 운영하는 두 개의 플랫폼</p>
                   </div>
-                  <ul className="col-span-8 grid grid-cols-2 gap-x-10">
-                    {[
-                      ["플랫폼 소개", "/hilink"],
-                      ["주요 기능", "/hilink#functions"],
-                      ["기존 출입 설비와 함께 쓰기", "/hilink#integration"],
-                      ["HILINK 도입 문의", "/contact?type=hilink"],
-                    ].map(([label, href]) => (
-                      <li key={href} className="border-b border-line">
-                        <Link href={href} className="group flex items-center justify-between py-4 font-semibold hover:text-accent">
-                          {label}
-                          <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
-                        </Link>
-                      </li>
+                  <div className="col-span-8 grid grid-cols-2 gap-x-10">
+                    {platforms.map((p) => (
+                      <div key={p.name}>
+                        <p className="flex items-center gap-2 border-b border-navy pb-3 text-lg font-bold">
+                          {p.name}
+                          <span className="text-sm font-medium text-body">{p.tagline}</span>
+                          {p.status === "coming-soon" && <span className="rounded-[2px] bg-accent-soft px-1.5 py-0.5 text-[11px] font-bold text-accent">출시 예정</span>}
+                        </p>
+                        {p.status === "live" ? (
+                          <ul>
+                            {[
+                              ["플랫폼 소개", "/hilink"],
+                              ["주요 기능", "/hilink#functions"],
+                              ["HILINK 도입 문의", "/contact?type=hilink"],
+                            ].map(([label, href]) => (
+                              <li key={href} className="border-b border-line">
+                                <Link href={href} className="group flex items-center justify-between py-3.5 font-semibold hover:text-accent">
+                                  {label}
+                                  <ArrowRight className="btn-arrow size-4 text-steel" aria-hidden />
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="t-small py-3.5 text-body">{p.body}</p>
+                        )}
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )}
             </motion.div>
