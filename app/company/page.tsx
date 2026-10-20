@@ -15,7 +15,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "회사소개",
   description:
-    "주식회사 다짐 회사소개 — ‘좋은 마음가짐으로 미래를 결정하자’는 이름의 뜻과 운영 기준, 본사 조직을 소개합니다.",
+    "주식회사 다짐 회사소개 — ‘좋은 마음가짐이 미래를 결정한다’는 이름의 뜻과 운영 기준, 본사 조직을 소개합니다.",
   path: "/company",
 });
 

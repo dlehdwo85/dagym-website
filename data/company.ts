@@ -1,11 +1,11 @@
 /** COMPANY 페이지 콘텐츠 */
 
 /** 브랜드 문장 — 다짐(DAGYM)이라는 이름의 의미 */
-export const brandMotto = "좋은 마음가짐으로 미래를 결정하자.";
+export const brandMotto = "좋은 마음가짐이 미래를 결정한다.";
 
 export const companyHero = {
   eyebrow: "ABOUT DAGYM",
-  title: "좋은 마음가짐으로\n미래를 결정합니다.",
+  title: "좋은 마음가짐이\n미래를 결정한다.",
   lead: "다짐은 공간을 운영하는 기술보다, 그 공간과 사람을 대하는 마음가짐이 먼저라고 생각합니다. 오늘의 운영을 더 나은 기준으로 바꾸는 것이 더 나은 미래를 만든다고 믿습니다.",
 };
 
