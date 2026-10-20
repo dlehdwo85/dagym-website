@@ -279,15 +279,19 @@ export function CompanyTeaser() {
           <p className="t-body mt-5 max-w-xl break-keep text-body">
             다짐(DAGYM)이라는 이름에 담은 뜻입니다. 사람과 공간을 책임 있게 대하는 태도로, 오늘의 운영을 더 나은 기준으로 바꿉니다.
           </p>
-          <dl className="mt-10 grid grid-cols-3 border-t border-navy">
+          {/* 숫자 대신 회사 구성 — 무엇을 · 무엇으로 · 누가 */}
+          <dl className="mt-10 border-t border-navy">
             {[
-              ["2", "사업 부문"],
-              [String(hqDepartments.length), "본사 전문 부서"],
-              ["2", "운영 플랫폼"],
-            ].map(([n, l]) => (
-              <div key={l} className="border-b border-line py-5 pr-4">
-                <dt className="text-sm text-muted">{l}</dt>
-                <dd className="mt-1 text-[2rem] font-bold tracking-[-0.03em] text-navy">{n}</dd>
+              { k: "시설 운영", v: "공동주택 · 오피스텔 · 호텔 · 산업단지" },
+              { k: "운영 플랫폼", v: platforms.map((p) => p.name).join(" · "), logos: platforms.map((p) => p.logo) },
+              { k: "본사 조직", v: hqDepartments.map((d) => d.name).join(" · ") },
+            ].map((r) => (
+              <div key={r.k} className="grid gap-1 border-b border-line py-5 sm:grid-cols-[8.5rem_1fr] sm:items-center sm:gap-6">
+                <dt className="text-sm font-bold text-accent">{r.k}</dt>
+                <dd className="flex flex-wrap items-center gap-2 break-keep text-[1.0625rem] font-semibold text-ink">
+                  {r.logos?.map((l) => <PlatformIcon key={l} src={l} className="size-6" />)}
+                  {r.v}
+                </dd>
               </div>
             ))}
           </dl>
