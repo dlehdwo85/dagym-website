@@ -23,7 +23,7 @@ export function GroupHero() {
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-navy-deep/80 to-transparent" />
       <div className="container-x flex min-h-[640px] flex-col justify-end pb-16 pt-36 lg:min-h-[760px] lg:pb-24">
         <Reveal className="max-w-3xl">
-          <p className="text-sm font-semibold tracking-[0.08em] text-[#9dbcf0]">{groupHero.eyebrow}</p>
+          <p className="text-sm font-semibold tracking-[0.08em] text-accent-on-dark">{groupHero.eyebrow}</p>
           <h1 id="hero-title" className="mt-5 break-keep text-[2.5rem] font-bold leading-[1.15] tracking-[-0.035em] sm:whitespace-pre-line lg:text-[4rem]">
             {groupHero.title}
           </h1>
@@ -41,7 +41,7 @@ export function GroupHero() {
           {divisions.map((d) => (
             <a key={d.no} href="#divisions" className="group bg-navy-deep/70 p-6 backdrop-blur-sm transition-colors hover:bg-navy-deep/90 lg:p-7">
               <p className="flex items-center gap-3 text-sm">
-                <span className="font-bold text-[#9dbcf0]">{d.no}</span>
+                <span className="font-bold text-accent-on-dark">{d.no}</span>
                 <span className="label-en text-white/60">{d.en}</span>
               </p>
               <p className="mt-2 flex items-center justify-between text-xl font-bold">
@@ -155,7 +155,7 @@ export function FacilityPortfolio() {
                 <Link href={f.href} className="group block">
                   <div className="relative aspect-[3/4] overflow-hidden rounded-[4px] bg-fog">
                     {img && (
-                      <Image src={img.src} alt={img.alt} fill sizes="(min-width: 1024px) 24vw, 50vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                      <Image src={img.src} alt={img.alt} fill sizes="(min-width: 1024px) 24vw, 50vw" className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]" />
                     )}
                     <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy-deep/85 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
@@ -169,7 +169,7 @@ export function FacilityPortfolio() {
             );
           })}
         </ul>
-        <p className="mt-6 text-sm text-muted">민간 피트니스센터 · 스포츠시설 운영도 함께 제안합니다. 이미지는 시설 유형 예시입니다.</p>
+        <p className="mt-6 text-sm text-muted">민간 피트니스센터 · 스포츠시설 운영도 함께 제안합니다. 이미지는 AI 도움을 받아 제작한 시설 유형 예시입니다.</p>
       </div>
     </section>
   );
@@ -183,7 +183,7 @@ export function PlatformSuite() {
     <section className="bg-navy-deep py-24 text-white lg:py-32" aria-labelledby="platform-title">
       <div className="container-x">
         <Reveal className="max-w-3xl">
-          <p className="eyebrow !text-[#9dbcf0]">02 · PLATFORM</p>
+          <p className="eyebrow !text-accent-on-dark">02 · PLATFORM</p>
           <h2 id="platform-title" className="t-section mt-4 break-keep sm:whitespace-pre-line">
             {"다짐이 보유 · 운영하는\n두 개의 플랫폼."}
           </h2>
@@ -201,13 +201,13 @@ export function PlatformSuite() {
                     <div>
                       <p className="label-en text-white/55">{p.en}</p>
                       <h3 className="mt-1 text-[1.75rem] font-bold leading-tight tracking-[-0.02em]">{p.name}</h3>
-                      <p className="mt-0.5 font-semibold text-[#9dbcf0]">{p.tagline}</p>
+                      <p className="mt-0.5 font-semibold text-accent-on-dark">{p.tagline}</p>
                     </div>
                   </div>
                   <span
                     className={cn(
                       "shrink-0 rounded-[2px] px-2 py-1 text-xs font-bold",
-                      p.status === "live" ? "bg-white text-navy" : "border border-[#9dbcf0]/60 text-[#9dbcf0]",
+                      p.status === "live" ? "bg-white text-navy" : "border border-accent-on-dark/60 text-accent-on-dark",
                     )}
                   >
                     {p.status === "live" ? "서비스 중" : "출시 예정"}
@@ -219,7 +219,7 @@ export function PlatformSuite() {
                     const Icon = p.status === "coming-soon" ? workinIcons[fi] : null;
                     return (
                       <li key={f} className="flex items-center gap-2.5 rounded-[4px] border border-line-dark px-3 py-3 text-sm font-semibold text-white/90">
-                        {Icon ? <Icon className="size-4 shrink-0 text-[#9dbcf0]" aria-hidden /> : <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-[#9dbcf0]" />}
+                        {Icon ? <Icon className="size-4 shrink-0 text-accent-on-dark" aria-hidden /> : <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent-on-dark" />}
                         {f}
                       </li>
                     );
@@ -249,7 +249,7 @@ export function PlatformSuite() {
                     ["알림", "정해진 시간에 앱 · 웹으로"],
                   ].map(([k, v], i) => (
                     <li key={k} className="rounded-[4px] border border-line-dark p-4">
-                      <p className="text-xs font-bold text-[#9dbcf0]">
+                      <p className="text-xs font-bold text-accent-on-dark">
                         {String(i + 1).padStart(2, "0")} · {k}
                       </p>
                       <p className="mt-1.5 break-keep text-sm font-semibold text-white/90">{v}</p>

@@ -25,7 +25,7 @@ export function SectionHeader({ eyebrow, label, en, title, description, id, tone
     <Reveal className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
       {(kicker || en) && (
         <p className={cn("flex items-center gap-3", align === "center" && "justify-center")}>
-          {kicker && <span className={cn("eyebrow", dark && "!text-[#9dbcf0]")}>{kicker}</span>}
+          {kicker && <span className={cn("eyebrow", dark && "!text-accent-on-dark")}>{kicker}</span>}
           {en && <span className={cn("label-en", dark ? "text-white/40" : "text-steel")}>{en}</span>}
         </p>
       )}

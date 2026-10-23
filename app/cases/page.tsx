@@ -46,7 +46,7 @@ function CaseImage({ t, sizes, ratio, square, priority }: { t: Transformation; s
         fill
         sizes={sizes}
         priority={priority}
-        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
       />
     </div>
   );
@@ -221,7 +221,7 @@ export default function CasesPage() {
       <section className="overflow-hidden bg-navy-deep text-white" aria-labelledby="hilink-title">
         <div className="container-x grid gap-14 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
           <Reveal className="lg:col-span-5">
-            <p className="eyebrow !text-[#9dbcf0]">운영에서 시스템까지</p>
+            <p className="eyebrow !text-accent-on-dark">운영에서 시스템까지</p>
             <h2 id="hilink-title" className="t-section mt-4 break-keep sm:whitespace-pre-line">
               {"개선된 공간을\n운영 시스템으로 연결합니다."}
             </h2>

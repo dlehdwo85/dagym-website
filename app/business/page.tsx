@@ -89,7 +89,7 @@ export default function BusinessPage() {
         <div className="container-x grid gap-12 py-16 lg:grid-cols-12 lg:items-center lg:py-24">
           <Reveal className="lg:col-span-7">
             <p className="flex items-center gap-3">
-              <span className="text-sm font-bold text-[#9dbcf0]">CORE {platform.no}</span>
+              <span className="text-sm font-bold text-accent-on-dark">CORE {platform.no}</span>
               <span className="label-en text-white/60">{platform.en}</span>
             </p>
             <h2 id="core-platform-title" className="t-section mt-3">

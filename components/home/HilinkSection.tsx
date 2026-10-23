@@ -11,7 +11,7 @@ export function HilinkSection() {
     <section className="overflow-hidden bg-navy text-white" aria-labelledby="hilink-title">
       <div className="container-x grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:gap-14 lg:py-28">
         <Reveal className="lg:col-span-5">
-          <p className="eyebrow !text-[#9dbcf0]">{hilinkHome.eyebrow}</p>
+          <p className="eyebrow !text-accent-on-dark">{hilinkHome.eyebrow}</p>
           <h2 id="hilink-title" className="t-section mt-5 whitespace-pre-line">
             {hilinkHome.title}
           </h2>

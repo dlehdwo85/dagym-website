@@ -26,7 +26,7 @@ export function CTASection({
     <section className="bg-navy text-white" aria-labelledby="cta-title">
       <Reveal className="container-x grid gap-10 py-20 lg:grid-cols-12 lg:items-end lg:py-28">
         <div className="lg:col-span-7">
-          <p className="eyebrow !text-[#9dbcf0]">{eyebrow}</p>
+          <p className="eyebrow !text-accent-on-dark">{eyebrow}</p>
           <h2 id="cta-title" className="t-section mt-4 sm:whitespace-pre-line">
             {title}
           </h2>

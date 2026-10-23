@@ -17,27 +17,21 @@ const hidden = {
   right: "inset(0% 0% 0% 100%)",
 };
 
-/** 이미지 마스크 리빌 — clip-path 로 열리며 내부 이미지는 살짝 축소됩니다 */
+/**
+ * 이미지 마스크 리빌 — clip-path 로 0.3초 ease-out 열림.
+ * 모션 최소화 설정이면 시간 0 (DOM 구조는 항상 같게 — 구조가 달라지면 hydration 오류 #418)
+ */
 export function ClipReveal({ children, className, from = "bottom", delay = 0 }: Props) {
   const reduce = useReducedMotion();
-  if (reduce) return <div className={cn("relative overflow-hidden", className)}>{children}</div>;
   return (
     <motion.div
       className={cn("relative overflow-hidden", className)}
       initial={{ clipPath: hidden[from] }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 1.25, delay, ease: [0.77, 0, 0.18, 1] }}
+      transition={reduce ? { duration: 0 } : { duration: 0.3, delay, ease: [0.16, 1, 0.3, 1] }}
     >
-      <motion.div
-        className="absolute inset-0"
-        initial={{ scale: 1.14 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.8, delay, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {children}
-      </motion.div>
+      <div className="absolute inset-0">{children}</div>
     </motion.div>
   );
 }

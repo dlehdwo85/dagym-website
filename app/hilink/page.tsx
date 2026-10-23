@@ -127,7 +127,7 @@ export default function HilinkPage() {
       <section className="bg-navy-deep text-white" aria-labelledby="admin-title">
         <div className="container-x grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
           <Reveal className="lg:col-span-5">
-            <p className="eyebrow !text-[#9dbcf0]">관리자 · 출입</p>
+            <p className="eyebrow !text-accent-on-dark">관리자 · 출입</p>
             <h2 id="admin-title" className="t-section mt-4">
               관리자와 출입까지
               <br />

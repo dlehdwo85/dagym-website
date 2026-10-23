@@ -107,7 +107,7 @@ export function Footer() {
               </p>
             )}
           </address>
-          <div className="flex shrink-0 flex-col gap-2 text-[0.8125rem] text-white/45 lg:items-end">
+          <div className="flex shrink-0 flex-col gap-2 text-[0.8125rem] text-white/60 lg:items-end">
             <p className="flex items-center">
               <Link href="/privacy" className="font-semibold text-white/80 transition-colors hover:text-white">
                 개인정보처리방침
@@ -119,6 +119,7 @@ export function Footer() {
                 이용약관
               </Link>
             </p>
+            <p>사이트의 일부 시설 이미지는 AI 도움을 받아 제작한 예시 이미지입니다.</p>
             <p>
               © {new Date().getFullYear()} {company.nameKo}. All rights reserved.
             </p>

@@ -34,6 +34,8 @@
   --color-accent: #2c62c9;
   --color-accent-soft: #eaf1fd;
   --color-line-dark: #26406a;
+  /* 네이비 바탕 위 강조 글자 (대비 8:1) */
+  --color-accent-on-dark: #9dbcf0;
 
   /* 이전 토큰 호환 */
   --color-signal: #2c62c9;
@@ -225,7 +227,7 @@
     background: var(--wipe, #fff);
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.45s var(--ease-out-expo);
+    transition: transform 0.3s var(--ease-out-expo);
   }
   .btn-wipe:hover::before,
   .btn-wipe:focus-visible::before {
@@ -233,7 +235,7 @@
     transform-origin: left;
   }
   .btn-arrow {
-    transition: transform 0.35s var(--ease-out-expo);
+    transition: transform 0.2s var(--ease-out-expo);
   }
   .group:hover .btn-arrow,
   .group:focus-visible .btn-arrow {
@@ -241,7 +243,7 @@
   }
 
   .img-zoom img {
-    transition: transform 0.9s var(--ease-out-expo);
+    transition: transform 0.3s var(--ease-out-expo);
   }
   .group:hover .img-zoom img {
     transform: scale(1.03);

@@ -163,14 +163,14 @@ export default async function CaseDetailPage({ params }: PageProps<"/cases/[slug
           <div className="container-x">
             <div className="grid gap-10 overflow-hidden rounded-[4px] bg-navy-deep px-6 py-10 text-white sm:px-10 lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-14 lg:py-14">
               <Reveal className="lg:col-span-7">
-                <p className="eyebrow !text-[#9dbcf0]">HILINK 적용</p>
+                <p className="eyebrow !text-accent-on-dark">HILINK 적용</p>
                 <h2 id="hilink-title" className="t-h3 mt-3 break-keep">
                   {t.facility} 운영을 HILINK로 연결합니다
                 </h2>
                 <ul className="mt-6 space-y-3">
                   {t.hilink.map((h) => (
                     <li key={h} className="flex gap-3 break-keep text-white/85">
-                      <Check className="mt-1 size-4 shrink-0 text-[#9dbcf0]" aria-hidden />
+                      <Check className="mt-1 size-4 shrink-0 text-accent-on-dark" aria-hidden />
                       {h}
                     </li>
                   ))}
@@ -230,7 +230,7 @@ export default async function CaseDetailPage({ params }: PageProps<"/cases/[slug
                   <Link href={`/cases/${o.slug}`} className="group block h-full overflow-hidden rounded-[4px] border border-line bg-white transition-colors hover:border-navy">
                     {thumb && (
                       <div className="relative aspect-video overflow-hidden bg-fog">
-                        <Image src={thumb.src} alt={thumb.alt} fill sizes="(min-width: 640px) 30vw, 100vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                        <Image src={thumb.src} alt={thumb.alt} fill sizes="(min-width: 640px) 30vw, 100vw" className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]" />
                       </div>
                     )}
                     <div className="p-5">

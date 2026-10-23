@@ -30,14 +30,9 @@ type Props = {
 export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions, aside, wideAside, compact, mark, children }: Props) {
   const crumbs = breadcrumbs ? [{ name: "홈", path: "/" }, ...breadcrumbs] : undefined;
   return (
-    <section className="relative isolate overflow-hidden bg-navy-deep text-white">
+    <section className="border-b border-line-dark bg-navy-deep text-white">
       {crumbs && <JsonLd data={breadcrumbJsonLd(crumbs)} />}
-      {/* 배경 — 옅은 격자 + 우측 광원, 장식용 */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:72px_72px] [mask-image:linear-gradient(to_left,black,transparent_75%)]"
-      />
-      <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[36rem] rounded-full bg-accent/25 blur-[120px]" />
+
       <div className={cn("container-x", compact ? "pb-12 pt-28 lg:pb-16 lg:pt-36" : "pb-16 pt-28 lg:pb-24 lg:pt-40")}>
         {crumbs && (
           <nav aria-label="현재 위치" className="mb-8">
@@ -64,7 +59,7 @@ export function PageHero({ eyebrow, en, title, description, breadcrumbs, actions
             {mark && <div className="mb-6">{mark}</div>}
             {(eyebrow || en) && (
               <p className="flex items-center gap-3">
-                {eyebrow && <span className="eyebrow !text-[#9dbcf0]">{eyebrow}</span>}
+                {eyebrow && <span className="eyebrow !text-accent-on-dark">{eyebrow}</span>}
                 {en && <span className="label-en text-white/50">{en}</span>}
               </p>
             )}

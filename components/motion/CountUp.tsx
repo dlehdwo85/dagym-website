@@ -20,7 +20,7 @@ export function CountUp({ value, className }: { value: string; className?: strin
   useEffect(() => {
     if (!inView || reduce || Number.isNaN(target)) return;
     const controls = animate(0, target, {
-      duration: 1.6,
+      duration: 0.8,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setShown(Math.round(v).toLocaleString("ko-KR") + suffix),
     });

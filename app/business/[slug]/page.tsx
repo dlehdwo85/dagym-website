@@ -62,8 +62,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
       />
 
       {/* HERO — 짧게 */}
-      <section className="relative isolate overflow-hidden bg-navy-deep text-white" aria-labelledby="biz-title">
-        <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[36rem] rounded-full bg-accent/25 blur-[120px]" />
+      <section className="bg-navy-deep text-white" aria-labelledby="biz-title">
         <div className="container-x grid gap-10 pb-14 pt-24 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-20 lg:pt-32">
           <Reveal className="lg:col-span-5">
             <nav aria-label="현재 위치">
@@ -79,7 +78,7 @@ export default async function BusinessDetailPage({ params }: PageProps<"/busines
                 </li>
               </ol>
             </nav>
-            <p className="label-en mt-8 font-semibold tracking-[0.14em] text-[#9dbcf0] lg:mt-10">{d.eyebrow}</p>
+            <p className="label-en mt-8 font-semibold tracking-[0.14em] text-accent-on-dark lg:mt-10">{d.eyebrow}</p>
             <h1 id="biz-title" className="t-h1 mt-4 break-keep text-white">
               {d.heroTitle}
             </h1>
