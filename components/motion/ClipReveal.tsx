@@ -25,6 +25,7 @@ export function ClipReveal({ children, className, from = "bottom", delay = 0 }: 
   const reduce = useReducedMotion();
   return (
     <motion.div
+      data-reveal=""
       className={cn("relative overflow-hidden", className)}
       initial={{ clipPath: hidden[from] }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
