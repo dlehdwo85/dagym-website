@@ -1,10 +1,22 @@
 # WORK_STATUS — 어느 PC에서든 이 파일을 먼저 읽는다
 
-마지막 갱신: 2026-10-23 · 클라우드 세션
+마지막 갱신: 2026-10-28 · 클라우드 세션
 
 전역 운영 규칙(자동 sync·자동 commit/push·안전 규칙)은 `~/.claude/CLAUDE.md`,
 정본은 `dazim-hilink-integration` → `docs/development/CLAUDE_GLOBAL_WORKFLOW.md`.
 세션 시작 시 SessionStart 훅이 fetch·안전한 ff-only pull·이 문서 읽기를 자동 수행한다.
+
+## 2026-10-28 — HI-LINK 아이콘 아래쪽 잘림 수정 (대표 요청)
+
+- ✅ `public/images/brand/hilink-icon.png`가 hilink-website의 **잘림 수정 전 앱 아이콘과 동일 파일**
+  (md5 일치)이었음 → hilink-website `6e75e04`에서 공식 원본 기준으로 복원한 앱 아이콘(512×512)으로 교체.
+- ✅ 이미지 캐시 끊기: 새 파일 `hilink-icon-v2.png`를 만들고 `data/group.ts` `platformLogos.hilink`를
+  v2로 변경(Vercel 이미지 최적화 캐시는 원본 주소 기준이라 같은 이름 교체만으로는 예전 그림이 남을 수 있음).
+  옛 이름 파일도 수정본으로 교체해 두어 어디서 불러도 정상.
+- ❓ 상단 DAGYM 로고 · 파비콘(`app/icon.svg` "D"): **정식 DAGYM 로고 파일이 없음** — dagym-website·
+  dagym-workspace·hilink-website·예전 dagym1.com(Wix 기본 아이콘) 모두 확인. 로고를 임의 제작하지 않음.
+  대표가 공식 로고(가능하면 SVG, 없으면 투명 PNG + 흰색 버전)를 주면 `data/config.ts` `brandAssets.dagym`/
+  `dagymWhite`에 등록 → 헤더·푸터가 자동으로 이미지 로고로 바뀜(Logo.tsx가 이미 지원). 파비콘도 같은 파일로 교체.
 
 ## 2026-10-23 (2) — 로컬 운영 확인 후속
 

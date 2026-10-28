@@ -26,7 +26,7 @@ export type Division = {
 
 /** 플랫폼 로고 (앱 아이콘) — HILINK: hilink-website 공식 앱 아이콘 · work-in: 워크인 서비스 공식 아이콘 */
 export const platformLogos = {
-  hilink: "/images/brand/hilink-icon.png",
+  hilink: "/images/brand/hilink-icon-v2.png", // v2: 심볼 아래쪽 잘림 수정본 — 파일명 변경으로 이미지 캐시를 끊는다
   workin: "/images/brand/workin-icon.svg",
 } as const;
 
