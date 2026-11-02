@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check, Minus } from "lucide-react";
+import { ArrowRight, Check, Minus, ArrowUpRight } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTASection } from "@/components/sections/CTASection";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -75,6 +75,13 @@ export default function HilinkPage() {
             <Link href="#app" className="group inline-flex items-center gap-2 self-center font-semibold text-white">
               실제 화면 보기 <ArrowRight className="btn-arrow size-4" aria-hidden />
             </Link>
+            {/* 제품 공식 사이트로의 연결 — 운영사 사이트에서 브랜드 사이트로 이어지는 링크 (네이버 '하이링크' 검색 신뢰 신호) */}
+            <a
+              href="https://www.hi-link.co.kr"
+              className="group inline-flex items-center gap-2 self-center font-semibold text-white/85 hover:text-white"
+            >
+              하이링크 공식 홈페이지 <ArrowUpRight className="size-4" aria-hidden />
+            </a>
           </>
         }
         aside={

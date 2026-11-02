@@ -1,10 +1,16 @@
 # WORK_STATUS — 어느 PC에서든 이 파일을 먼저 읽는다
 
-마지막 갱신: 2026-10-28 · 클라우드 세션
+마지막 갱신: 2026-11-02 · 클라우드 세션
 
 전역 운영 규칙(자동 sync·자동 commit/push·안전 규칙)은 `~/.claude/CLAUDE.md`,
 정본은 `dazim-hilink-integration` → `docs/development/CLAUDE_GLOBAL_WORKFLOW.md`.
 세션 시작 시 SessionStart 훅이 fetch·안전한 ff-only pull·이 문서 읽기를 자동 수행한다.
+
+## 2026-11-02 — /hilink에 '하이링크 공식 홈페이지' 링크 추가 (네이버 검색 신뢰 신호)
+
+- 네이버 '하이링크' 검색에서 hi-link.co.kr은 4위(1위 (주)하이링크 산업용 무선 · 2위 자사 Google Play ·
+  3위 잡코리아 (주)하이링크솔루션). 운영사 사이트(dagym-in.co.kr)에서 hi-link.co.kr로 가는 링크가
+  하나도 없었음 → /hilink 히어로에 '하이링크 공식 홈페이지' 링크(https://www.hi-link.co.kr) 추가.
 
 ## 2026-10-28 — HI-LINK 아이콘 아래쪽 잘림 수정 (대표 요청)
 
