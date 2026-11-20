@@ -1,10 +1,16 @@
 # WORK_STATUS — 어느 PC에서든 이 파일을 먼저 읽는다
 
-마지막 갱신: 2026-11-02 · 클라우드 세션
+마지막 갱신: 2026-11-20 · 노트북 로컬 세션
 
 전역 운영 규칙(자동 sync·자동 commit/push·안전 규칙)은 `~/.claude/CLAUDE.md`,
 정본은 `dazim-hilink-integration` → `docs/development/CLAUDE_GLOBAL_WORKFLOW.md`.
 세션 시작 시 SessionStart 훅이 fetch·안전한 ff-only pull·이 문서 읽기를 자동 수행한다.
+
+## 2026-11-20 — 구글에서 '회사소개'가 홈보다 먼저 나옴 → 홈 제목·설명 보강 (대표 요청)
+
+- 확인: 홈은 이미 색인됨(사이트 검색 1번째)·대표 주소·index,follow 정상. 홈이 빠진 게 아니라 그 검색어에 구글이 /company 를 고른 상황.
+- 고친 것: 홈 title '주식회사 다짐 공식 홈페이지 | 커뮤니티·피트니스 시설 위탁운영', description 에 '공식 홈페이지'·'회사소개·사업영역·운영 사례·문의' 넣음(data/config.ts). 회사 구조화 데이터 설명은 orgDescription 으로 분리해 예전 문장 유지(lib/seo.ts).
+- 다음: Google Search Console 에서 홈 색인 다시 요청. 구글 반영은 며칠~몇 주, 순서는 구글이 정함(보장 못 함).
 
 ## 2026-11-02 — /hilink에 '하이링크 공식 홈페이지' 링크 추가 (네이버 검색 신뢰 신호)
 

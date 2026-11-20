@@ -62,7 +62,7 @@ export function organizationJsonLd() {
     alternateName: [company.brand, "다짐", company.nameEn],
     url: company.website,
     logo: absoluteUrl("/icon.svg"),
-    description: siteConfig.description,
+    description: siteConfig.orgDescription,
     knowsAbout: siteConfig.keywords,
   };
   if (isVerified(company.phone)) data.telephone = company.phone;

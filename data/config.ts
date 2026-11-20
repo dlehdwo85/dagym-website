@@ -16,9 +16,13 @@ export function isVerified<T>(value: Verifiable<T> | undefined | null): value is
 
 export const siteConfig = {
   name: "DAGYM",
-  title: "주식회사 다짐 | 커뮤니티·피트니스 시설 위탁운영",
+  // 2026-11-20 대표: 구글 검색에서 '회사소개'가 홈보다 먼저 나옴 → 홈 제목·설명에 '공식 홈페이지'와 하위 메뉴 이름을 넣어 홈이 대표 결과가 되게
+  title: "주식회사 다짐 공식 홈페이지 | 커뮤니티·피트니스 시설 위탁운영",
   shortTitle: "DAGYM",
   description:
+    "주식회사 다짐(DAGYM) 공식 홈페이지 — 공동주택·오피스텔·호텔·산업단지·피트니스 시설 위탁운영과 HILINK 기반 통합관리. 회사소개·사업영역·운영 사례·문의.",
+  /** 회사 설명(구조화 데이터용) — 홈 검색 설명과 분리 */
+  orgDescription:
     "주식회사 다짐은 공동주택·오피스텔·호텔·산업단지·피트니스 시설 위탁운영과 HILINK 기반 통합관리를 제공합니다.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.dagym-in.co.kr").replace(/\/$/, ""),
   locale: "ko_KR",
