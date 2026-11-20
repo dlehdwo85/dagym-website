@@ -23,9 +23,12 @@ export function GroupHero() {
       <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-navy-deep/80 to-transparent" />
       <div className="container-x flex min-h-[640px] flex-col justify-end pb-16 pt-36 lg:min-h-[760px] lg:pb-24">
         <Reveal className="max-w-3xl">
-          <p className="text-sm font-semibold tracking-[0.08em] text-accent-on-dark">{groupHero.eyebrow}</p>
-          <h1 id="hero-title" className="mt-5 break-keep text-[2.5rem] font-bold leading-[1.15] tracking-[-0.035em] sm:whitespace-pre-line lg:text-[4rem]">
-            {groupHero.title}
+          {/* 2026-11-20: 회사 이름(주식회사 다짐)을 h1 안에 넣어 구글이 홈을 '다짐' 검색의 대표 화면으로 보게 함 — 보이는 모양은 그대로 */}
+          <h1 id="hero-title">
+            <span className="block text-sm font-semibold tracking-[0.08em] text-accent-on-dark">{groupHero.eyebrow}</span>
+            <span className="mt-5 block break-keep text-[2.5rem] font-bold leading-[1.15] tracking-[-0.035em] sm:whitespace-pre-line lg:text-[4rem]">
+              {groupHero.title}
+            </span>
           </h1>
           <p className="t-lead mt-6 max-w-2xl break-keep text-white/80">{groupHero.lead}</p>
           <div className="mt-10 flex flex-col gap-3 xs:flex-row">
